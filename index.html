@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StartupName — Soutenez notre aventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg2: #111114;
+      --surface: #18181d;
+      --border: #2a2a35;
+      --accent: #f0e040;
+      --accent2: #ff6b35;
+      --text: #f0efe8;
+      --muted: #7a7a8a;
+      --green: #3dffa0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(10,10,11,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 0.55rem 1.4rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(240,224,64,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem 5rem;
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(240,224,64,0.3);
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span { color: var(--accent); }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent2);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 0.9rem 2.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(240,224,64,0.25); }
+
+    .btn-ghost {
+      color: var(--muted);
+      padding: 0.9rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-ghost:hover { color: var(--text); }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 2rem;
+      position: relative;
+    }
+
+    /* FUNDING CARD */
+    .funding-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .funding-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .funding-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .funding-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .funding-goal {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 100px;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 100px;
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .progress-meta span:first-child { color: var(--green); font-weight: 600; }
+
+    .funding-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .donate-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+
+    .donate-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(240,224,64,0.3); }
+
+    /* SECTION */
+    section {
+      padding: 6rem 5rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .founders {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .founder-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: border-color 0.2s;
+    }
+
+    .founder-card:hover { border-color: rgba(240,224,64,0.4); }
+
+    .founder-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .founder-avatar.a1 { background: linear-gradient(135deg, var(--accent), #e0c020); color: #0a0a0b; }
+    .founder-avatar.a2 { background: linear-gradient(135deg, var(--accent2), #cc4a1a); color: #fff; }
+
+    .founder-info h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .founder-info p { font-size: 0.8rem; color: var(--muted); }
+
+    .instagram-badge {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--bg2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .instagram-badge:hover { color: #e1306c; border-color: #e1306c; }
+
+    /* NEEDS / ITEMS */
+    .needs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .need-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .need-card:hover { border-color: rgba(240,224,64,0.4); transform: translateY(-3px); }
+
+    .need-card.funded::before {
+      content: '✓ FINANCÉ';
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 0.2rem 0.5rem;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+    }
+
+    .need-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .need-title {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .need-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .need-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--accent);
+    }
+
+    .need-bar {
+      height: 3px;
+      background: var(--border);
+      border-radius: 100px;
+      margin-top: 0.8rem;
+      overflow: hidden;
+    }
+
+    .need-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 100px;
+      transition: width 1.5s ease;
+    }
+
+    .need-pct {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* DONATION MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,11,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 480px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: var(--border);
+      border: none;
+      color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: var(--bg2); color: var(--text); }
+
+    .modal h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.8rem; }
+
+    .amount-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .amount-option {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem 0.3rem;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+
+    .amount-option:hover,
+    .amount-option.selected { background: var(--accent); color: #0a0a0b; border-color: var(--accent); }
+
+    .custom-amount {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .custom-amount:focus { border-color: var(--accent); }
+
+    .modal-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-field label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .form-field input {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-field input:focus { border-color: var(--accent); }
+
+    .stripe-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .pay-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    .pay-btn:hover { background: #fff; }
+
+    /* UPDATES */
+    .updates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .update-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .update-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: right;
+      padding-top: 0.2rem;
+      min-width: 80px;
+    }
+
+    .update-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .update-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .update-content p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent);
+      font-size: 0.8rem;
+      text-decoration: none;
+      margin-top: 0.7rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 3rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-social a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-social a:hover { color: var(--text); }
+
+    /* SCROLL ANIMATIONS */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 4rem 2rem 2rem; }
+      .hero-right { padding: 2rem; }
+      section { padding: 4rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .needs-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .needs-grid { grid-template-columns: 1fr; }
+      .modal-form-row { grid-template-columns: 1fr; }
+      .amount-options { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">StartupName</div>
+  <ul class="nav-links">
+    <li><a href="#about">Notre histoire</a></li>
+    <li><a href="#besoins">Nos besoins</a></li>
+    <li><a href="#actus">Actus</a></li>
+  </ul>
+  <a href="#financer" class="nav-cta">Soutenir le projet →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-left: 0; padding-right: 0; max-width: 100%;">
+  <div class="hero-left">
+    <div class="hero-tag">🚀 En construction — rejoins l'aventure</div>
+    <h1>On construit <span>quelque chose</span> de <em>grand.</em></h1>
+    <p class="hero-desc">
+      Deux cousins, une vision, un projet qui part de zéro.
+      Aide-nous à transformer notre idée en réalité — chaque euro compte vraiment.
+    </p>
+    <div class="hero-actions">
+      <a href="#financer" class="btn-primary">💛 Soutenir maintenant</a>
+      <a href="#about" class="btn-ghost">Notre histoire →</a>
+    </div>
+  </div>
+
+  <div class="hero-right" id="financer">
+    <div class="funding-card">
+      <div class="funding-label">Total récolté</div>
+      <div class="funding-amount" id="total-amount">0 €</div>
+      <div class="funding-goal">sur un objectif de <strong style="color:var(--text)">5 000 €</strong></div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-meta">
+        <span id="progress-pct">0% atteint</span>
+        <span>Objectif : 5 000 €</span>
+      </div>
+      <div class="funding-stats">
+        <div class="stat">
+          <div class="stat-val" id="nb-contributors">0</div>
+          <div class="stat-label">Contributeurs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" id="days-left">60</div>
+          <div class="stat-label">Jours restants</div>
+        </div>
+      </div>
+      <button class="donate-btn" onclick="openModal()">💛 Participer au projet</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">// Qui sommes-nous</div>
+  <div class="about-grid">
+    <div class="about-text animate-in">
+      <div class="section-title">Notre <span>histoire</span><br>commence ici.</div>
+      <p>
+        On est deux cousins avec une idée qui nous tient à cœur depuis longtemps.
+        On a décidé de <strong>tout quitter pour la construire</strong>, pas à pas, brique par brique.
+      </p>
+      <p>
+        Ce projet, c'est le nôtre — mais aussi le vôtre si vous croyez en lui.
+        Notre communauté Instagram nous suit depuis le début, et aujourd'hui on a besoin de vous
+        pour <strong>passer à la vitesse supérieure.</strong>
+      </p>
+      <p>
+        Chaque contribution, même petite, nous permet d'avancer concrètement.
+        En échange, on vous tient informés de chaque étape, en toute transparence.
+      </p>
+    </div>
+
+    <div class="founders animate-in" style="transition-delay: 0.15s">
+      <div class="founder-card">
+        <div class="founder-avatar a1">JD</div>
+        <div class="founder-info">
+          <h4>Jean — Co-fondateur</h4>
+          <p>Stratégie & Vision produit</p>
+        </div>
+        <a href="#" class="instagram-badge" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @votre_compte
+        </a>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-avatar a2">ML</div>
+        <div class="founder-info">
+          <h4>Marc — Co-fondateur</h4>
+          <p>Tech & Développement</p>
+        </div>
+        <a href="#" class="instagram-badge" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @votre_compte
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BESOINS -->
+<section id="besoins">
+  <div class="section-tag">// Ce dont on a besoin</div>
+  <div class="section-title animate-in">Chaque outil<br>nous fait <span>avancer.</span></div>
+
+  <div class="needs-grid">
+    <div class="need-card animate-in funded" onclick="openModal('Matériel photo & vidéo', 800)">
+      <div class="need-icon">📸</div>
+      <div class="need-title">Matériel photo & vidéo</div>
+      <div class="need-desc">Trépied, éclairage, micro-cravate pour produire du contenu pro pour notre Instagram.</div>
+      <div class="need-amount">800 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:100%"></div></div>
+      <div class="need-pct">100% — Financé ! 🎉</div>
+    </div>
+
+    <div class="need-card animate-in" onclick="openModal('Ordinateur portable', 1200)" style="transition-delay:0.1s">
+      <div class="need-icon">💻</div>
+      <div class="need-title">Ordinateur portable</div>
+      <div class="need-desc">Un laptop performant pour développer le site, monter les vidéos et gérer la startup au quotidien.</div>
+      <div class="need-amount">1 200 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:58%"></div></div>
+      <div class="need-pct">58% — 696 € récoltés</div>
+    </div>
+
+    <div class="need-card animate-in" onclick="openModal('Hébergement & outils SaaS', 500)" style="transition-delay:0.2s">
+      <div class="need-icon">☁️</div>
+      <div class="need-title">Hébergement & SaaS</div>
+      <div class="need-desc">Vercel, Supabase, domaine .com, outils de gestion de projet — l'infrastructure du projet.</div>
+      <div class="need-amount">500 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:30%"></div></div>
+      <div class="need-pct">30% — 150 € récoltés</div>
+    </div>
+
+    <div class="need-card animate-in" onclick="openModal('Formation & compétences', 600)" style="transition-delay:0.3s">
+      <div class="need-icon">📚</div>
+      <div class="need-title">Formation & compétences</div>
+      <div class="need-desc">Cours en ligne, livres de développement, marketing digital — pour monter en compétences vite.</div>
+      <div class="need-amount">600 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:10%"></div></div>
+      <div class="need-pct">10% — 60 € récoltés</div>
+    </div>
+
+    <div class="need-card animate-in" onclick="openModal('Déplacements & networking', 400)" style="transition-delay:0.4s">
+      <div class="need-icon">🗺️</div>
+      <div class="need-title">Déplacements & networking</div>
+      <div class="need-desc">Événements, meetups, rencontres avec d'autres entrepreneurs — construire notre réseau.</div>
+      <div class="need-amount">400 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:0%"></div></div>
+      <div class="need-pct">0% — pas encore commencé</div>
+    </div>
+
+    <div class="need-card animate-in" onclick="openModal('Budget communication', 500)" style="transition-delay:0.5s">
+      <div class="need-icon">📣</div>
+      <div class="need-title">Budget communication</div>
+      <div class="need-desc">Publicité Instagram, design de marque, création de contenus — faire connaître le projet.</div>
+      <div class="need-amount">500 €</div>
+      <div class="need-bar"><div class="need-bar-fill" style="width:0%"></div></div>
+      <div class="need-pct">0% — pas encore commencé</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACTUS -->
+<section id="actus">
+  <div class="section-tag">// Nos dernières actus</div>
+  <div class="section-title animate-in">On vous dit <span>tout.</span></div>
+
+  <div class="updates-list">
+    <div class="update-item animate-in">
+      <div class="update-date">10 Mars<br>2026</div>
+      <div class="update-content">
+        <h4>🚀 Lancement du site de financement !</h4>
+        <p>Notre page est en ligne. On a décidé de tout faire en transparence — vous verrez chaque euro dépensé, chaque étape franchie. Merci d'être là dès le départ !</p>
+        <a href="#" class="insta-link">Voir le post Instagram →</a>
+      </div>
+    </div>
+
+    <div class="update-item animate-in" style="transition-delay:0.1s">
+      <div class="update-date">5 Mars<br>2026</div>
+      <div class="update-content">
+        <h4>📸 Le matériel photo est financé !</h4>
+        <p>Grâce à vous, on a pu acheter tout le matériel pour produire du contenu de qualité. Dès la semaine prochaine, les premières vidéos arrivent sur Instagram.</p>
+        <a href="#" class="insta-link">Voir le post Instagram →</a>
+      </div>
+    </div>
+
+    <div class="update-item animate-in" style="transition-delay:0.2s">
+      <div class="update-date">1er Mars<br>2026</div>
+      <div class="update-content">
+        <h4>💡 L'idée est née — on se lance !</h4>
+        <p>Après des semaines à réfléchir et des dizaines de conversations, on a décidé de sauter le pas. L'aventure commence officiellement aujourd'hui.</p>
+        <a href="#" class="insta-link">Voir le post Instagram →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">StartupName</div>
+  <div class="footer-text">Fait avec 💛 par deux cousins depuis Paris · 2026</div>
+  <div class="footer-social">
+    <a href="#" target="_blank">📸 Instagram</a>
+    <a href="mailto:contact@startup.com">✉️ Nous écrire</a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Soutenir le projet 💛</h3>
+    <p id="modal-subtitle">Chaque contribution, petite ou grande, nous fait vraiment avancer.</p>
+
+    <div class="amount-options">
+      <div class="amount-option" onclick="selectAmount(5)">5 €</div>
+      <div class="amount-option" onclick="selectAmount(10)">10 €</div>
+      <div class="amount-option" onclick="selectAmount(25)">25 €</div>
+      <div class="amount-option" onclick="selectAmount(50)">50 €</div>
+    </div>
+    <input type="number" class="custom-amount" placeholder="Ou saisissez un montant personnalisé en €" id="custom-amount" oninput="clearSelection()"/>
+
+    <div class="modal-form-row">
+      <div class="form-field">
+        <label>Prénom</label>
+        <input type="text" placeholder="Alexandre" />
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="alex@email.com" />
+      </div>
+    </div>
+
+    <div class="stripe-note">
+      🔒 Paiement sécurisé par Stripe · Vos données ne sont jamais stockées
+    </div>
+
+    <button class="pay-btn" onclick="simulatePayment()">Contribuer →</button>
+  </div>
+</div>
+
+<script>
+  // ---- DONNÉES (à remplacer par votre backend) ----
+  let totalRaised = 906;
+  const goal = 5000;
+  let contributors = 34;
+  let selectedAmount = null;
+
+  // ---- INIT ----
+  function init() {
+    animateCounter('total-amount', 0, totalRaised, '€', 1800);
+    animateCounter('nb-contributors', 0, contributors, '', 1500);
+
+    setTimeout(() => {
+      const pct = Math.min((totalRaised / goal) * 100, 100);
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-pct').textContent = Math.round(pct) + '% atteint';
+    }, 300);
+
+    // Days countdown
+    const launch = new Date('2026-03-01');
+    const end = new Date(launch);
+    end.setDate(end.getDate() + 90);
+    const now = new Date();
+    const diff = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
+    document.getElementById('days-left').textContent = diff;
+  }
+
+  function animateCounter(id, from, to, suffix, duration) {
+    const el = document.getElementById(id);
+    const start = performance.now();
+    function update(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const val = Math.floor(from + (to - from) * easeOut(p));
+      el.textContent = val.toLocaleString('fr-FR') + ' ' + suffix;
+      if (p < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+  // ---- MODAL ----
+  function openModal(itemName, itemAmount) {
+    const modal = document.getElementById('modal');
+    if (itemName) {
+      document.getElementById('modal-subtitle').textContent = `Tu contribues pour : ${itemName} (${itemAmount} €)`;
+      document.getElementById('custom-amount').placeholder = itemAmount;
+    } else {
+      document.getElementById('modal-subtitle').textContent = 'Chaque contribution, petite ou grande, nous fait vraiment avancer.';
+    }
+    modal.classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function selectAmount(val) {
+    selectedAmount = val;
+    document.querySelectorAll('.amount-option').forEach(el => el.classList.remove('selected'));
+    event.target.classList.add('selected');
+    document.getElementById('custom-amount').value = '';
+  }
+
+  function clearSelection() {
+    selectedAmount = null;
+    document.querySelectorAll('.amount-option').forEach(el => el.classList.remove('selected'));
+  }
+
+  function simulatePayment() {
+    const custom = document.getElementById('custom-amount').value;
+    const amount = selectedAmount || parseFloat(custom);
+    if (!amount || amount <= 0) {
+      document.getElementById('custom-amount').style.borderColor = 'var(--accent2)';
+      setTimeout(() => document.getElementById('custom-amount').style.borderColor = '', 1000);
+      return;
+    }
+    // ---- ICI : intégrer Stripe Checkout ----
+    alert(`Merci ! 🎉\n\nCette démo simule un paiement de ${amount} €.\nAvec Stripe, vos abonnés seront redirigés vers une page de paiement sécurisée.`);
+    closeModal();
+    // Simulation de mise à jour
+    totalRaised += amount;
+    contributors += 1;
+    animateCounter('total-amount', totalRaised - amount, totalRaised, '€', 800);
+    animateCounter('nb-contributors', contributors - 1, contributors, '', 600);
+    const pct = Math.min((totalRaised / goal) * 100, 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = Math.round(pct) + '% atteint';
+  }
+
+  // ---- SCROLL ANIMATIONS ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // ---- START ----
+  window.addEventListener('load', init);
+</script>
+</body>
+</html>
