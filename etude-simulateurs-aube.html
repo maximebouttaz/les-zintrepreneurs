@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulateurs d'aube : ce que dit la science — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #FAFAF8;
+      --bg-nav: rgba(250,250,248,0.92);
+      --surface: #FFFFFF;
+      --border: #E8E8E4;
+      --border-light: #F0F0EC;
+      --text: #333333;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --accent-start: #E8934A;
+      --accent-end: #9B6EC6;
+      --gradient: linear-gradient(135deg, #E8934A, #9B6EC6);
+      --gradient-h: linear-gradient(90deg, #E8934A, #9B6EC6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: var(--bg-nav);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.12em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-search {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s;
+    }
+
+    .nav-search:hover { border-color: var(--text-muted); }
+
+    .nav-search svg { width: 14px; height: 14px; stroke: var(--text-muted); }
+
+    /* ── LAYOUT ── */
+    .article-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── HEADER ── */
+    .article-header {
+      padding-top: 120px;
+      padding-bottom: 3rem;
+    }
+
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-start);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .article-subtitle {
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+
+    .gradient-line {
+      height: 3px;
+      background: var(--gradient-h);
+      border-radius: 2px;
+      border: none;
+    }
+
+    /* ── TOC ── */
+    .toc-wrapper {
+      position: relative;
+    }
+
+    .toc {
+      margin: 2.5rem 0 3rem;
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .toc-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc li {
+      counter-increment: toc;
+      margin-bottom: 0.5rem;
+    }
+
+    .toc li a {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      transition: color 0.2s;
+      padding: 0.2rem 0;
+    }
+
+    .toc li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .toc li a:hover { color: var(--accent-start); }
+
+    .toc li a.active {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .toc li a.active::before {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Desktop sidebar TOC */
+    @media (min-width: 1100px) {
+      .toc {
+        position: fixed;
+        top: 100px;
+        left: calc(50% - 360px - 260px);
+        width: 220px;
+        margin: 0;
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+      }
+
+      .toc ol { border-left: 1px solid var(--border); padding-left: 1rem; }
+      .toc li a { font-size: 0.8rem; }
+    }
+
+    /* Mobile horizontal TOC */
+    @media (max-width: 1099px) and (min-width: 600px) {
+      .toc {
+        position: sticky;
+        top: 64px;
+        z-index: 50;
+        margin: 0 -1.5rem 3rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: var(--bg-nav);
+        backdrop-filter: blur(16px);
+      }
+
+      .toc ol {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .toc ol::-webkit-scrollbar { display: none; }
+      .toc li { white-space: nowrap; flex-shrink: 0; }
+    }
+
+    /* ── CHAPEAU ── */
+    .chapeau {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      scroll-margin-top: 80px;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.85rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .section-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .section h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.8rem;
+    }
+
+    .section p {
+      margin-bottom: 1.2rem;
+    }
+
+    .section ul {
+      margin: 0.8rem 0 1.5rem 1.2rem;
+      list-style: none;
+    }
+
+    .section ul li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gradient);
+    }
+
+    strong { font-weight: 600; }
+
+    /* ── ENCADRE ── */
+    .encadre {
+      margin: 2rem 0;
+      padding: 1.5rem 1.8rem;
+      background: var(--surface);
+      border-left: 3px solid;
+      border-image: var(--gradient) 1;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    }
+
+    .encadre-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-start);
+      margin-bottom: 0.6rem;
+    }
+
+    .encadre p {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* ── TABLEAU COMPARATIF ── */
+    .table-wrapper {
+      margin: 2rem 0;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: linear-gradient(135deg, rgba(232,147,74,0.08), rgba(155,110,198,0.08));
+    }
+
+    th {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.9rem 1.2rem;
+      border-top: 1px solid var(--border-light);
+      vertical-align: top;
+    }
+
+    tr:hover td { background: rgba(232,147,74,0.03); }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-top {
+      background: linear-gradient(135deg, rgba(232,147,74,0.15), rgba(155,110,198,0.15));
+      color: var(--accent-start);
+    }
+
+    .badge-good {
+      background: rgba(60,180,100,0.1);
+      color: #3cb464;
+    }
+
+    .badge-mid {
+      background: rgba(200,170,60,0.1);
+      color: #b0960a;
+    }
+
+    /* ── REFERENCE ── */
+    .ref {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 4rem 0;
+      padding: 3rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient-h);
+    }
+
+    .cta-art {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .cta-art .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .cta-art .orb-1 {
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at 35% 35%, #E8934A, #d47a30);
+      top: 20px; left: 35px;
+      opacity: 0.85;
+    }
+
+    .cta-art .orb-2 {
+      width: 60px; height: 60px;
+      background: radial-gradient(circle at 35% 35%, #9B6EC6, #7d54a8);
+      top: 50px; left: 60px;
+      opacity: 0.7;
+      animation-delay: -2s;
+    }
+
+    .cta-art .orb-3 {
+      width: 40px; height: 40px;
+      background: radial-gradient(circle at 35% 35%, #E8C04A, #d4a830);
+      top: 10px; left: 70px;
+      opacity: 0.6;
+      animation-delay: -4s;
+    }
+
+    .cta-art .ring {
+      position: absolute;
+      width: 120px; height: 120px;
+      top: 15px; left: 15px;
+      border: 1.5px solid rgba(155,110,198,0.2);
+      border-radius: 50%;
+      animation: spin 20s linear infinite;
+    }
+
+    .cta-art .ring::after {
+      content: '';
+      position: absolute;
+      top: -3px; left: 50%;
+      width: 6px; height: 6px;
+      background: var(--accent-start);
+      border-radius: 50%;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-text {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--gradient);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,147,74,0.25);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,147,74,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 4rem;
+      padding: 3rem 2.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.65rem; }
+      .article-header { padding-top: 96px; }
+      .article-header h1 { font-size: 2rem; }
+      .section h2 { font-size: 1.5rem; }
+      .encadre { padding: 1.2rem 1.4rem; }
+      .cta-banner { padding: 2rem 1.5rem; }
+      .toc { position: static; margin: 2rem 0; }
+      .toc ol {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 0.5rem;
+      }
+      .toc ol::-webkit-scrollbar { display: none; }
+      .toc li { white-space: nowrap; flex-shrink: 0; }
+      .toc li a { font-size: 0.78rem; }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="page-accueil.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+      <li>
+        <button class="nav-search" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+      </li>
+      <li><a href="aura.html">AURA</a></li>
+      <li><a href="page-accueil.html">Accueil</a></li>
+    </ul>
+  </nav>
+
+  <!-- ARTICLE -->
+  <article class="article-wrapper">
+
+    <!-- HEADER -->
+    <header class="article-header">
+      <p class="article-tag">Recherche &middot; Technologie &middot; Sommeil</p>
+      <h1>Simulateurs d'aube : ce que dit la science</h1>
+      <p class="article-subtitle">Efficacite clinique, limites spectrales et comparaison avec la luminotherapie</p>
+      <p class="article-meta">Temps de lecture : 10 min &middot; Mars 2026</p>
+      <hr class="gradient-line"/>
+    </header>
+
+    <!-- TOC -->
+    <div class="toc-wrapper">
+      <nav class="toc" id="toc" aria-label="Sommaire">
+        <p class="toc-title">Sommaire</p>
+        <ol>
+          <li><a href="#s1">Comment fonctionne un simulateur d'aube</a></li>
+          <li><a href="#s2">Les trois lacunes spectrales des simulateurs</a></li>
+          <li><a href="#s3">L'ecart d'intensite : important mais biologiquement modere</a></li>
+          <li><a href="#s4">Les preuves cliniques : solides mais sur petits echantillons</a></li>
+          <li><a href="#s5">Simulateurs vs luminotherapie classique</a></li>
+          <li><a href="#s6">Les meilleurs simulateurs en 2025</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- CHAPEAU -->
+    <div class="chapeau section" id="chapeau">
+      Les simulateurs d'aube sont cliniquement valides pour reduire l'inertie du sommeil et ameliorer l'humeur matinale. Mais ils ne delivrent que 100 a 315 lux — 30 a 100 fois moins que la lumiere naturelle — et presentent des lacunes spectrales significatives. Voici ce que la recherche dit vraiment.
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="section" id="s1">
+      <span class="section-number">Section 01</span>
+      <h2>Comment fonctionne un simulateur d'aube</h2>
+
+      <p>Un simulateur d'aube reproduit, dans la chambre, la montee progressive de la lumiere qui precede le lever du soleil. L'objectif est de prendre le relais du signal lumineux naturel pour preparer le cerveau a la transition veille-sommeil — un processus que la chronobiologie appelle <strong>l'entrainement circadien par la lumiere</strong>.</p>
+
+      <p>Concretement, l'appareil genere une <strong>rampe lumineuse progressive</strong>, partant de l'obscurite quasi totale (0.001 lux) pour atteindre 250 a 315 lux en 30 minutes. Cette montee n'est pas lineaire : les modeles les plus aboutis utilisent une courbe logarithmique ou sigmoide, plus fidele a la dynamique du lever solaire reel.</p>
+
+      <p>Les modeles les plus sophistiques, comme le <strong>Philips SmartSleep</strong>, integrent plusieurs LEDs de couleurs differentes et orchestrent une transition chromatique : rouge profond, puis orange, jaune, et enfin blanc chaud. Cette progression imite — de maniere simplifiee — les changements spectraux de l'aube.</p>
+
+      <p>Le protocole de reference a ete defini par <strong>Terman (2006)</strong> : il reproduit le profil lumineux d'un lever de soleil du 5 mai a 45 degres de latitude nord, soit une montee de 0.0003 a 250 lux. Ce standard est encore utilise dans la majorite des etudes cliniques.</p>
+
+      <p class="ref">Terman M, Terman JS. "Controlled trial of naturalistic dawn simulation and negative air ionization for seasonal affective disorder." Am J Psychiatry. 2006;163(12):2126-33.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">A retenir</p>
+        <p>30 minutes de montee progressive — du noir total a 250 lux. C'est le protocole standard valide par la recherche.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="section" id="s2">
+      <span class="section-number">Section 02</span>
+      <h2>Les trois lacunes spectrales des simulateurs</h2>
+
+      <p>Si la dynamique temporelle des simulateurs est globalement fidele, leur <strong>composition spectrale</strong> s'ecarte significativement de la lumiere naturelle. Trois lacunes meritent d'etre documentees.</p>
+
+      <h3>1. Aucun ultraviolet emis</h3>
+      <p>L'aube naturelle contient des UV-A et UV-B des que le soleil passe au-dessus de l'horizon. Ces longueurs d'onde participent a la synthese de vitamine D et a certains mecanismes de regulation immunitaire cutanee. <strong>Aucun simulateur grand public n'emet d'UV</strong> — les LEDs utilisees sont deliberement filtrees pour des raisons de securite oculaire.</p>
+
+      <h3>2. Un demarrage par le rouge, inverse du crepuscule naturel</h3>
+      <p>C'est probablement le defaut le plus contre-intuitif. La plupart des simulateurs commencent par une lumiere rouge profonde, puis montent vers l'orange et le blanc chaud. Or, dans la nature, le crepuscule civil (avant l'apparition du disque solaire) est <strong>domine par les courtes longueurs d'onde</strong> : le <a href="etude-spectre-lumineux.html" class="aura-link">bleu a 480 nm</a>, diffuse par l'atmosphere via le phenomene de diffusion de Rayleigh.</p>
+      <p>Dit autrement : l'aube reelle commence par du bleu, pas par du rouge. Les simulateurs font exactement l'inverse.</p>
+
+      <h3>3. Des pics spectraux discrets vs un spectre continu</h3>
+      <p>Le soleil emet un spectre continu, comme un corps noir a environ 5778 K. Les LEDs, elles, emettent sur des <strong>pics spectraux etroits et discrets</strong>. Meme en combinant plusieurs LEDs (rouge, vert, bleu), le profil spectral reste fondamentalement different de la lumiere solaire. Les simulateurs plafonnent generalement entre 2700 K et 4000 K de temperature de couleur, la ou le soleil a l'horizon atteint deja 5600 K.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Point critique</p>
+        <p>Le principal defaut : demarrer par du rouge au lieu du bleu. L'aube naturelle est dominee par le 480 nm (bleu ciel), pas par le rouge.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="section" id="s3">
+      <span class="section-number">Section 03</span>
+      <h2>L'ecart d'intensite : important mais biologiquement modere</h2>
+
+      <p>Les chiffres annonces par les fabricants sont des maximums mesures a la surface de l'appareil. En conditions reelles d'utilisation, l'intensite effectivement recue au niveau des yeux est tres inferieure.</p>
+
+      <ul>
+        <li><strong>Philips SmartSleep HF3520</strong> : 300 lux (annonce)</li>
+        <li><strong>Philips Connected</strong> : 310-315 lux</li>
+        <li><strong>Lumie Bodyclock Shine 300</strong> : 300 lux</li>
+        <li>En pratique, a <strong>45 cm de distance</strong> (table de nuit typique) : &lt;120 lux effectifs</li>
+      </ul>
+
+      <p>Pour mettre ces chiffres en perspective :</p>
+
+      <ul>
+        <li>Lever de soleil par ciel clair : ~400 lux</li>
+        <li>Ciel couvert le matin : ~1 000 lux</li>
+        <li>Plein jour exterieur : 10 000 a 25 000 lux</li>
+      </ul>
+
+      <p>L'ecart avec la lumiere naturelle en plein jour est donc de <strong>30 a 100 fois</strong>. Mais ce ratio brut est trompeur, car il ignore un facteur biologique essentiel : le systeme circadien est en <strong>sensibilite maximale dans les 2 heures precedant le reveil</strong>.</p>
+
+      <p><strong>Van de Werken et al. (2010)</strong>, dans une etude sur 23 sujets, ont montre que meme <strong>50 lux suffisent pour reduire significativement l'inertie du sommeil</strong> lorsqu'ils sont delivres dans cette fenetre de sensibilite. La lumiere traverse les paupieres fermees (avec une attenuation de 1 a 2 ordres de grandeur), et les cellules ganglionnaires a <a href="etude-spectre-lumineux.html" class="aura-link">melanopsine</a> (ipRGC) — les photodetecteurs circadiens de la retine — restent activables a ces niveaux d'eclairement.</p>
+
+      <p class="ref">Van de Werken M, et al. "Effects of artificial dawn on sleep inertia, skin temperature, and the awakening cortisol response." J Sleep Res. 2010;19(3):425-35.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">A retenir</p>
+        <p>50 lux suffisent pendant la fenetre de sensibilite maximale du cerveau — dans les 2 heures avant le reveil naturel.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="section" id="s4">
+      <span class="section-number">Section 04</span>
+      <h2>Les preuves cliniques : solides mais sur petits echantillons</h2>
+
+      <p>Les donnees cliniques sur la simulation d'aube sont globalement positives, avec un niveau de preuve modere — limite par la taille des echantillons et la difficulte de concevoir un vrai placebo pour un stimulus lumineux.</p>
+
+      <h3>Depression saisonniere (SAD)</h3>
+      <p><strong>Avery et al. (2001)</strong>, publiant dans <em>Biological Psychiatry</em> sur un echantillon de 95 patients atteints de depression saisonniere, ont demontre que la simulation d'aube etait superieure au placebo <strong>et</strong> superieure a la luminotherapie classique (10 000 lux, 30 min).</p>
+
+      <p><strong>Golden et al. (2005)</strong>, dans une meta-analyse mandatee par l'APA (American Psychiatric Association), ont calcule une taille d'effet de <strong>0.73 pour la simulation d'aube</strong> contre 0.84 pour la luminotherapie — une difference non significative.</p>
+
+      <h3>Performances cognitives</h3>
+      <p><strong>Gabel et al. (2013, 2015)</strong>, sur 17 sujets sains, ont mesure des ameliorations du suivi moteur, de l'attention soutenue, de la memoire de travail et du temps de reaction. Point remarquable : ces ameliorations <strong>persistaient toute la journee</strong>, pas uniquement dans les minutes suivant le reveil.</p>
+
+      <p>Les scores d'humeur et de bien-etre etaient egalement superieurs a ceux mesures avec une lumiere tamisee <strong>et</strong> avec une lumiere bleue LED.</p>
+
+      <h3>Reponse hormonale et cardiovasculaire</h3>
+      <p><strong>Thorn et al. (2004)</strong> ont mis en evidence une augmentation de la reponse cortisolaire au reveil (CAR) de <strong>+12.8%</strong> sous simulation d'aube, suggerant une activation plus physiologique de l'axe hypothalamo-hypophyso-surrenalien.</p>
+
+      <p><strong>Gabel et al. (2015)</strong> ont egalement documente une transition cardiovasculaire plus progressive et potentiellement protectrice : montee de la pression arterielle et de la frequence cardiaque plus douce qu'avec un reveil brutal.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Resultat cle</p>
+        <p>L'effet dure toute la journee, pas seulement au reveil. Cognition, humeur et bien-etre restent ameliores jusqu'au soir.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="section" id="s5">
+      <span class="section-number">Section 05</span>
+      <h2>Simulateurs vs luminotherapie classique</h2>
+
+      <p>La question n'est pas de savoir lequel est "meilleur" en absolu, mais lequel est adapte a quel profil clinique — et surtout, lequel sera reellement utilise.</p>
+
+      <h3>Taux de reponse comparables</h3>
+      <p><strong>Terman et Terman (2006)</strong>, sur 99 adultes atteints de SAD ou de trouble bipolaire II, ont mesure un taux de reponse de <strong>57.1% pour la luminotherapie classique</strong> (10 000 lux, 30 min) contre <strong>49.5% pour la simulation d'aube</strong>. La difference n'etait pas statistiquement significative.</p>
+
+      <p><strong>Danilenko et al. (2015)</strong>, sur 40 patients, ont obtenu des resultats quasi identiques : <strong>43.8% vs 42.2% de reduction</strong> des scores de depression. Encore une fois, non significatif.</p>
+
+      <h3>L'avantage decisif : la compliance</h3>
+      <p>La ou la simulation d'aube prend un avantage reel, c'est sur l'observance. La luminotherapie classique exige de s'asseoir devant un appareil de 10 000 lux pendant 30 minutes chaque matin — un rituel que <strong>19% des patients abandonnent</strong> dans les premieres semaines selon les etudes de suivi. La simulation, elle, agit <strong>pendant le sommeil</strong>, sans effort conscient.</p>
+
+      <h3>Recommandation clinique</h3>
+      <p>Pour les formes moderees a severes de depression saisonniere, la <strong>luminotherapie a 10 000 lux reste le traitement de premiere intention recommande</strong> par la plupart des guidelines. La simulation d'aube est un complement ou une alternative pour les patients qui ne tolerent pas ou n'adherent pas a la luminotherapie classique.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Synthese</p>
+        <p>Efficacite comparable, compliance superieure. La simulation d'aube agit pendant le sommeil — sans effort, sans abandon.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="section" id="s6">
+      <span class="section-number">Section 06</span>
+      <h2>Les meilleurs simulateurs en 2025</h2>
+
+      <p>Le marche compte desormais plusieurs dizaines de references. Quatre modeles se distinguent par leur luminosite effective, leur spectre, et/ou la qualite des donnees cliniques qui les soutiennent.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Modele</th>
+              <th>Lux max</th>
+              <th>Spectre</th>
+              <th>Aube ajustable</th>
+              <th>Particularite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Philips SmartSleep HF3520</strong> <span class="badge badge-top">Ref. clinique</span></td>
+              <td>300 lux</td>
+              <td>Multi-LED, transition couleurs</td>
+              <td>20-40 min</td>
+              <td>Modele utilise dans les protocoles de recherche</td>
+            </tr>
+            <tr>
+              <td><strong>Lumie Bodyclock Shine 300</strong> <span class="badge badge-good">Lumineux</span></td>
+              <td>300 lux</td>
+              <td>Blanc chaud progressif</td>
+              <td>15-90 min</td>
+              <td>Parmi les plus lumineux du marche, duree tres flexible</td>
+            </tr>
+            <tr>
+              <td><strong>JUXLamp</strong> <span class="badge badge-good">Hybride</span></td>
+              <td>12 000 lux</td>
+              <td>CRI &gt;95, spectre large</td>
+              <td>10-60 min</td>
+              <td>Hybride simulateur + luminotherapie, intensite exceptionnelle</td>
+            </tr>
+            <tr>
+              <td><strong>Hatch Restore 2/3</strong> <span class="badge badge-mid">Populaire</span></td>
+              <td>~80 lux</td>
+              <td>RGB LED</td>
+              <td>Personnalisable</td>
+              <td>Design soigne, app riche — mais luminosite faible, abonnement payant</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Le <strong>Philips SmartSleep HF3520</strong> reste la reference pour quiconque cherche un appareil valide en contexte de recherche. Le <strong>JUXLamp</strong> est le choix le plus ambitieux : son CRI superieur a 95 et ses 12 000 lux en font un veritable appareil de luminotherapie integrant un mode aube. Le <strong>Hatch Restore</strong>, tres populaire, souffre d'une luminosite insuffisante pour un effet circadien significatif.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Conseil</p>
+        <p>Privilegiez un appareil delivrant au minimum 250 lux a la surface et verifiez la distance de mesure. En dessous de 100 lux effectifs au niveau des yeux, l'efficacite circadienne n'est pas garantie.</p>
+      </div>
+
+      <p>Ces limites posent une question naturelle : comment les depasser ? Notre article <a href="etude-simulateur-next-gen.html" class="aura-link">Comment concevoir le simulateur d'aube parfait</a> explore les sept axes d'amelioration identifies par la recherche.</p>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner section" id="cta">
+      <div class="cta-art">
+        <div class="ring"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <p class="cta-text">AURA combine simulation d'aube et IA pour un reveil optimise scientifiquement.</p>
+      <a href="aura.html" class="cta-btn">Decouvrir AURA &rarr;</a>
+    </div>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">LES ZINTREPRENEURS</div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // IntersectionObserver for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+    // TOC active state tracking
+    const tocLinks = document.querySelectorAll('.toc a');
+    const sections = document.querySelectorAll('section.section[id]');
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '-80px 0px -60% 0px'
+    });
+
+    sections.forEach(s => tocObserver.observe(s));
+
+    // Smooth scroll for TOC links
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

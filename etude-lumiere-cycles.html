@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La lumiere peut-elle modifier vos cycles de sommeil ? — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFAF8;
+      color: #333;
+      overflow-x: hidden;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 2.5rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1A1A1A; }
+
+    /* ARTICLE LAYOUT */
+    .article-wrapper {
+      display: flex;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .article-content {
+      max-width: 720px;
+      width: 100%;
+      padding-top: 100px;
+      padding-bottom: 4rem;
+    }
+
+    /* HEADER */
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: #6B6B6B;
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .article-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+
+    .gradient-line {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+      border: none;
+      margin-bottom: 2.5rem;
+    }
+
+    /* CHAPEAU */
+    .chapeau {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #1A1A1A;
+      margin-bottom: 3rem;
+    }
+
+    /* SECTIONS */
+    .article-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    .article-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .article-section h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: #1A1A1A;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .article-section p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* ENCADRES CHIFFRES CLES */
+    .key-box {
+      background: #f5f0eb;
+      border-left: 3px solid;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .key-box strong {
+      color: #1A1A1A;
+    }
+
+    .key-box .key-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    /* ENCADRE SPECIAL */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06));
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #1A1A1A;
+    }
+
+    .highlight-box strong {
+      color: #1A1A1A;
+    }
+
+    /* ENCADRE CHOC */
+    .shock-box {
+      background: #1A1A1A;
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      text-align: center;
+    }
+
+    .shock-box .shock-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      line-height: 1;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .shock-box p {
+      color: #ccc;
+      margin: 0;
+    }
+
+    /* LISTES STYLEES */
+    .styled-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .styled-list li:last-child { border-bottom: none; }
+
+    .styled-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+    }
+
+    /* PATHWAY */
+    .pathway {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 1.2rem 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: #6B6B6B;
+    }
+
+    .pathway .node {
+      background: #f5f0eb;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      color: #1A1A1A;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pathway .arrow {
+      color: #E8934A;
+      font-size: 0.9rem;
+    }
+
+    /* TABLES */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 400px;
+    }
+
+    .data-table th {
+      background: #f5f0eb;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1A1A1A;
+      padding: 0.8rem;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .data-table th:first-child { border-radius: 8px 0 0 0; }
+    .data-table th:last-child { border-radius: 0 8px 0 0; }
+
+    .data-table td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #e5e5e5;
+      color: #333;
+    }
+
+    .data-table tbody tr:nth-child(even) td {
+      background: #faf8f5;
+    }
+
+    .data-table tbody tr:last-child td { border-bottom: none; }
+
+    /* ACCENT TEXT */
+    .accent-text {
+      color: #E8934A;
+      font-weight: 700;
+    }
+
+    .accent-purple {
+      color: #9B6EC6;
+      font-weight: 700;
+    }
+
+    /* AURA LINK */
+    .aura-link {
+      color: #9B6EC6;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(155,110,198,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .aura-link:hover {
+      border-color: #9B6EC6;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #E8934A;
+      margin-bottom: 0.4rem;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: #f5f0eb;
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-banner .mini-aura {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-aura .aura-halo {
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%);
+      animation: auraPulse 4s ease-in-out infinite;
+    }
+
+    .mini-aura .aura-ring {
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 2px solid rgba(232,147,74,0.25);
+      animation: auraRotate 12s linear infinite;
+    }
+
+    .mini-aura .aura-disk {
+      position: absolute;
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2));
+      animation: auraPulse 4s ease-in-out infinite reverse;
+    }
+
+    .mini-aura .aura-center {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      box-shadow: 0 0 30px rgba(232,147,74,0.3);
+    }
+
+    @keyframes auraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @keyframes auraRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-banner h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #1A1A1A;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-banner p {
+      font-size: 0.9rem;
+      color: #6B6B6B;
+      margin-bottom: 0.3rem;
+      line-height: 1.6;
+    }
+
+    .cta-banner .cta-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* SIDEBAR TOC */
+    .toc-sidebar {
+      position: sticky;
+      top: 80px;
+      width: 220px;
+      min-width: 220px;
+      align-self: flex-start;
+      margin-right: 3rem;
+      padding-top: 100px;
+    }
+
+    .toc-sidebar .toc-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #bbb;
+      margin-bottom: 0.8rem;
+    }
+
+    .toc-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-sidebar li {
+      margin-bottom: 0.4rem;
+    }
+
+    .toc-sidebar a {
+      display: block;
+      font-size: 0.75rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0 0.3rem 0.8rem;
+      border-left: 2px solid transparent;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .toc-sidebar a:hover {
+      color: #1A1A1A;
+    }
+
+    .toc-sidebar a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-left-width: 2px;
+      border-left-style: solid;
+      font-weight: 500;
+    }
+
+    /* MOBILE TOC */
+    .toc-mobile {
+      display: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      padding: 0.8rem 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .toc-mobile a {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0.8rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .toc-mobile a:hover { color: #1A1A1A; }
+
+    .toc-mobile a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1;
+    }
+
+    /* RECO BOX */
+    .reco-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .reco-card {
+      background: #f5f0eb;
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .reco-card .reco-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .reco-card .reco-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: #1A1A1A;
+      line-height: 1.1;
+    }
+
+    .reco-card .reco-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-top: 0.3rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede8;
+      border-top: 1px solid #e5e5e5;
+      padding: 3rem 5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+
+    footer p strong { color: #1A1A1A; font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #1A1A1A; }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #999;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .toc-sidebar { display: none; }
+      .toc-mobile { display: block; }
+      .reco-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrapper { padding: 0 1.2rem; }
+      .article-content { padding-top: 80px; }
+      footer { padding: 2.5rem 1.5rem; }
+      .cta-banner { padding: 2rem 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .article-content { padding-top: 75px; }
+      .data-table { font-size: 0.8rem; }
+      .data-table th, .data-table td { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+  <ul class="nav-links">
+    <li><a href="recherche.html">Recherche</a></li>
+    <li><a href="aura.html">AURA</a></li>
+    <li><a href="index.html">Accueil</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<div class="article-wrapper">
+
+  <!-- SIDEBAR TOC (desktop) -->
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <div class="toc-label">Sommaire</div>
+    <ul>
+      <li><a href="#section-1" data-section="section-1">Circuit neuronal</a></li>
+      <li><a href="#section-2" data-section="section-2">Courbe de reponse de phase</a></li>
+      <li><a href="#section-3" data-section="section-3">Lumiere nocturne</a></li>
+      <li><a href="#section-4" data-section="section-4">Chronotherapie</a></li>
+      <li><a href="#section-5" data-section="section-5">Decalage horaire</a></li>
+      <li><a href="#section-6" data-section="section-6">Conclusion</a></li>
+    </ul>
+  </aside>
+
+  <!-- ARTICLE -->
+  <main class="article-content">
+
+    <!-- MOBILE TOC -->
+    <div class="toc-mobile" id="toc-mobile">
+      <a href="#section-1" data-section="section-1">Circuit neuronal</a>
+      <a href="#section-2" data-section="section-2">Courbe de phase</a>
+      <a href="#section-3" data-section="section-3">Lumiere nocturne</a>
+      <a href="#section-4" data-section="section-4">Chronotherapie</a>
+      <a href="#section-5" data-section="section-5">Decalage horaire</a>
+      <a href="#section-6" data-section="section-6">Conclusion</a>
+    </div>
+
+    <!-- HEADER -->
+    <div class="article-tag">Recherche &middot; Circadien &middot; Lumiere</div>
+    <h1 class="article-title">La lumiere peut-elle modifier vos cycles de sommeil ?</h1>
+    <p class="article-subtitle">Circuit circadien, courbe de reponse de phase et chronotherapie lumineuse</p>
+    <p class="article-meta">Temps de lecture : <span id="reading-time">10</span> min &middot; Mars 2026</p>
+    <hr class="gradient-line" />
+
+    <!-- CHAPEAU -->
+    <div class="chapeau animate-in">
+      Le systeme circadien humain peut etre avance de 1 a 2 heures par jour et retarde de 1,5 a 3 heures grace a des protocoles lumineux optimises. Cette capacite a des implications majeures pour le traitement du decalage horaire, des troubles du rythme circadien et du travail poste.
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="article-section animate-in" id="section-1">
+      <div class="section-label">Section 01</div>
+      <h2>Le circuit neuronal de la lumiere vers l'horloge</h2>
+
+      <p>La lumiere ne se contente pas de nous permettre de voir. Elle est le principal synchroniseur de notre horloge biologique interne, un mecanisme dont la precision rivale les meilleures montres suisses. Tout commence dans la retine, avec des cellules que la science n'a identifiees que recemment.</p>
+
+      <h3>Des photorecepteurs dedies a l'horloge</h3>
+
+      <p>Les cellules ganglionnaires a <a href="etude-spectre-lumineux.html" class="aura-link">melanopsine</a> de type M1 (<strong>ipRGC</strong>) constituent le point d'entree du signal lumineux vers le systeme circadien. Contrairement aux cones et batonnets classiques, ces cellules ne participent pas a la formation d'images : elles mesurent l'<strong>irradiance ambiante</strong> et la transmettent au noyau suprachiasmatique (SCN) via le <strong>tractus retino-hypothalamique</strong> (RHT).</p>
+
+      <p>Les neurotransmetteurs de cette voie sont le <strong>glutamate</strong> et le <strong>PACAP</strong> (pituitary adenylate cyclase-activating polypeptide). Ensemble, ils traduisent l'information lumineuse en signal neurochimique capable de recaler l'horloge moleculaire du SCN.</p>
+
+      <h3>La cascade neuroendocrine</h3>
+
+      <p>Le signal lumineux suit un trajet remarquablement long avant de produire son effet hormonal le plus connu : la suppression ou l'induction de la melatonine.</p>
+
+      <div class="pathway">
+        <span class="node">ipRGC (retine)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">SCN</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Noyau paraventriculaire</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Moelle epiniere</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Ganglion cervical superieur</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Glande pineale</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Melatonine</span>
+      </div>
+
+      <h3>L'horloge moleculaire</h3>
+
+      <p>Au coeur du SCN, une boucle de retroaction transcriptionnelle genere un rythme autonome. Les facteurs de transcription <strong>CLOCK</strong> et <strong>BMAL1</strong> activent l'expression des genes <strong>PER</strong> (Period) et <strong>CRY</strong> (Cryptochrome). Les proteines PER et CRY s'accumulent, forment des complexes et inhibent a leur tour CLOCK/BMAL1, creant ainsi un cycle d'environ 24 heures.</p>
+
+      <p>La mesure precise de cette periode endogene a ete realisee par <strong>Czeisler et al. (1999, Science)</strong> dans des conditions de desynchronisation forcee : la periode moyenne est de <strong>24,18 heures</strong> chez l'adulte sain. Sans synchroniseur externe, l'horloge derive donc de pres de 11 minutes par jour. C'est la lumiere qui la recale a exactement 24 heures, jour apres jour.</p>
+
+      <div class="key-box">
+        <span class="key-number">24,18 heures</span>
+        <strong>Le rythme naturel de votre horloge interne.</strong> Sans lumiere exterieure, vous vous decaleriez de 11 minutes chaque jour, soit pres de 6 heures en un mois. La lumiere est le chef d'orchestre qui maintient la synchronisation.
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="article-section animate-in" id="section-2">
+      <div class="section-label">Section 02</div>
+      <h2>La courbe de reponse de phase : tout depend du moment</h2>
+
+      <p>L'effet de la lumiere sur l'horloge circadienne n'est pas uniforme. Il depend de maniere critique du <strong>moment</strong> ou l'exposition se produit par rapport au rythme endogene. Cette relation est cartographiee par la <em>Phase Response Curve</em> (PRC), l'un des outils fondamentaux de la chronobiologie.</p>
+
+      <h3>L'etude de reference : Khalsa 2003</h3>
+
+      <p><strong>Khalsa et al. (2003)</strong> ont soumis 21 sujets a des expositions lumineuses de 6,7 heures a environ 10 000 lux, administrees a differents moments du cycle circadien. Les resultats ont revele une <strong>asymetrie directionnelle</strong> fondamentale :</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Direction</th>
+              <th>Decalage maximal</th>
+              <th>Moment optimal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Retard de phase</strong> (coucher plus tard)</td>
+              <td class="accent-text">-3,44 heures</td>
+              <td>Lumiere le soir / debut de nuit</td>
+            </tr>
+            <tr>
+              <td><strong>Avance de phase</strong> (coucher plus tot)</td>
+              <td class="accent-purple">+2,02 heures</td>
+              <td>Lumiere en fin de nuit / matin</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>La transition entre retard et avance se produit au <strong>CBTmin</strong> (minimum de temperature corporelle centrale), qui survient typiquement 1 a 2 heures avant l'heure de reveil habituelle. Lumiere avant le CBTmin = retard. Lumiere apres le CBTmin = avance.</p>
+
+      <h3>L'efficacite des impulsions courtes</h3>
+
+      <p><strong>St. Hilaire et al. (2012)</strong> ont demontre que des impulsions lumineuses de seulement 1 heure (au lieu de 6,7 heures) produisent des decalages significatifs : <strong>-2,02 heures</strong> en retard et <strong>+1,20 heure</strong> en avance. Cela represente environ 50 % de l'effet maximal pour seulement 15 % de la duree d'exposition, suggerant une relation non lineaire entre duree et reponse.</p>
+
+      <h3>Le spectre compte autant que l'intensite</h3>
+
+      <p><strong>Revell et al. (2012)</strong> ont etabli un resultat majeur : <strong>185 lux de lumiere bleue a 467 nm</strong> produisent un decalage de phase equivalent a celui obtenu avec 5 000 a 10 000 lux de lumiere blanche polychromatique. La melanopsine, le photopigment des ipRGC, presente un pic de sensibilite autour de 480 nm, ce qui explique cette efficacite spectrale disproportionnee.</p>
+
+      <h3>Le reset complet : Czeisler 1989</h3>
+
+      <p>Dans une etude pionniere, <strong>Czeisler et al. (1989)</strong> ont montre que 3 jours de 5 heures d'exposition a 10 000 lux suffisent pour un <strong>reset complet</strong> de l'horloge circadienne, avec des decalages pouvant atteindre 12 heures lorsque la lumiere est administree pres du CBTmin.</p>
+
+      <div class="highlight-box">
+        <strong>Lumiere le matin = avance de phase. Lumiere le soir = retard de phase. Le timing est tout.</strong> L'intensite et la duree modulent l'amplitude de l'effet, mais c'est le moment d'exposition par rapport au CBTmin qui determine la direction du decalage.
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="article-section animate-in" id="section-3">
+      <div class="section-label">Section 03</div>
+      <h2>La lumiere nocturne degrade le sommeil meme a 5 lux</h2>
+
+      <p>Si la lumiere est un outil puissant pour resynchroniser l'horloge, elle est aussi un perturbateur redoutable lorsqu'elle survient au mauvais moment. Les recherches recentes montrent que des niveaux de lumiere tres faibles pendant la nuit suffisent a alterer profondement l'architecture du sommeil.</p>
+
+      <h3>5 a 10 lux : l'etude de Cho 2016</h3>
+
+      <p><strong>Cho et al. (2016)</strong> ont soumis 23 sujets a une polysomnographie complete avec une lumiere ambiante de 5 a 10 lux pendant le sommeil. Les resultats sont sans appel :</p>
+
+      <ul class="styled-list">
+        <li><strong>Augmentation des eveils nocturnes</strong> (p = 0,014)</li>
+        <li><strong>Augmentation du stade N1</strong> — sommeil superficiel (p = 0,045)</li>
+        <li><strong>Augmentation du sommeil REM</strong> au detriment des phases profondes (p = 0,017)</li>
+        <li><strong>Diminution du stade N2</strong> — sommeil stable (p = 0,006)</li>
+      </ul>
+
+      <h3>100 lux : des consequences metaboliques</h3>
+
+      <p><strong>Zee et al. (2022, PNAS)</strong> ont demontre chez 20 adultes sains qu'une seule nuit d'exposition a 100 lux produit un ensemble de perturbations systemiques :</p>
+
+      <ul class="styled-list">
+        <li>Reduction du sommeil lent profond (N3) et du sommeil REM</li>
+        <li>Augmentation de la frequence cardiaque nocturne</li>
+        <li>Diminution de la variabilite cardiaque (marqueur de stress sympathique)</li>
+        <li>Augmentation de la resistance a l'insuline le lendemain matin (HOMA-IR eleve)</li>
+      </ul>
+
+      <p>Ce dernier resultat est particulierement alarmant : une seule nuit avec une veilleuse de 100 lux altere le metabolisme glucidique. Projetee sur des annees, cette exposition chronique pourrait contribuer au risque de diabete de type 2.</p>
+
+      <h3>L'impact spectral : la lumiere bleue avant le coucher</h3>
+
+      <p><strong>Munch et al. (2006)</strong> ont montre que 2 heures d'exposition a une lumiere bleue a 460 nm avant le coucher entrainent une reduction des ondes lentes du premier cycle NREM et une diminution de la duree du sommeil REM. La lumiere bleue agit donc doublement : elle retarde l'endormissement et degrade la qualite des premiers cycles de sommeil.</p>
+
+      <h3>Supprimer le bleu : l'approche de Gronli 2022</h3>
+
+      <p><strong>Gronli et al. (2022)</strong> ont pris le probleme a l'envers : en placant des sujets dans un environnement appauvri en lumiere bleue pendant 5 jours, ils ont observe une <strong>reduction de la fragmentation du sommeil REM</strong> (p = 0,0003) et une <strong>avance circadienne d'environ 30 minutes</strong>. La suppression de la lumiere bleue en soiree suffit donc a ameliorer la continuite du sommeil.</p>
+
+      <div class="shock-box">
+        <span class="shock-number">5 lux</span>
+        <p>C'est tout ce qu'il faut pendant le sommeil pour degrader votre architecture de sommeil. Pour reference, une veilleuse standard emet 20 a 50 lux. L'obscurite totale n'est pas un luxe — c'est une necessite physiologique.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="article-section animate-in" id="section-4">
+      <div class="section-label">Section 04</div>
+      <h2>Chronotherapie : recaler l'horloge de 1 a 3 heures par jour</h2>
+
+      <p>La connaissance de la PRC et de la sensibilite spectrale a permis le developpement de protocoles therapeutiques rigoureux. La chronotherapie lumineuse n'est plus experimentale : elle est recommandee comme traitement de premiere intention pour plusieurs troubles circadiens.</p>
+
+      <h3>Syndrome de retard de phase (DSWPD)</h3>
+
+      <p>Le DSWPD affecte 0,2 a 10 % de la population selon les criteres diagnostiques, avec une prevalence particulierement elevee chez les adolescents. Le protocole standard combine :</p>
+
+      <ul class="styled-list">
+        <li><strong>Lumiere vive matinale</strong> : 10 000 lux pendant 30 a 60 minutes, administree dans les 2 heures suivant le reveil</li>
+        <li><strong>Melatonine vesperale</strong> : 0,5 a 3 mg, administree 5 a 6 heures avant l'heure de coucher souhaitee</li>
+        <li><strong>Restriction de lumiere en soiree</strong> : lunettes a filtre ambre ou environnement appauvri en bleu apres 20h</li>
+      </ul>
+
+      <p>Les <a href="etude-simulateurs-aube.html" class="aura-link">simulateurs d'aube</a> representent une solution pratique pour l'exposition matinale progressive, bien que leur intensite reste inferieure a la luminotherapie classique.</p>
+
+      <h3>Resultats chez les adolescents : Richardson 2018</h3>
+
+      <p><strong>Richardson et al. (2018)</strong> ont evalue l'efficacite de lunettes LED portables chez 60 adolescents souffrant de retard de phase. Les resultats sont encourageants :</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Parametre</th>
+              <th>Taille d'effet (d de Cohen)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amelioration du timing de sommeil</td>
+              <td class="accent-text">d = 0,30 a 0,61</td>
+            </tr>
+            <tr>
+              <td>Reduction de la latence d'endormissement</td>
+              <td class="accent-text">d = 0,32</td>
+            </tr>
+            <tr>
+              <td>Amelioration du fonctionnement diurne</td>
+              <td class="accent-text">d = 0,45 a 1,02</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Point critique : <strong>38 % des sujets ont recidive</strong> apres l'arret du traitement, soulignant la necessite d'un maintien a long terme du protocole lumineux.</p>
+
+      <h3>Travail poste : des preuves solides</h3>
+
+      <p>Une <strong>meta-analyse de 2025 portant sur 11 etudes</strong> a quantifie l'impact des interventions lumineuses chez les travailleurs postes :</p>
+
+      <ul class="styled-list">
+        <li><strong>+32,5 minutes de sommeil total</strong> par periode de repos (p &lt; 0,00001)</li>
+        <li><strong>+2,91 % d'efficacite du sommeil</strong> (p = 0,007)</li>
+      </ul>
+
+      <p>Ces effets, bien que modestes en termes absolus, sont cliniquement significatifs sur le plan cumulatif : 32 minutes supplementaires par jour representent pres de 4 heures par semaine de sommeil recupere.</p>
+
+      <h3>Le protocole de Boivin : simulation du travail de nuit</h3>
+
+      <p><strong>Boivin et al. (2022)</strong> ont demontre que 3 cycles de 8 heures de lumiere vive nocturne (simulant des postes de nuit) produisent des <strong>retards de 7 a 9 heures des marqueurs circadiens</strong>, incluant le rythme de melatonine et la temperature corporelle. Ce protocole permet une adaptation quasi-complete au travail nocturne en 3 jours.</p>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="article-section animate-in" id="section-5">
+      <div class="section-label">Section 05</div>
+      <h2>Decalage horaire : l'asymetrie est-ouest</h2>
+
+      <p>Le decalage horaire (jet lag) est l'illustration la plus tangible du conflit entre horloge interne et environnement lumineux. Mais tous les decalages ne se valent pas : la direction du voyage determine la vitesse de readaptation.</p>
+
+      <h3>Pourquoi l'est est plus difficile</h3>
+
+      <p>Les voyages vers l'est necessitent une <strong>avance de phase</strong> — or la periode endogene est legerement superieure a 24 heures (24,18 h). L'horloge doit donc se comprimer, ce qui va a l'encontre de sa tendance naturelle. Les voyages vers l'ouest, en revanche, demandent un retard de phase, qui s'aligne avec la derive endogene.</p>
+
+      <p><strong>Aschoff (1975)</strong> a quantifie cette asymetrie avec precision :</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Direction</th>
+              <th>Reentrainement</th>
+              <th>Exemple : 6 fuseaux</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vers l'ouest</strong> (retard)</td>
+              <td class="accent-text">92 min/jour</td>
+              <td>~4 jours</td>
+            </tr>
+            <tr>
+              <td><strong>Vers l'est</strong> (avance)</td>
+              <td class="accent-purple">57 min/jour</td>
+              <td>~6,3 jours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Le protocole pre-vol d'Eastman</h3>
+
+      <p><strong>Eastman et collaborateurs</strong> ont developpe un protocole de preparation au voyage vers l'est base sur 3 jours de lumiere vive matinale a plus de 3 000 lux. Ce protocole produit une <strong>avance de 1,5 a 2,1 heures du DLMO</strong> (Dim Light Melatonin Onset) avant meme le depart, reduisant considerablement les symptomes de jet lag a l'arrivee.</p>
+
+      <h3>Le risque antidromique</h3>
+
+      <p>Pour les decalages superieurs a 8 fuseaux horaires, un phenomene paradoxal peut se produire : le <strong>reentrainement antidromique</strong>. Au lieu de s'avancer de 8 heures (voyage vers l'est), l'horloge peut se retarder de 16 heures, empruntant le "chemin le plus long". Ce risque concerne environ <strong>50 % des sujets</strong> lors de grands decalages et peut prolonger les symptomes de plusieurs jours.</p>
+
+      <h3>Approches emergentes</h3>
+
+      <p>Des protocoles de <strong>luminotherapie par flashs pendant le sommeil</strong> sont en cours d'evaluation, avec des resultats prometteurs de 2 a 3 heures de decalage par session sans perturber significativement la continuite du sommeil.</p>
+
+      <p><strong>Paniccia et al. (2024)</strong> ont propose des <strong>protocoles dynamiques personnalises</strong> bases sur la mesure de la melatonine individuelle plutot que sur des horaires fixes. Les resultats montrent une reduction significative de l'insomnie liee au decalage horaire (ISI : -4,64 vs +3,57 dans le groupe controle, p &lt; 0,05).</p>
+
+      <div class="key-box">
+        <strong>Vers l'est : 57 min/jour. Vers l'ouest : 92 min/jour.</strong> L'asymetrie de reentrainement est une consequence directe de la periode endogene de 24,18 heures. Preparer l'horloge avant le depart — lumiere matinale vive pendant 3 jours — est la strategie la plus efficace.
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="article-section animate-in" id="section-6">
+      <div class="section-label">Section 06</div>
+      <h2>Conclusion : trois principes fondamentaux</h2>
+
+      <p>L'ensemble de la litterature converge vers trois principes qui structurent l'utilisation de la lumiere comme outil chronobiologique.</p>
+
+      <h3>1. L'intensite importe moins que le timing et le spectre</h3>
+
+      <p>La relation dose-reponse de la suppression de melatonine suit une courbe sigmoide avec une <strong>demi-reponse a environ 100 lux</strong>. Au-dela de 500 lux, les gains marginaux sont faibles. En revanche, <strong>185 lux de lumiere bleue (467 nm) equivalent a 10 000 lux de lumiere blanche</strong> (Revell 2012). Le spectre et le timing sont les veritables leviers d'action.</p>
+
+      <h3>2. La lumiere naturelle est irreplacable mais approximable</h3>
+
+      <p>Le spectre solaire offre une combinaison d'intensite, de distribution spectrale et de dynamique temporelle qu'aucune source artificielle ne reproduit parfaitement. Cependant, des sources artificielles calibrees (temperature de couleur &ge; 6 500 K, intensite &ge; 250 lux melanopiques) s'en approchent suffisamment pour produire des effets circadiens mesurables.</p>
+
+      <h3>3. La lumiere est un medicament chronobiologique bidirectionnel</h3>
+
+      <p>Comme tout medicament, la lumiere a une <strong>fenetre therapeutique</strong>, une <strong>relation dose-reponse</strong> et des <strong>effets indesirables</strong>. Le matin, elle avance l'horloge et consolide l'eveil. Le soir, elle retarde l'horloge et perturbe l'endormissement. La nuit, elle degrade l'architecture du sommeil et altere le metabolisme — meme a 5 lux.</p>
+
+      <h3>Recommandations pratiques</h3>
+
+      <div class="reco-grid">
+        <div class="reco-card">
+          <div class="reco-value">&ge; 250 lux</div>
+          <div class="reco-label">Le matin, dans les 2h apres le reveil</div>
+        </div>
+        <div class="reco-card">
+          <div class="reco-value">&le; 10 lux</div>
+          <div class="reco-label">3h avant le coucher</div>
+        </div>
+        <div class="reco-card">
+          <div class="reco-value">&le; 1 lux</div>
+          <div class="reco-label">Pendant le sommeil</div>
+        </div>
+      </div>
+
+      <p>Ces seuils ne sont pas arbitraires. Ils derivent de la courbe dose-reponse de la suppression de melatonine, de la sensibilite spectrale de la melanopsine et des etudes polysomnographiques sur l'impact de la lumiere nocturne. Respecter ces trois niveaux, c'est utiliser la lumiere comme un allie plutot que comme un perturbateur.</p>
+    </section>
+
+    <!-- CTA BANNER AURA -->
+    <div class="cta-banner animate-in">
+      <div class="mini-aura">
+        <div class="aura-halo"></div>
+        <div class="aura-ring"></div>
+        <div class="aura-disk"></div>
+        <div class="aura-center"></div>
+      </div>
+      <h3>AURA gere la lumiere pour vous</h3>
+      <p>Simulation d'aube le matin, obscurite protegee la nuit.</p>
+      <p class="cta-sub">Chronobiologie appliquee, sans effort.</p>
+      <a href="aura.html" class="cta-btn">Decouvrir AURA &rarr;</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Les Zintrepreneurs</strong></p>
+  <p>La science du sommeil, appliquee.</p>
+  <div class="footer-links">
+    <a href="recherche.html">Recherche</a>
+    <a href="aura.html">AURA</a>
+    <a href="index.html">Accueil</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+</footer>
+
+<script>
+  // ---- READING TIME ----
+  (function() {
+    const text = document.querySelector('.article-content').innerText;
+    const words = text.trim().split(/\s+/).length;
+    const minutes = Math.ceil(words / 200);
+    const el = document.getElementById('reading-time');
+    if (el) el.textContent = minutes;
+  })();
+
+  // ---- INTERSECTION OBSERVER — TOC HIGHLIGHT ----
+  (function() {
+    const sections = document.querySelectorAll('.article-section[id]');
+    const tocLinks = document.querySelectorAll('[data-section]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === id);
+          });
+        }
+      });
+    }, {
+      rootMargin: '-80px 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => observer.observe(section));
+  })();
+
+  // ---- SMOOTH SCROLL ----
+  document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById(this.getAttribute('data-section'));
+      if (target) {
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---- SCROLL ANIMATIONS (fade-in) ----
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        animObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.animate-in').forEach(el => animObserver.observe(el));
+</script>
+</body>
+</html>

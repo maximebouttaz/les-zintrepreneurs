@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detecter le stade de sommeil sans contact — Les Zintrepreneurs</title>
+    <meta name="description" content="BCG piezoelectrique, radar FMCW 60 GHz et deep learning pour un reveil intelligent. Etude de la technologie derriere AURA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: #333; overflow-x: hidden; font-size: 1.05rem; line-height: 1.9; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 2.5rem; background: rgba(250,250,248,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid #e5e5e5; }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #1A1A1A; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.2s; }
+        .nav-links a:hover { color: #1A1A1A; }
+        .article-wrapper { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+        .article-content { max-width: 720px; width: 100%; padding-top: 100px; padding-bottom: 4rem; }
+        .article-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 1.2rem; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.01em; }
+        .article-subtitle { font-size: 1.1rem; color: #6B6B6B; font-style: italic; margin-bottom: 1rem; font-weight: 400; }
+        .article-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .gradient-line { width: 100px; height: 2px; background: linear-gradient(90deg, #E8934A, #9B6EC6); border: none; margin-bottom: 2.5rem; }
+        .chapeau { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: #1A1A1A; margin-bottom: 3rem; }
+        .article-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+        .article-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.02em; line-height: 1.1; }
+        .article-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #1A1A1A; margin-top: 1.5rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+        .article-section p { margin-bottom: 1.2rem; }
+        .key-box { background: #f5f0eb; border-left: 3px solid; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; }
+        .key-box strong { color: #1A1A1A; }
+        .key-box .key-number { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; display: block; }
+        .highlight-box { background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06)); border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #1A1A1A; }
+        .highlight-box strong { color: #1A1A1A; }
+        .shock-box { background: #1A1A1A; color: #fff; border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+        .shock-box .shock-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; display: block; }
+        .shock-box p { color: #ccc; margin: 0; }
+        .styled-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+        .styled-list li { position: relative; padding: 0.5rem 0 0.5rem 1.4rem; border-bottom: 1px solid #f0f0f0; }
+        .styled-list li:last-child { border-bottom: none; }
+        .styled-list li::before { content: ''; position: absolute; left: 0; top: 1rem; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); }
+        .pathway { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1.2rem 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.02em; color: #6B6B6B; }
+        .pathway .node { background: #f5f0eb; padding: 0.35rem 0.65rem; border-radius: 6px; color: #1A1A1A; font-weight: 700; white-space: nowrap; }
+        .pathway .arrow { color: #E8934A; font-size: 0.9rem; }
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        .data-table th { background: #f5f0eb; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1A1A1A; padding: 0.8rem; text-align: left; font-weight: 700; }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table td { padding: 0.8rem; border-bottom: 1px solid #e5e5e5; color: #333; }
+        .data-table tbody tr:nth-child(even) td { background: #faf8f5; }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .accent-text { color: #E8934A; font-weight: 700; }
+        .accent-purple { color: #9B6EC6; font-weight: 700; }
+        .aura-link { color: #9B6EC6; text-decoration: none; border-bottom: 1px solid rgba(155,110,198,0.3); transition: border-color 0.2s; }
+        .aura-link:hover { border-color: #9B6EC6; }
+        .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #E8934A; margin-bottom: 0.4rem; }
+        .cta-banner { background: #f5f0eb; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 3rem 0; }
+        .cta-banner .mini-aura { width: 150px; height: 150px; margin: 0 auto 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+        .mini-aura .aura-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%); animation: auraPulse 4s ease-in-out infinite; }
+        .mini-aura .aura-ring { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(232,147,74,0.25); animation: auraRotate 12s linear infinite; }
+        .mini-aura .aura-disk { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2)); animation: auraPulse 4s ease-in-out infinite reverse; }
+        .mini-aura .aura-center { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); box-shadow: 0 0 30px rgba(232,147,74,0.3); }
+        @keyframes auraPulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes auraRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .cta-banner h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1A1A1A; margin-bottom: 0.5rem; }
+        .cta-banner p { font-size: 0.9rem; color: #6B6B6B; margin-bottom: 0.3rem; line-height: 1.6; }
+        .cta-banner .cta-sub { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #E8934A, #9B6EC6); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s, transform 0.15s; }
+        .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .toc-sidebar { position: sticky; top: 80px; width: 220px; min-width: 220px; align-self: flex-start; margin-right: 3rem; padding-top: 100px; }
+        .toc-sidebar .toc-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #bbb; margin-bottom: 0.8rem; }
+        .toc-sidebar ul { list-style: none; padding: 0; }
+        .toc-sidebar li { margin-bottom: 0.4rem; }
+        .toc-sidebar a { display: block; font-size: 0.75rem; color: #999; text-decoration: none; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 2px solid transparent; transition: all 0.2s; line-height: 1.4; }
+        .toc-sidebar a:hover { color: #1A1A1A; }
+        .toc-sidebar a.active { color: #1A1A1A; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-left-width: 2px; border-left-style: solid; font-weight: 500; }
+        .toc-mobile { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; padding: 0.8rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e5e5; }
+        .toc-mobile a { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #999; text-decoration: none; padding: 0.3rem 0.8rem; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .toc-mobile a:hover { color: #1A1A1A; }
+        .toc-mobile a.active { color: #1A1A1A; border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1; }
+        footer { background: #f0ede8; border-top: 1px solid #e5e5e5; padding: 3rem 5rem; text-align: center; }
+        footer p { font-size: 0.85rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 0.4rem; }
+        footer p strong { color: #1A1A1A; font-weight: 600; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+        .footer-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #1A1A1A; }
+        .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #999; }
+        .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .toc-sidebar { display: none; } .toc-mobile { display: block; } }
+        @media (max-width: 768px) { nav { padding: 0 1.5rem; } .nav-links { display: none; } .article-wrapper { padding: 0 1.2rem; } .article-content { padding-top: 80px; } footer { padding: 2.5rem 1.5rem; } .cta-banner { padding: 2rem 1.5rem; } }
+        @media (max-width: 480px) { .article-content { padding-top: 75px; } .data-table { font-size: 0.8rem; } .data-table th, .data-table td { padding: 0.6rem 0.5rem; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+        <li><a href="recherche.html">Recherche</a></li>
+        <li><a href="aura.html">AURA</a></li>
+        <li><a href="index.html">Accueil</a></li>
+    </ul>
+</nav>
+
+<div class="article-wrapper">
+
+    <aside class="toc-sidebar">
+        <div class="toc-label">Sommaire</div>
+        <ul>
+            <li><a href="#section1">Le defi sans EEG</a></li>
+            <li><a href="#section2">Capteurs BCG</a></li>
+            <li><a href="#section3">Radar FMCW 60 GHz</a></li>
+            <li><a href="#section4">Signaux par stade</a></li>
+            <li><a href="#section5">Algorithmes</a></li>
+            <li><a href="#section6">Produits existants</a></li>
+            <li><a href="#section7">Architecture AURA</a></li>
+        </ul>
+    </aside>
+
+    <article class="article-content">
+
+        <div class="article-tag">Recherche &middot; Technologie &middot; Sommeil</div>
+        <h1 class="article-title">Detecter le stade de sommeil sans contact : la technologie derriere AURA</h1>
+        <p class="article-subtitle">BCG piezoelectrique, radar FMCW 60 GHz et deep learning pour un reveil intelligent</p>
+        <p class="article-meta"><span id="reading-time"></span> de lecture</p>
+        <hr class="gradient-line">
+
+        <div class="toc-mobile">
+            <a href="#section1">Le defi sans EEG</a>
+            <a href="#section2">Capteurs BCG</a>
+            <a href="#section3">Radar FMCW 60 GHz</a>
+            <a href="#section4">Signaux par stade</a>
+            <a href="#section5">Algorithmes</a>
+            <a href="#section6">Produits existants</a>
+            <a href="#section7">Architecture AURA</a>
+        </div>
+
+        <p class="chapeau">La classification du sommeil sans contact corporel atteint aujourd'hui 87-94 % de precision pour la discrimination binaire sommeil leger/profond — le seul prerequis fonctionnel d'un reveil intelligent. Aucun produit commercial ne combine actuellement staging sous-matelas et simulation d'aube : c'est exactement le creneau qu'AURA occupe.</p>
+
+        <!-- Section 1 -->
+        <section class="article-section animate-in" id="section1">
+            <div class="section-label">Section 01</div>
+            <h2>Le defi — classifier le sommeil sans EEG</h2>
+
+            <p>Depuis les travaux fondateurs de Rechtschaffen et Kales en 1968, la polysomnographie (PSG) constitue le gold standard inconteste de la classification du sommeil. Le protocole impose un minimum de <strong>22 electrodes</strong> reparties sur le scalp, le visage et le thorax du patient, associees a des capteurs de flux nasal, d'oximetrie et de position corporelle. L'ensemble genere environ 1 Go de donnees brutes par nuit d'enregistrement. C'est un outil clinique extraordinaire — mais totalement inadapte a un usage domestique quotidien.</p>
+
+            <p>Ce que beaucoup ignorent, c'est que meme les experts humains ne sont pas d'accord entre eux. L'accord inter-scoreurs, mesure sur les memes tracas polysomnographiques, atteint seulement <strong>82,6 %</strong> avec un coefficient kappa de Cohen de 0,76. Ce chiffre constitue le plafond theorique : aucun algorithme, aussi sophistique soit-il, ne peut pretendre depasser la concordance des annotateurs qui ont genere ses donnees d'entrainement.</p>
+
+            <div class="key-box">
+                <span class="key-number">82,6 %</span>
+                <strong>Accord inter-scoreurs humains</strong> sur la classification PSG en 5 stades — c'est le plafond theorique que tout algorithme automatise tente d'approcher.
+            </div>
+
+            <p>Fort heureusement, un reveil intelligent n'a pas besoin d'une classification complete en cinq stades (Eveil, N1, N2, N3, REM). Son objectif fonctionnel est beaucoup plus modeste : determiner si le dormeur se trouve actuellement en <span class="accent-text">sommeil leger</span> (stades N1 et N2, favorables au reveil) ou en <span class="accent-purple">sommeil profond</span> (N3 et REM, ou un reveil provoque inertie et desorientation).</p>
+
+            <p>Cette simplification binaire a des consequences spectaculaires sur la precision atteignable. Lorsqu'on passe de 4-5 classes a 2 classes (leger vs profond), la precision des systemes sans contact bondit de ~77 % a <strong>87-94 %</strong>. La raison est simple : les confusions les plus frequentes en classification fine — entre N1 et N2, ou entre N2 et REM — deviennent sans objet puisque ces stades sont regroupes dans la meme categorie.</p>
+
+            <ul class="styled-list">
+                <li>Classification 5 stades (W, N1, N2, N3, REM) : precision typique 72-80 %, kappa 0.58-0.65</li>
+                <li>Classification 3 stades (W, NREM, REM) : precision typique 80-88 %, kappa 0.68-0.76</li>
+                <li>Classification 2 stades (leger vs profond) : precision typique <strong>87-94 %</strong>, kappa 0.75-0.85</li>
+                <li>Classification eveil/sommeil : precision typique 93-97 %, kappa 0.82-0.92</li>
+            </ul>
+
+            <div class="key-box">
+                <span class="key-number">87-94 %</span>
+                <strong>Precision de la detection binaire leger/profond</strong> avec fusion multi-capteurs — largement suffisante pour determiner le moment optimal de reveil.
+            </div>
+
+            <p>C'est cette realite mathematique qui rend le projet AURA techniquement viable. Nous n'avons pas besoin de rivaliser avec un laboratoire du sommeil. Nous avons besoin de repondre, avec une fiabilite superieure a 85 %, a une seule question : <em>est-ce le bon moment pour reveiller cette personne ?</em> Et au-dela du reveil, cette detection ouvre la porte a la <a href="etude-modulation-sommeil.html" class="aura-link">modulation active du sommeil profond</a> par stimulation auditive ou thermique.</p>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="article-section animate-in" id="section2">
+            <div class="section-label">Section 02</div>
+            <h2>Capteurs BCG piezoelectriques — le coeur du systeme</h2>
+
+            <p>La ballistocardiographie (BCG) est une technique de mesure centenaire, decrite pour la premiere fois par Gordon en 1877, qui connait un renouveau spectaculaire grace a la miniaturisation des capteurs. Son principe est elegamment simple : a chaque battement cardiaque, l'ejection du sang dans l'aorte genere une <strong>force de recul</strong> mesurable sur l'ensemble du corps. Place sous le matelas, un capteur BCG detecte ces micro-deplacements transmis a travers la literie.</p>
+
+            <p>Le signal BCG brut contient deux informations physiologiques superposees. Le <strong>signal cardiaque</strong> occupe la bande de frequences 1-25 Hz, avec une energie maximale autour de 7-12 Hz. Le <strong>signal respiratoire</strong>, quant a lui, se situe en-dessous de 0,5 Hz. La separation de ces deux composantes s'effectue par filtrage numerique de type Butterworth, un choix classique en traitement du signal biomedicale qui garantit une reponse en frequence maximalement plate dans la bande passante.</p>
+
+            <h3>Films PVDF : la revolution piezoelectrique</h3>
+
+            <p>Les films de polyfluorure de vinylidene (PVDF) representent l'avancee technologique decisive pour la BCG sous-matelas. Contrairement aux capteurs de pression resistifs (FSR) qui mesurent une force statique, les films PVDF generent directement une tension proportionnelle a la <em>variation</em> de contrainte mecanique. Resultat : des signaux <strong>1000 fois plus intenses</strong> que ceux des accelerometres conventionnels, avec un rapport signal/bruit naturellement superieur.</p>
+
+            <p>Leur cout de fabrication est remarquablement faible : entre <strong>2 et 20 dollars</strong> par element capteur selon la surface et l'epaisseur du film. Un dispositif sous-matelas complet utilise typiquement 2 a 4 elements disposes en matrice pour couvrir la zone thoracique independamment de la position du dormeur.</p>
+
+            <h3>Accelerometres MEMS : l'alternative numerique</h3>
+
+            <p>Les accelerometres MEMS (Micro-Electro-Mechanical Systems) offrent une approche complementaire. Le modele de reference dans la litterature est l'Analog Devices ADXL355, un accelerometre 3 axes a faible bruit (22.5 ug/rtHz) qui atteint une erreur absolue moyenne (MAE) de seulement <strong>2,24 bpm</strong> pour la frequence cardiaque extraite du signal BCG. Son integration numerique simplifie considerablement la chaine d'acquisition.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type de capteur</th>
+                            <th>Precision FC</th>
+                            <th>Cout unitaire</th>
+                            <th>Avantage principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Film PVDF</strong></td>
+                            <td>MAE 1.5-3 bpm</td>
+                            <td>2-20 $</td>
+                            <td>Signal 1000x plus fort, excellent SNR</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MEMS (ADXL355)</strong></td>
+                            <td>MAE 2.24 bpm</td>
+                            <td>15-25 $</td>
+                            <td>Integration numerique, 3 axes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FSR (resistif)</strong></td>
+                            <td>MAE 4-8 bpm</td>
+                            <td>1-5 $</td>
+                            <td>Cout minimal, simplicite</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-box">
+                <span class="key-number">2-20 $</span>
+                <strong>Cout unitaire d'un capteur piezoelectrique PVDF</strong> — rendant economiquement viable un dispositif grand public de haute precision.
+            </div>
+
+            <p>La principale limitation du BCG sous-matelas concerne l'attenuation du signal par certains types de literie. Les matelas a memoire de forme, en particulier, absorbent une fraction significative de l'energie mecanique. Cette attenuation est previsible et modelisable, mais elle justifie l'ajout d'une seconde modalite de mesure pour garantir la robustesse du systeme. Une approche complementaire consiste a utiliser un <a href="etude-brassard-sommeil.html" class="aura-link">brassard PPG au biceps</a>, qui offre un signal physiologique direct independant du type de literie.</p>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="article-section animate-in" id="section3">
+            <div class="section-label">Section 03</div>
+            <h2>Radar FMCW 60 GHz — la modalite complementaire</h2>
+
+            <p>Le radar a onde continue modulee en frequence (FMCW, Frequency-Modulated Continuous Wave) dans la bande 60 GHz represente la seconde revolution technologique qui rend possible le staging du sommeil sans contact. Avec une longueur d'onde d'environ <strong>5 mm</strong>, ces radars millimetriques detectent des deplacements de l'ordre de quelques dizaines de micrometres — largement suffisant pour capter les mouvements de la paroi thoracique lies a la respiration (amplitude ~5 mm) et a l'activite cardiaque (amplitude ~0,5 mm).</p>
+
+            <p>L'avantage fondamental du radar sur le BCG tient en un mot : la <strong>penetration</strong>. Les ondes millimetriques traversent uniformement tous les types de matelas — mousse, latex, ressorts ensaches — sans attenuation significative. La ou le signal BCG peut etre divise par 10 dans un matelas a memoire de forme haut de gamme, le radar maintient une qualite de signal constante independamment de la literie.</p>
+
+            <h3>Composants de reference</h3>
+
+            <p>Deux circuits integres dominent le marche du radar 60 GHz pour applications de sensing :</p>
+
+            <ul class="styled-list">
+                <li><strong>Infineon BGT60TR13C</strong> : 1 antenne d'emission, 3 antennes de reception, consommation de seulement 5 mW en mode duty-cycle. Cout en volume : 5-8 $. C'est le composant le plus utilise dans les applications de monitoring vital sans contact.</li>
+                <li><strong>Texas Instruments IWR6843</strong> : integre un processeur DSP ARM Cortex-R4F pour le traitement du signal directement sur la puce. Plus couteux (12-18 $) mais elimine le besoin d'un microcontroleur externe pour le pre-traitement.</li>
+            </ul>
+
+            <h3>Pipeline de traitement du signal radar</h3>
+
+            <p>Le traitement du signal radar FMCW suit un pipeline bien etabli dans la litterature. Le signal brut, echantillonne a plusieurs centaines de kHz, est d'abord soumis a une transformee de Fourier rapide (FFT) pour isoler la distance exacte du sujet. La phase du signal a cette distance specifique contient l'information de deplacement. L'extraction de phase, suivie d'un deroulement (phase unwrapping) pour eliminer les discontinuites, produit un signal continu proportionnel au deplacement de la paroi thoracique. Un filtrage passe-bande final separe les composantes respiratoire et cardiaque.</p>
+
+            <div class="pathway">
+                <span class="node">Signal radar brut</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">FFT de portee</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Extraction de phase</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Deroulement</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Filtrage passe-bande</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Respiration + Cardiaque</span>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Defi technique majeur :</strong> le signal cardiaque extrait du radar est typiquement <strong>10 fois plus faible</strong> que le signal respiratoire. Sa detection fiable necessite des techniques avancees de separation — decomposition en valeurs singulieres (SVD), estimation adaptative de sous-espace, ou plus recemment, reseaux de neurones convolutifs entraines specifiquement sur la separation cardio-respiratoire.
+            </div>
+
+            <p>La combinaison BCG + radar constitue une fusion de capteurs particulierement robuste. Le BCG excelle pour l'extraction cardiaque (signal naturellement fort), tandis que le radar excelle pour la respiration et la detection de mouvement (insensible au type de matelas). Leurs modes de defaillance sont largement decoreles : un echec du BCG (matelas epais) ne compromet pas le radar, et inversement (interference electromagnetique locale).</p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="article-section animate-in" id="section4">
+            <div class="section-label">Section 04</div>
+            <h2>Signaux physiologiques par stade de sommeil</h2>
+
+            <p>La classification du sommeil sans EEG repose sur une observation fondamentale : chaque stade de sommeil possede une <strong>signature cardiorespiratoire</strong> distinctive. Si les differences sont parfois subtiles entre stades adjacents, elles deviennent statistiquement robustes lorsqu'on analyse conjointement plusieurs parametres sur des fenetres temporelles de 30 a 120 secondes.</p>
+
+            <h3>Variabilite de la frequence cardiaque (HRV)</h3>
+
+            <p>La HRV est sans doute le marqueur le plus informatif accessible par BCG. Le parametre RMSSD (Root Mean Square of Successive Differences) mesure la variabilite battement a battement et reflete principalement l'activite du systeme nerveux parasympathique. Sa valeur atteint un <strong>maximum en sommeil profond N3</strong>, traduisant la dominance vagale caracteristique de ce stade.</p>
+
+            <p>Le ratio LF/HF (basses frequences / hautes frequences) de la HRV fournit une information complementaire sur l'equilibre sympatho-vagal. Il chute de maniere caracteristique de <strong>4,0 en eveil</strong> a <strong>1,22 en NREM</strong>, signant la transition vers une regulation parasympathique dominante. En REM, ce ratio remonte partiellement, refletant la reactivation sympathique intermittente propre a ce stade.</p>
+
+            <p>Fait remarquable : la correlation entre le RMSSD calcule a partir du BCG sous-matelas et celui derive de l'ECG clinique atteint un coefficient de determination <strong>r&sup2; = 0,91</strong>. Cette concordance elevee valide l'utilisation du BCG comme proxy fiable de la HRV clinique.</p>
+
+            <h3>Frequence respiratoire et variabilite</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Stade</th>
+                            <th>Freq. resp. (cpm)</th>
+                            <th>Variabilite resp.</th>
+                            <th>RMSSD (ms)</th>
+                            <th>LF/HF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Eveil</strong></td>
+                            <td>14-20</td>
+                            <td>Elevee</td>
+                            <td>25-45</td>
+                            <td>3.5-4.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>N1</strong></td>
+                            <td>13-17</td>
+                            <td>Moderee</td>
+                            <td>30-50</td>
+                            <td>2.5-3.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>N2</strong></td>
+                            <td>12-16</td>
+                            <td>Faible</td>
+                            <td>35-60</td>
+                            <td>1.5-2.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>N3</strong></td>
+                            <td>11-14</td>
+                            <td>Tres faible</td>
+                            <td>45-80</td>
+                            <td>1.0-1.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>REM</strong></td>
+                            <td>13-19</td>
+                            <td>Elevee (irreguliere)</td>
+                            <td>28-55</td>
+                            <td>2.0-3.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Densite de mouvements corporels</h3>
+
+            <p>Les mouvements corporels, detectes aussi bien par le BCG que par le radar, suivent un gradient previsible selon les stades. La densite de mouvements — nombre d'episodes de mouvement par epoque de 30 secondes — obeit a la hierarchie suivante :</p>
+
+            <div class="pathway">
+                <span class="node">Eveil (max)</span>
+                <span class="arrow">&raquo;</span>
+                <span class="node">N1</span>
+                <span class="arrow">&gt;</span>
+                <span class="node">N2</span>
+                <span class="arrow">&gt;</span>
+                <span class="node">REM</span>
+                <span class="arrow">&gt;</span>
+                <span class="node">N3 (min)</span>
+            </div>
+
+            <p>L'atonie musculaire du sommeil paradoxal (REM) produit une quasi-absence de mouvements volontaires, facilitant sa discrimination du sommeil leger N1/N2 ou les ajustements posturaux restent frequents. Le sommeil profond N3, en revanche, se caracterise par une immobilite presque totale du corps.</p>
+
+            <p>C'est la <strong>fusion</strong> des informations cardiaques et respiratoires qui permet d'atteindre les precisions les plus elevees. Chaque modalite seule plafonne a 80-85 % pour la classification binaire. Combinee, leur complementarite statistique ajoute systematiquement 5 a 10 points de pourcentage de precision.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">94 %</span>
+                <p>Precision de la discrimination NREM vs REM avec fusion cardiorespiratoire (kappa = 0,790) — validee sur cohortes cliniques multi-sites.</p>
+            </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="article-section animate-in" id="section5">
+            <div class="section-label">Section 05</div>
+            <h2>Algorithmes — du SVM au deep learning zero-shot</h2>
+
+            <p>L'evolution des algorithmes de staging du sommeil sans contact reflète fidelement celle du machine learning au cours de la derniere decennie. Chaque generation de methodes a repousse les limites de precision, jusqu'aux approches actuelles de transfert zero-shot qui eliminent le besoin de collecter des datasets BCG annotes a grande echelle.</p>
+
+            <h3>Approches classiques : SVM et forets aleatoires</h3>
+
+            <p>Les premiers systemes de classification automatique reposaient sur des machines a vecteurs de support (SVM) avec noyau a fonction de base radiale (RBF). A partir d'un ensemble de features manuellement extraites — moyenne et ecart-type de l'intervalle RR, parametres spectraux de la HRV, variabilite respiratoire — ces modeles atteignent <strong>69 %</strong> de precision avec un kappa de 0,49 en classification a 4 stades. En reduisant a 3 classes (eveil, NREM, REM), la precision monte a <strong>85 %</strong> avec un kappa de 0,74.</p>
+
+            <p>Ces performances, bien que modestes en classification fine, sont deja fonctionnellement suffisantes pour un reveil intelligent. Mais la recherche a poursuivi sa course vers des modeles plus precis et surtout plus generalistes.</p>
+
+            <h3>Deep learning : CNN + biLSTM</h3>
+
+            <p>L'association de reseaux convolutifs (CNN) pour l'extraction automatique de features et de reseaux recurrents bidirectionnels (biLSTM) pour la modelisation temporelle a marque un saut qualitatif. Les travaux de Radha et al. demontrent qu'un modele CNN + biLSTM entraine sur le HRV seul atteint <strong>77 %</strong> de precision avec un kappa de 0,61 en classification a 4 stades — une amelioration notable sans aucun ajout d'information supplementaire.</p>
+
+            <p>L'etude de Sun et al., menee au Massachusetts General Hospital sur un dataset massif de <strong>7 208 patients</strong>, a constitue un jalon majeur. Leur modele atteint un kappa de 0,585 en 5 classes et <strong>0,760 en 3 classes</strong>, avec une generalisation validee sur des populations externes. C'est la premiere demonstration a grande echelle que le staging cardiorespiratoire sans contact peut approcher les performances cliniques.</p>
+
+            <h3>SleepNetZero : le transfert zero-shot</h3>
+
+            <p>L'avancee la plus recente et la plus pertinente pour AURA est l'approche <strong>SleepNetZero</strong>, publiee en 2024. Ce modele est entraine exclusivement sur des donnees PSG (12 393 polysomnographies) en utilisant uniquement les canaux cardiorespiratoires. Une fois entraine, il est applique directement — sans aucun reentrainement — aux signaux BCG sous-matelas. Le resultat : <strong>80,3 %</strong> de precision en classification a 4 stades avec un kappa de 0,718.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre de classes</th>
+                            <th>Classification</th>
+                            <th>Precision</th>
+                            <th>Kappa</th>
+                            <th>Pertinence AURA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2 (eveil/sommeil)</td>
+                            <td>Eveil vs Sommeil</td>
+                            <td>93-97 %</td>
+                            <td>0.82-0.92</td>
+                            <td>Baseline</td>
+                        </tr>
+                        <tr>
+                            <td>2 (leger/profond)</td>
+                            <td>N1-N2 vs N3-REM</td>
+                            <td>87-94 %</td>
+                            <td>0.75-0.85</td>
+                            <td class="accent-text">Cible principale</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>W, NREM, REM</td>
+                            <td>80-88 %</td>
+                            <td>0.68-0.76</td>
+                            <td>Suivi avance</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>W, Leger, Profond, REM</td>
+                            <td>75-83 %</td>
+                            <td>0.60-0.72</td>
+                            <td>Hypnogramme</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>W, N1, N2, N3, REM</td>
+                            <td>72-80 %</td>
+                            <td>0.58-0.65</td>
+                            <td>Recherche</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-box">
+                <span class="key-number">SleepNetZero</span>
+                <strong>Elimine le besoin d'un dataset BCG annote massif</strong> grace au transfer learning. Le modele s'entraine sur des PSG cliniques et se transfere directement aux signaux BCG sans reentrainement.
+            </div>
+
+            <p>Cette approche est strategiquement decisive pour AURA. Collecter et annoter des milliers de nuits de BCG simultanement avec une PSG de reference representerait un cout prohibitif pour une startup. SleepNetZero demontre qu'on peut s'appuyer sur les immenses bases de donnees PSG deja existantes (Sleep Heart Health Study, MESA, SHHS) pour entrainer un modele directement deployable sur un capteur sous-matelas.</p>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="article-section animate-in" id="section6">
+            <div class="section-label">Section 06</div>
+            <h2>Analyse des produits existants</h2>
+
+            <p>Le paysage concurrentiel des dispositifs de suivi du sommeil revele un constat frappant : aucun produit commercial ne combine a ce jour un staging sous-matelas fiable <em>et</em> un systeme de reveil physiologique par simulation d'aube. Examinons les forces et faiblesses de chaque acteur.</p>
+
+            <h3>Withings Sleep Analyzer</h3>
+
+            <p>Le dispositif de Withings est probablement le capteur sous-matelas le plus repandu. Il utilise un capteur piezoelectrique pneumatique et rapporte une precision de <strong>83-89 %</strong> pour la detection eveil/sommeil. Cependant, en classification a 4 stades (eveil, leger, profond, REM), la precision validee independamment chute a <strong>63 %</strong> avec un kappa de seulement 0,49. Plus problematique : le dispositif surestime systematiquement la duree du sommeil leger de <strong>+81 minutes</strong> en moyenne, un biais qui fausse considerablement l'hypnogramme affiche a l'utilisateur.</p>
+
+            <h3>Emfit QS</h3>
+
+            <p>Emfit utilise un film ferroelectret a haute sensibilite. Malgre un hardware de qualite, les performances validees sont decevantes : un kappa de <strong>0,13 seulement</strong> pour le staging, et un taux de perte de donnees atteignant <strong>47 %</strong> des epoques enregistrees. Ces chiffres suggerent des problemes algorithmiques plutot que materiels.</p>
+
+            <h3>Eight Sleep Pod</h3>
+
+            <p>Eight Sleep revendique une precision de <strong>78 %</strong> pour la classification du sommeil, mais n'a publie aucune validation independante dans la litterature peer-reviewed. Le produit se positionne davantage sur la regulation thermique du sommeil que sur le staging precis, et son prix (2 000-2 500 $) le place dans un segment tres different d'AURA.</p>
+
+            <h3>Google Nest Hub 2</h3>
+
+            <p>Le Nest Hub de seconde generation integre le radar Soli (60 GHz) et beneficie de la puissance de calcul cloud de Google avec plus de <strong>100 000 heures</strong> d'entrainement. C'est probablement le meilleur rapport qualite-precision du marche pour le suivi du sommeil par radar. Sa limitation : il ne propose ni reveil intelligent ni simulation d'aube, et sa portee est limitee a la table de nuit (angle de detection restreint).</p>
+
+            <h3>Dreem 2/3 (EEG sec)</h3>
+
+            <p>Les bandeaux Dreem representent le plafond de precision consumer. Utilisant des electrodes seches EEG, ils atteignent <strong>83,5 %</strong> de precision avec un kappa de 0,75 en 5 stades — des performances quasi-cliniques. Mais ils imposent le port d'un bandeau, ce qui constitue un compromis d'ergonomie que de nombreux utilisateurs refusent a long terme (taux d'abandon de 30-40 % a 3 mois).</p>
+
+            <div class="highlight-box">
+                <strong>Constat strategique :</strong> aucun concurrent ne combine un staging sous-matelas fiable ET une simulation d'aube intelligente. Withings et Emfit font du staging sans reveil adaptatif. Les simulateurs d'aube existants (Philips, Lumie) font de la lumiere sans staging. AURA est le premier produit a fusionner les deux dans un dispositif unique.
+            </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="article-section animate-in" id="section7">
+            <div class="section-label">Section 07</div>
+            <h2>L'architecture AURA — fusion multi-capteurs</h2>
+
+            <p>AURA integre <strong>quatre modalites</strong> de captation dans un systeme unifie concu pour maximiser la precision du staging tout en minimisant l'intrusion dans l'environnement du dormeur. Chaque modalite apporte une information complementaire et non-redondante.</p>
+
+            <ul class="styled-list">
+                <li><strong>BCG piezoelectrique (PVDF)</strong> — extraction de la frequence cardiaque, de la HRV et des micro-mouvements corporels</li>
+                <li><strong>Radar FMCW 60 GHz</strong> — respiration, mouvements thoraciques sub-millimetriques, detection de presence</li>
+                <li><strong>Microphone MEMS</strong> — detection du ronflement, analyse des patterns respiratoires audibles, apnees</li>
+                <li><strong>Capteur de temperature</strong> — suivi de la temperature ambiante et de la dynamique thermique du lit (proxy de la thermoregulation)</li>
+            </ul>
+
+            <h3>Precision cible</h3>
+
+            <p>L'objectif de precision vise par AURA est calibre sur les performances demontrees dans la litterature pour des systemes a fusion multi-capteurs :</p>
+
+            <ul class="styled-list">
+                <li>Classification 3 stades (eveil, NREM, REM) : <span class="accent-text">85-92 %</span></li>
+                <li>Classification 4 stades (eveil, leger, profond, REM) : <span class="accent-purple">78-85 %</span></li>
+                <li>Classification binaire leger/profond (cible fonctionnelle) : <strong>90 %+</strong></li>
+            </ul>
+
+            <h3>Algorithme smart alarm en 2 couches</h3>
+
+            <p>Le reveil intelligent d'AURA fonctionne selon une architecture a deux couches complementaires :</p>
+
+            <p><strong>Couche 1 — Prediction continue du stade :</strong> Un reseau CNN + biLSTM traite en continu les flux de donnees fusionnes des 4 capteurs. Le modele produit une prediction de stade toutes les 30 secondes, avec un score de confiance associe. L'architecture biLSTM est essentielle car elle exploite le contexte temporel dans les deux directions : les stades de sommeil suivent des patterns cycliques previsibles (cycles de 90 minutes) que le modele apprend a anticiper.</p>
+
+            <p><strong>Couche 2 — Fenetre de reveil intelligente :</strong> L'utilisateur definit une heure de reveil souhaitee. AURA ouvre automatiquement une <strong>fenetre de 30 minutes</strong> avant cette heure. Des que le systeme detecte une transition vers un stade de sommeil leger (N1 ou N2) a l'interieur de cette fenetre, la rampe d'aube est declenchee. En parallele, la detection du N3 permet de declencher des <a href="etude-sons-roses-stage-gated.html" class="aura-link">sons roses stage-gated</a> pour renforcer l'activite des ondes lentes. Si aucune transition n'est detectee, le reveil se declenche a l'heure programmee pour garantir la ponctualite.</p>
+
+            <div class="pathway">
+                <span class="node">Capteurs (x4)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Fusion</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">CNN + biLSTM</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Stade predit</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Fenetre reveil</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Rampe d'aube</span>
+            </div>
+
+            <h3>Calibration implicite</h3>
+
+            <p>AURA effectue une calibration automatique et transparente sur les <strong>1 a 3 premieres nuits</strong> d'utilisation. Durant cette phase, le systeme etablit les baselines individuelles du dormeur : frequence cardiaque de repos, pattern respiratoire habituel, niveau de mouvement moyen par stade. Cette personnalisation est essentielle car la variabilite inter-individuelle de ces parametres est considerable — la frequence cardiaque de repos varie de 45 a 85 bpm selon les individus.</p>
+
+            <h3>Rampe lumineuse optimale</h3>
+
+            <p>La simulation d'aube suit un profil <strong>logarithmique de 30 minutes</strong>, calibre sur les etudes de chronobiologie demontrant l'efficacite maximale d'une augmentation progressive de la luminosite pour la suppression de la melatonine et l'activation du systeme circadien. La progression spectrale suit la sequence naturelle de l'aube :</p>
+
+            <div class="pathway">
+                <span class="node">Rouge profond (630 nm)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Orange (590 nm)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Ambre (570 nm)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Blanc chaud (2700K)</span>
+            </div>
+
+            <p>Le demarrage en rouge profond est delibere : les longueurs d'onde superieures a 600 nm ne stimulent pas significativement les cellules ganglionnaires a melanopsine de la retine, evitant une suppression premature de la melatonine. La transition progressive vers le blanc chaud ne declenche la reponse circadienne complete qu'en fin de rampe, lorsque le dormeur a deja traverse les phases d'allegement du sommeil.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">0 contact</span>
+                <p>Aucun bracelet, aucun bandeau. AURA detecte votre sommeil depuis sous le matelas, sans que vous ne sentiez quoi que ce soit.</p>
+            </div>
+
+            <p>C'est cette integration complete — capteurs invisibles, intelligence algorithmique, et stimulation lumineuse physiologiquement optimisee — qui distingue AURA de toutes les solutions existantes. Le produit ne demande rien a l'utilisateur, ne le gene pas, et transforme silencieusement chaque reveil en un reveil au bon moment, de la bonne maniere.</p>
+        </section>
+
+        <!-- CTA Banner -->
+        <div class="cta-banner animate-in">
+            <div class="mini-aura">
+                <div class="aura-halo"></div>
+                <div class="aura-ring"></div>
+                <div class="aura-disk"></div>
+                <div class="aura-center"></div>
+            </div>
+            <h3>La technologie au service de votre sommeil</h3>
+            <p>Staging multi-capteurs. Reveil au moment parfait.</p>
+            <p class="cta-sub">A partir de 149 EUR &middot; Livraison estimee septembre 2026</p>
+            <a href="aura.html" class="cta-btn">Pre-commander AURA &rarr;</a>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    <p><strong>Les Zintrepreneurs</strong></p>
+    <p>Projets innovants, finances par la communaute.</p>
+    <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="recherche.html">Recherche</a>
+        <a href="aura.html">AURA</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+</footer>
+
+<script>
+    // Reading time calculation
+    (function() {
+        const text = document.querySelector('.article-content').innerText;
+        const words = text.trim().split(/\s+/).length;
+        const minutes = Math.ceil(words / 230);
+        document.getElementById('reading-time').textContent = minutes + ' min';
+    })();
+
+    // IntersectionObserver for TOC active states
+    (function() {
+        const sections = document.querySelectorAll('.article-section');
+        const sidebarLinks = document.querySelectorAll('.toc-sidebar a');
+        const mobileLinks = document.querySelectorAll('.toc-mobile a');
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    sidebarLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                    mobileLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    })();
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc-sidebar a, .toc-mobile a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Fade-in animations
+    (function() {
+        var animItems = document.querySelectorAll('.animate-in');
+        var animObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animItems.forEach(function(item) {
+            animObserver.observe(item);
+        });
+    })();
+</script>
+
+</body>
+</html>

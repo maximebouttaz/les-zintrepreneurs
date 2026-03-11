@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le spectre lumineux optimal pour se reveiller en forme — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFAF8;
+      color: #333;
+      overflow-x: hidden;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 2.5rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1A1A1A; }
+
+    /* ARTICLE LAYOUT */
+    .article-wrapper {
+      display: flex;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .article-content {
+      max-width: 720px;
+      width: 100%;
+      padding-top: 100px;
+      padding-bottom: 4rem;
+    }
+
+    /* HEADER */
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: #6B6B6B;
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .article-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+
+    .gradient-line {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+      border: none;
+      margin-bottom: 2.5rem;
+    }
+
+    /* CHAPEAU */
+    .chapeau {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #1A1A1A;
+      margin-bottom: 3rem;
+    }
+
+    /* SECTIONS */
+    .article-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    .article-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .article-section h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: #1A1A1A;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .article-section p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* ENCADRES CHIFFRES CLES */
+    .key-box {
+      background: #f5f0eb;
+      border-left: 3px solid;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .key-box strong {
+      color: #1A1A1A;
+    }
+
+    .key-box .key-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      line-height: 1;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06));
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #1A1A1A;
+    }
+
+    .highlight-box strong {
+      color: #1A1A1A;
+    }
+
+    /* LISTES STYLEES */
+    .styled-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .styled-list li:last-child { border-bottom: none; }
+
+    .styled-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+    }
+
+    .accent-text {
+      color: #E8934A;
+      font-weight: 700;
+    }
+
+    .aura-link {
+      color: #9B6EC6;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(155,110,198,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .aura-link:hover {
+      border-color: #9B6EC6;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: #f5f0eb;
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-banner .mini-aura {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-aura .aura-halo {
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%);
+      animation: auraPulse 4s ease-in-out infinite;
+    }
+
+    .mini-aura .aura-ring {
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 2px solid rgba(232,147,74,0.25);
+      animation: auraRotate 12s linear infinite;
+    }
+
+    .mini-aura .aura-disk {
+      position: absolute;
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2));
+      animation: auraPulse 4s ease-in-out infinite reverse;
+    }
+
+    .mini-aura .aura-center {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      box-shadow: 0 0 30px rgba(232,147,74,0.3);
+    }
+
+    @keyframes auraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @keyframes auraRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-banner h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #1A1A1A;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-banner p {
+      font-size: 0.9rem;
+      color: #6B6B6B;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* SIDEBAR TOC */
+    .toc-sidebar {
+      position: sticky;
+      top: 80px;
+      width: 200px;
+      min-width: 200px;
+      align-self: flex-start;
+      margin-right: 3rem;
+      padding-top: 100px;
+    }
+
+    .toc-sidebar .toc-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #bbb;
+      margin-bottom: 0.8rem;
+    }
+
+    .toc-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-sidebar li {
+      margin-bottom: 0.4rem;
+    }
+
+    .toc-sidebar a {
+      display: block;
+      font-size: 0.75rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0 0.3rem 0.8rem;
+      border-left: 2px solid transparent;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .toc-sidebar a:hover {
+      color: #1A1A1A;
+    }
+
+    .toc-sidebar a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-left-width: 2px;
+      border-left-style: solid;
+      font-weight: 500;
+    }
+
+    /* MOBILE TOC */
+    .toc-mobile {
+      display: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      padding: 0.8rem 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .toc-mobile a {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0.8rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .toc-mobile a:hover { color: #1A1A1A; }
+
+    .toc-mobile a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede8;
+      border-top: 1px solid #e5e5e5;
+      padding: 3rem 5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+
+    footer p strong { color: #1A1A1A; font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #1A1A1A; }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #999;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .toc-sidebar { display: none; }
+      .toc-mobile { display: block; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrapper { padding: 0 1.2rem; }
+      .article-content { padding-top: 80px; }
+      footer { padding: 2.5rem 1.5rem; }
+      .cta-banner { padding: 2rem 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .article-content { padding-top: 75px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+  <ul class="nav-links">
+    <li><a href="recherche.html">Recherche</a></li>
+    <li><a href="aura.html">AURA</a></li>
+    <li><a href="index.html">Accueil</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<div class="article-wrapper">
+
+  <!-- SIDEBAR TOC (desktop) -->
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <div class="toc-label">Sommaire</div>
+    <ul>
+      <li><a href="#section-1" data-section="section-1">La melanopsine</a></li>
+      <li><a href="#section-2" data-section="section-2">Temperature de couleur</a></li>
+      <li><a href="#section-3" data-section="section-3">Courbe dose-reponse</a></li>
+      <li><a href="#section-4" data-section="section-4">Lumiere naturelle</a></li>
+      <li><a href="#section-5" data-section="section-5">Timing optimal</a></li>
+    </ul>
+  </aside>
+
+  <!-- ARTICLE -->
+  <main class="article-content">
+
+    <!-- HEADER -->
+    <header class="animate-in">
+      <div class="article-tag">RECHERCHE &middot; LUMIERE &middot; SOMMEIL</div>
+      <h1 class="article-title">Le spectre lumineux optimal pour se reveiller en forme</h1>
+      <p class="article-subtitle">Melanopsine, temperature de couleur et timing matinal : ce que la science recommande</p>
+      <div class="article-meta">Temps de lecture : 8 min &middot; Mars 2026</div>
+      <hr class="gradient-line">
+    </header>
+
+    <!-- MOBILE TOC -->
+    <div class="toc-mobile" id="toc-mobile">
+      <a href="#section-1" data-section="section-1">Melanopsine</a>
+      <a href="#section-2" data-section="section-2">Temperature</a>
+      <a href="#section-3" data-section="section-3">Dose-reponse</a>
+      <a href="#section-4" data-section="section-4">Lumiere naturelle</a>
+      <a href="#section-5" data-section="section-5">Timing</a>
+    </div>
+
+    <!-- CHAPEAU -->
+    <div class="chapeau animate-in">
+      La lumiere est le synchroniseur le plus puissant de l'horloge biologique humaine. Une exposition matinale a une lumiere bleue enrichie (&ge;6 500 K, 460&ndash;490 nm) d'au moins 250 lux melanopiques pendant 30 minutes apres le reveil constitue le protocole optimal pour s'eveiller en forme et consolider l'architecture du sommeil.
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="article-section animate-in" id="section-1">
+      <h2>1. La melanopsine : le photopigment du reveil</h2>
+
+      <p>Au fond de la retine se cache une population discrete mais decisive de cellules : les <strong>cellules ganglionnaires intrinsequement photosensibles</strong> (ipRGC). Elles ne representent que <span class="accent-text">0,4 a 1,5 %</span> de l'ensemble des cellules ganglionnaires retiniennes, mais elles controlent l'integralite du photoentrainement circadien &mdash; la capacite du cerveau a synchroniser son horloge interne sur le cycle jour/nuit.</p>
+
+      <p>Leur arme secrete : la <strong>melanopsine</strong>, un photopigment dont la sensibilite maximale se situe autour de <strong>480 nm</strong>, en plein dans le bleu-cyan. Contrairement aux cones et batonnets classiques qui servent a la vision, la melanopsine envoie un signal direct au noyau suprachiasmatique (SCN), le chef d'orchestre de l'<a href="etude-lumiere-cycles.html" class="aura-link">horloge biologique</a>.</p>
+
+      <p>L'etude de <strong>St Hilaire et al. (2022)</strong>, publiee dans <em>PNAS</em> et menee sur 100 sujets, a permis de determiner avec une precision inedite les longueurs d'onde les plus efficaces. Resultat : la suppression maximale de la melatonine survient a <strong>481 nm</strong>, et le recalage circadien optimal a <strong>483 nm</strong>. Deux valeurs remarquablement proches du pic de sensibilite theorique de la melanopsine.</p>
+
+      <div class="key-box">
+        <span class="key-number">481 nm</span>
+        <strong>La longueur d'onde qui controle votre reveil.</strong> C'est la lumiere bleu-cyan, au pic de sensibilite de la melanopsine, qui supprime le plus efficacement la melatonine et recale l'horloge biologique.
+      </div>
+
+      <p>Ces decouvertes expliquent pourquoi la lumiere du matin &mdash; naturellement riche en courtes longueurs d'onde &mdash; est un eveilleur si puissant, et pourquoi les ecrans le soir (riches en bleu) perturbent le sommeil.</p>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="article-section animate-in" id="section-2">
+      <h2>2. Temperature de couleur : le froid l'emporte</h2>
+
+      <p>La temperature de couleur, exprimee en kelvins (K), traduit la composition spectrale d'une source lumineuse. Une ampoule chaude (2 700 K) emet une lumiere jaunatre, pauvre en bleu. Une lumiere froide (&ge;6 500 K) contient bien plus de rayonnement a courtes longueurs d'onde &mdash; exactement ce que la melanopsine recherche.</p>
+
+      <p>L'etude de <strong>Choi et al. (2019)</strong>, publiee dans <em>Scientific Reports</em> et menee sur 15 sujets, a compare directement l'effet d'une lumiere a 6 500 K contre 3 500 K. Le resultat est sans appel : la suppression de la melatonine etait <strong>significativement superieure</strong> a 6 500 K (Z = &minus;2,93 ; p = 0,003).</p>
+
+      <p>Ces resultats individuels sont confortes par la <strong>meta-analyse de Mu et al. (2022)</strong>, qui a synthetise l'ensemble de la litterature disponible. La lumiere froide surpasse la lumiere chaude tant sur la <strong>vigilance subjective</strong> (SMD = &minus;0,37) que sur la <strong>vigilance objective</strong> (SMD = &minus;0,36) &mdash; des tailles d'effet modestes mais consistantes.</p>
+
+      <div class="key-box">
+        <span class="key-number">6 500 K</span>
+        <strong>Minimum pour un reveil optimal.</strong> En dessous de ce seuil, la lumiere ne contient pas assez de bleu-cyan pour activer pleinement la melanopsine et supprimer la melatonine residuelle.
+      </div>
+
+      <p>En pratique, la plupart des ampoules domestiques (2 700&ndash;3 000 K) sont donc physiologiquement inadaptees au reveil. Il faut viser au minimum 6 500 K &mdash; ce que procurent les lampes de luminotherapie et, bien sur, la lumiere naturelle.</p>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="article-section animate-in" id="section-3">
+      <h2>3. La courbe dose-reponse : meme peu de lumiere compte</h2>
+
+      <p>Faut-il une lumiere aveuglante pour obtenir un effet ? Non. Les travaux pionniers de <strong>Zeitzer et al. (2000)</strong>, menes sur 23 sujets, ont revele que la reponse circadienne a la lumiere suit une <strong>fonction sigmoide</strong> &mdash; une courbe en S ou de petites augmentations d'intensite produisent des effets disproportionnes dans la zone de transition.</p>
+
+      <p>Le point cle : la <strong>demi-reponse</strong> (50 % de l'effet maximal) est atteinte a seulement <strong>~100 lux</strong>. C'est tres peu &mdash; l'equivalent d'une piece de bureau mal eclairee ou d'un jour de pluie vu a travers une fenetre.</p>
+
+      <p>Au-dela, la courbe se ponctionne plus moderement :</p>
+      <ul class="styled-list">
+        <li><strong>200&ndash;300 lux</strong> : saturation de la suppression de melatonine</li>
+        <li><strong>~550 lux</strong> : saturation du decalage de phase circadien</li>
+      </ul>
+
+      <div class="key-box">
+        <span class="key-number">50 &rarr; 200 lux</span>
+        <strong>Passer de 50 a 200 lux produit des effets biologiques substantiels.</strong> C'est dans cette zone de transition que chaque lux supplementaire compte le plus. Inutile de viser 10 000 lux si l'on part de tres peu.
+      </div>
+
+      <p>Les recommandations internationales de <strong>Brown et al. (2022)</strong> synthetisent ces donnees en trois seuils pratiques :</p>
+
+      <div class="highlight-box">
+        <strong>Seuils recommandes (Brown et al. 2022)</strong><br>
+        &bull; Eveil : <strong>&ge;250 lux melanopiques EDI</strong> (equivalent lumiere du jour)<br>
+        &bull; 3 h avant le coucher : <strong>&le;10 lux melanopiques</strong><br>
+        &bull; Pendant le sommeil : <strong>&lt;1 lux</strong>
+      </div>
+
+      <p>Le message est clair : maximiser le contraste entre la lumiere diurne et l'obscurite nocturne est la cle d'un rythme circadien robuste.</p>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="article-section animate-in" id="section-4">
+      <h2>4. La lumiere naturelle reste imbattable</h2>
+
+      <p>L'etude elegante de <strong>Wright et al. (2013)</strong>, publiee dans <em>Current Biology</em>, a envoye 8 sujets camper en pleine nature pendant une semaine, sans aucune lumiere artificielle. Resultats : l'exposition lumineuse matinale a ete multipliee par quatre &mdash; <strong>3 074 lux en moyenne le matin</strong>, contre 934 lux dans la vie quotidienne habituelle.</p>
+
+      <p>Pourquoi le soleil est-il si efficace ? Son spectre est <strong>continu entre 380 et 780 nm</strong>, avec une temperature de couleur d'environ 5 800 K. Il couvre donc simultanement toutes les longueurs d'onde utiles a la melanopsine. Plus encore, la lumiere matinale evolue naturellement de ~4 000 K au lever du soleil vers 5 500&ndash;6 500 K en milieu de matinee &mdash; une rampe spectrale parfaitement calibree pour le reveil biologique.</p>
+
+      <p>Les LED domestiques, meme les meilleures, ne peuvent rivaliser. Leur <strong>ratio melanopique (melanopic DER)</strong> oscille entre 0,45 et 0,76, contre 1,0 pour la lumiere du jour. Autrement dit, a intensite egale en lux photopiques, une LED stimule la melanopsine deux fois moins qu'une exposition solaire.</p>
+
+      <p>Une decouverte recente de l'<strong>Universite de Washington (2024)</strong> ouvre cependant une piste fascinante : des LED alternant lumiere bleue et orange a 19 Hz (imperceptible a l'oeil) ont produit une <strong>avance de la melatonine de 1 h 20</strong>, contre 40 minutes pour une lumiere bleue continue et seulement 2,8 minutes pour un blanc standard. Cette approche pourrait transformer l'efficacite des dispositifs de luminotherapie — c'est l'un des axes que nous explorons dans <a href="etude-simulateur-next-gen.html" class="aura-link">notre cahier des charges du simulateur d'aube parfait</a>.</p>
+
+      <div class="key-box">
+        <span class="key-number">Soleil &gt; LED</span>
+        <strong>Aucune LED n'egale le soleil &mdash; mais certaines s'en rapprochent.</strong> Le spectre continu et l'intensite naturelle du matin restent inegales. Les nouvelles technologies a alternance rapide ouvrent neanmoins des perspectives prometteuses.
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="article-section animate-in" id="section-5">
+      <h2>5. Le timing optimal : les 30 premieres minutes</h2>
+
+      <p>Meme la meilleure lumiere est inutile si elle arrive au mauvais moment. La <strong><a href="etude-lumiere-cycles.html" class="aura-link">courbe de reponse de phase</a></strong> (PRC) montre que les avances circadiennes maximales surviennent apres le <strong>nadir de temperature corporelle</strong> (CBTmin), qui precede le reveil habituel de 2 a 3 heures. En pratique, cela correspond aux <strong>30 premieres minutes apres le lever</strong>.</p>
+
+      <p>L'etude de <strong>Burgess et al. (2015)</strong>, menee sur 50 adultes, a demontre qu'une exposition de seulement 30 minutes a 5 000 lux produisait <strong>75 % de l'avance de phase</strong> obtenue avec 2 heures d'exposition. Le rendement decroissant au-dela de 30 minutes est donc considerable.</p>
+
+      <p><strong>Crowley et al. (2020)</strong> ont quant a eux montre sur 37 adolescents que 2,5 heures de lumiere intermittente (avec des pauses) generaient une avance de phase de 1,0 heure, confirmant que l'exposition n'a pas besoin d'etre continue pour etre efficace. L'exposition intermittente conserve <strong>60 a 90 % de l'efficacite</strong> d'une exposition continue.</p>
+
+      <h3>En pratique</h3>
+      <ul class="styled-list">
+        <li><strong>5 a 10 minutes de plein soleil</strong> suffisent par temps clair</li>
+        <li><strong>15 a 20 minutes</strong> par temps couvert</li>
+        <li><strong>30 minutes devant une lampe 10 000 lux</strong> si l'on ne peut pas sortir</li>
+      </ul>
+
+      <div class="key-box">
+        <span class="key-number">5 a 10 min</span>
+        <strong>5 a 10 minutes de soleil le matin changent tout.</strong> C'est le geste le plus simple, le plus gratuit et le plus puissant pour synchroniser votre horloge biologique et transformer la qualite de votre reveil.
+      </div>
+
+      <p>La regularite compte autant que la duree : une exposition quotidienne, meme breve, a un impact cumulatif bien superieur a une seance longue mais sporadique.</p>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner animate-in">
+      <div class="mini-aura">
+        <div class="aura-halo"></div>
+        <div class="aura-ring"></div>
+        <div class="aura-disk"></div>
+        <div class="aura-center"></div>
+      </div>
+      <h3>AURA</h3>
+      <p>AURA integre un spectre lumineux optimise pour votre reveil.</p>
+      <a href="aura.html" class="cta-btn">Decouvrir AURA &rarr;</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Les Zintrepreneurs</strong> &middot; Recherche &amp; Innovation</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="aura.html">AURA</a>
+    <a href="recherche.html">Toutes les etudes</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Les Zintrepreneurs</p>
+</footer>
+
+<script>
+  // IntersectionObserver — active TOC links
+  (function() {
+    const sections = document.querySelectorAll('.article-section[id]');
+    const sidebarLinks = document.querySelectorAll('#toc-sidebar a[data-section]');
+    const mobileLinks = document.querySelectorAll('#toc-mobile a[data-section]');
+
+    function setActive(id) {
+      sidebarLinks.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('data-section') === id);
+      });
+      mobileLinks.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('data-section') === id);
+      });
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-80px 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(function(s) { observer.observe(s); });
+  })();
+
+  // Fade-in animations
+  (function() {
+    var els = document.querySelectorAll('.animate-in');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el) { obs.observe(el); });
+  })();
+
+  // Smooth scroll for TOC links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', this.getAttribute('href'));
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

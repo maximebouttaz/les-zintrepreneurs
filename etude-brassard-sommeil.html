@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brassard biceps : la detection du sommeil accessible — Les Zintrepreneurs</title>
+    <meta name="description" content="PPG, accelerometrie et deep learning au biceps pour un reveil simulateur d'aube intelligent et accessible. Etude technique du brassard AURA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: #333; overflow-x: hidden; font-size: 1.05rem; line-height: 1.9; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 2.5rem; background: rgba(250,250,248,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid #e5e5e5; }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #1A1A1A; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.2s; }
+        .nav-links a:hover { color: #1A1A1A; }
+        .article-wrapper { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+        .article-content { max-width: 720px; width: 100%; padding-top: 100px; padding-bottom: 4rem; }
+        .article-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 1.2rem; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.01em; }
+        .article-subtitle { font-size: 1.1rem; color: #6B6B6B; font-style: italic; margin-bottom: 1rem; font-weight: 400; }
+        .article-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .gradient-line { width: 100px; height: 2px; background: linear-gradient(90deg, #E8934A, #9B6EC6); border: none; margin-bottom: 2.5rem; }
+        .chapeau { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: #1A1A1A; margin-bottom: 3rem; }
+        .article-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+        .article-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.02em; line-height: 1.1; }
+        .article-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #1A1A1A; margin-top: 1.5rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+        .article-section p { margin-bottom: 1.2rem; }
+        .key-box { background: #f5f0eb; border-left: 3px solid; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; }
+        .key-box strong { color: #1A1A1A; }
+        .key-box .key-number { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; display: block; }
+        .highlight-box { background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06)); border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #1A1A1A; }
+        .highlight-box strong { color: #1A1A1A; }
+        .shock-box { background: #1A1A1A; color: #fff; border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+        .shock-box .shock-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; display: block; }
+        .shock-box p { color: #ccc; margin: 0; }
+        .styled-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+        .styled-list li { position: relative; padding: 0.5rem 0 0.5rem 1.4rem; border-bottom: 1px solid #f0f0f0; }
+        .styled-list li:last-child { border-bottom: none; }
+        .styled-list li::before { content: ''; position: absolute; left: 0; top: 1rem; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); }
+        .pathway { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1.2rem 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.02em; color: #6B6B6B; }
+        .pathway .node { background: #f5f0eb; padding: 0.35rem 0.65rem; border-radius: 6px; color: #1A1A1A; font-weight: 700; white-space: nowrap; }
+        .pathway .arrow { color: #E8934A; font-size: 0.9rem; }
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        .data-table th { background: #f5f0eb; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1A1A1A; padding: 0.8rem; text-align: left; font-weight: 700; }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table td { padding: 0.8rem; border-bottom: 1px solid #e5e5e5; color: #333; }
+        .data-table tbody tr:nth-child(even) td { background: #faf8f5; }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .accent-text { color: #E8934A; font-weight: 700; }
+        .accent-purple { color: #9B6EC6; font-weight: 700; }
+        .aura-link { color: #9B6EC6; text-decoration: none; border-bottom: 1px solid rgba(155,110,198,0.3); transition: border-color 0.2s; }
+        .aura-link:hover { border-color: #9B6EC6; }
+        .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #E8934A; margin-bottom: 0.4rem; }
+        .cta-banner { background: #f5f0eb; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 3rem 0; }
+        .cta-banner .mini-aura { width: 150px; height: 150px; margin: 0 auto 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+        .mini-aura .aura-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%); animation: auraPulse 4s ease-in-out infinite; }
+        .mini-aura .aura-ring { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(232,147,74,0.25); animation: auraRotate 12s linear infinite; }
+        .mini-aura .aura-disk { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2)); animation: auraPulse 4s ease-in-out infinite reverse; }
+        .mini-aura .aura-center { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); box-shadow: 0 0 30px rgba(232,147,74,0.3); }
+        @keyframes auraPulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes auraRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .cta-banner h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1A1A1A; margin-bottom: 0.5rem; }
+        .cta-banner p { font-size: 0.9rem; color: #6B6B6B; margin-bottom: 0.3rem; line-height: 1.6; }
+        .cta-banner .cta-sub { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #E8934A, #9B6EC6); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s, transform 0.15s; }
+        .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .toc-sidebar { position: sticky; top: 80px; width: 220px; min-width: 220px; align-self: flex-start; margin-right: 3rem; padding-top: 100px; }
+        .toc-sidebar .toc-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #bbb; margin-bottom: 0.8rem; }
+        .toc-sidebar ul { list-style: none; padding: 0; }
+        .toc-sidebar li { margin-bottom: 0.4rem; }
+        .toc-sidebar a { display: block; font-size: 0.75rem; color: #999; text-decoration: none; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 2px solid transparent; transition: all 0.2s; line-height: 1.4; }
+        .toc-sidebar a:hover { color: #1A1A1A; }
+        .toc-sidebar a.active { color: #1A1A1A; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-left-width: 2px; border-left-style: solid; font-weight: 500; }
+        .toc-mobile { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; padding: 0.8rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e5e5; }
+        .toc-mobile a { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #999; text-decoration: none; padding: 0.3rem 0.8rem; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .toc-mobile a:hover { color: #1A1A1A; }
+        .toc-mobile a.active { color: #1A1A1A; border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1; }
+        footer { background: #f0ede8; border-top: 1px solid #e5e5e5; padding: 3rem 5rem; text-align: center; }
+        footer p { font-size: 0.85rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 0.4rem; }
+        footer p strong { color: #1A1A1A; font-weight: 600; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+        .footer-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #1A1A1A; }
+        .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #999; }
+        .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .toc-sidebar { display: none; } .toc-mobile { display: block; } }
+        @media (max-width: 768px) { nav { padding: 0 1.5rem; } .nav-links { display: none; } .article-wrapper { padding: 0 1.2rem; } .article-content { padding-top: 80px; } footer { padding: 2.5rem 1.5rem; } .cta-banner { padding: 2rem 1.5rem; } }
+        @media (max-width: 480px) { .article-content { padding-top: 75px; } .data-table { font-size: 0.8rem; } .data-table th, .data-table td { padding: 0.6rem 0.5rem; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+        <li><a href="recherche.html">Recherche</a></li>
+        <li><a href="aura.html">AURA</a></li>
+        <li><a href="index.html">Accueil</a></li>
+    </ul>
+</nav>
+
+<div class="article-wrapper">
+
+    <aside class="toc-sidebar">
+        <div class="toc-label">Sommaire</div>
+        <ul>
+            <li><a href="#section1">Biceps vs poignet</a></li>
+            <li><a href="#section2">Six signaux</a></li>
+            <li><a href="#section3">Staging PPG</a></li>
+            <li><a href="#section4">Architecture BOM</a></li>
+            <li><a href="#section5">Brassard vs sous-matelas</a></li>
+            <li><a href="#section6">Paysage concurrentiel</a></li>
+        </ul>
+    </aside>
+
+    <article class="article-content">
+
+        <div class="article-tag">Technologie &middot; Wearable &middot; Sommeil</div>
+        <h1 class="article-title">Brassard biceps : la detection du sommeil accessible</h1>
+        <p class="article-subtitle">PPG, accelerometrie et deep learning pour un reveil intelligent entree de gamme</p>
+        <p class="article-meta">Lecture <span id="reading-time">--</span> &middot; Mars 2026</p>
+        <hr class="gradient-line">
+
+        <div class="toc-mobile">
+            <a href="#section1">Biceps vs poignet</a>
+            <a href="#section2">Six signaux</a>
+            <a href="#section3">Staging PPG</a>
+            <a href="#section4">Architecture BOM</a>
+            <a href="#section5">Brassard vs sous-matelas</a>
+            <a href="#section6">Paysage concurrentiel</a>
+        </div>
+
+        <p class="chapeau">Le brassard biceps offre un compromis technique remarquable pour un reveil simulateur d'aube : un signal PPG superieur au poignet (SNR maximal parmi 7 sites du bras), un staging 4 classes atteignant kappa = 0,65-0,74 avec le deep learning actuel, et un BOM de 19 dollars compatible avec un prix de vente de 55-80 dollars. Aucun produit n'integre aujourd'hui un simulateur d'aube avec un capteur biometrique de sommeil : ce creneau est vacant.</p>
+
+        <!-- SECTION 1 -->
+        <section class="article-section animate-in" id="section1">
+            <div class="section-label">Section 01</div>
+            <h2>Pourquoi le biceps surpasse le poignet</h2>
+
+            <p>La photoplethysmographie (PPG) mesure les variations volumetriques du sang dans les tissus en illuminant la peau et en captant la lumiere reflechie. La qualite du signal depend directement de trois facteurs : le calibre de l'artere sous-jacente, la stabilite de la pression de contact, et l'amplitude des artefacts de mouvement. Sur ces trois axes, le biceps domine le poignet de maniere systematique.</p>
+
+            <h3>Un lit vasculaire superieur</h3>
+
+            <p>L'artere brachiale, d'un diametre d'environ 4 mm, fournit un lit vasculaire profond et stable. Au poignet, les arteres radiale et ulnaire sont plus superficielles, plus fines, et entourees d'une microvascularisation sensible aux variations thermiques et posturales. En position de sommeil, la gravite et la compression contre le matelas perturbent davantage le flux capillaire au poignet qu'au bras.</p>
+
+            <p>La pression de contact optimale pour le PPG se situe autour de <strong>30 mmHg</strong> (Kim et al.). Un brassard textile elastique au biceps maintient naturellement cette pression, tandis qu'un bracelet de montre oscille entre serrage excessif (inconfort, occlusion) et relachement (perte de signal). Les artefacts de mouvement sont egalement reduits au biceps : les mouvements fins des doigts, les flexions du poignet et les rotations de l'avant-bras — frequents pendant le sommeil — ne se propagent pas jusqu'au bras superieur.</p>
+
+            <h3>Les preuves experimentales</h3>
+
+            <ul class="styled-list">
+                <li><strong>Maeda et al. (2011)</strong> : SNR le plus eleve au bras lateral superieur avec LED verte 525 nm, parmi 7 positions testees sur le membre superieur</li>
+                <li><strong>Polar OH1 / Verity Sense</strong> : correlations r = 0,91 a 0,98 vs ECG thoracique pour la frequence cardiaque</li>
+                <li><strong>HRV en position supine</strong> : RMSSD ICC = 0,955, SDNN ICC = 0,980 — une concordance quasi parfaite avec l'electrocardiogramme</li>
+                <li><strong>Adam (2025)</strong> : SpO2 au bras ARMS = 1,9 % vs 3,2 % au poignet, avec un taux de rejet des donnees de 3,1 % vs 30,4 %</li>
+                <li><strong>McNamara (2016, n=314)</strong> : 16 % rapportent un inconfort avec le brassard, mais 92 % de compliance sur 7 jours consecutifs</li>
+            </ul>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metrique</th>
+                            <th>Poignet</th>
+                            <th>Biceps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SNR PPG (vert, 525 nm)</td>
+                            <td>Reference</td>
+                            <td class="accent-text">+6-8 dB</td>
+                        </tr>
+                        <tr>
+                            <td>MAPE frequence cardiaque</td>
+                            <td>2-5 %</td>
+                            <td class="accent-text">&lt; 1 %</td>
+                        </tr>
+                        <tr>
+                            <td>ICC RMSSD</td>
+                            <td>0,88-0,92</td>
+                            <td class="accent-text">0,955</td>
+                        </tr>
+                        <tr>
+                            <td>SpO2 ARMS</td>
+                            <td>3,2 %</td>
+                            <td class="accent-text">1,9 %</td>
+                        </tr>
+                        <tr>
+                            <td>Taux rejet SpO2</td>
+                            <td>30,4 %</td>
+                            <td class="accent-text">3,1 %</td>
+                        </tr>
+                        <tr>
+                            <td>Effet pigmentation</td>
+                            <td>Significatif</td>
+                            <td class="accent-text">Reduit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="shock-box animate-in">
+                <span class="shock-number">30,4 %</span>
+                <p>Taux de rejet des donnees SpO2 au poignet pendant la nuit. Au biceps : seulement 3,1 %. Dix fois moins de donnees perdues.</p>
+            </div>
+
+            <h3>Confort et compliance</h3>
+
+            <p>L'etude McNamara 2016, conduite sur 314 participants portant un brassard SenseWear (45 g) pendant 7 jours, revele un taux de compliance de 92 % malgre 16 % d'inconfort rapporte. Un brassard textile moderne pesant moins de 20 g, sans boitier rigide, sera significativement mieux tolere. La cle reside dans le tissu : un tricot a maille plate avec elasthanne maintient une compression douce et homogene, sans points de pression locaux. Le biceps, recouvert d'une masse musculaire epaisse, est naturellement moins sensible a la pression qu'un poignet osseux.</p>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="article-section animate-in" id="section2">
+            <div class="section-label">Section 02</div>
+            <h2>Six signaux physiologiques depuis le biceps</h2>
+
+            <p>Un unique module PPG multi-longueur d'onde, couple a un accelerometre triaxial, extrait six flux de donnees complementaires. C'est cette richesse sensorielle — et non un seul parametre — qui permet au deep learning d'atteindre des performances de staging proches de l'accord inter-humains.</p>
+
+            <h3>1. Frequence cardiaque</h3>
+
+            <p>La detection pic-a-pic de l'onde de pouls PPG fournit la frequence cardiaque instantanee avec une erreur absolue moyenne (MAE) inferieure a 1 bpm pendant le sommeil. Le WHOOP 4.0, porte au biceps, atteint 99,7 % de precision sur la frequence cardiaque nocturne. Cette precision quasi parfaite s'explique par l'absence d'artefacts de mouvement en position allongee et par la qualite intrinseque du signal au bras.</p>
+
+            <h3>2. Variabilite de la frequence cardiaque (HRV)</h3>
+
+            <p>A partir des intervalles inter-battements (IBI), on derive six metriques temporelles et frequentielles : RMSSD, SDNN, pNN50 dans le domaine temporel ; LF (0,04-0,15 Hz), HF (0,15-0,4 Hz), et le ratio LF/HF dans le domaine frequentiel. Le biais systematique au biceps est de 3 a 4,4 ms vs l'ECG — parfaitement acceptable pour le staging nocturne, ou les transitions entre stades produisent des variations de RMSSD de 20 a 50 ms.</p>
+
+            <p>L'HRV est le signal le plus discriminant pour le staging PPG. En sommeil paradoxal, l'activite sympathique elevee reduit le RMSSD et augmente le ratio LF/HF. En sommeil profond N3, la dominance parasympathique maximise le RMSSD et la puissance HF. Ces signatures autonomiques sont reproductibles d'une nuit a l'autre chez un meme individu. C'est cette detection fiable du N3 qui permet ensuite d'activer des interventions de <a href="etude-modulation-sommeil.html" class="aura-link">modulation exogene du sommeil profond</a>.</p>
+
+            <h3>3. Actigraphie</h3>
+
+            <p>L'accelerometre triaxial detecte les mouvements corporels avec une sensibilite de 0,965 pour la detection du sommeil. Sa specificite pour la detection de l'eveil reste modeste (0,329) en mode seul, mais la combinaison avec le PPG double le kappa de concordance. L'actigraphie apporte surtout la detection des changements de position (decubitus dorsal, lateral, ventral) et des micro-eveils, deux informations que le PPG seul ne peut fournir.</p>
+
+            <h3>4. Frequence respiratoire</h3>
+
+            <p>Le signal PPG encode la respiration a travers trois mecanismes physiologiques distincts :</p>
+
+            <div class="pathway">
+                <span class="node">Signal PPG</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">RIIV</span>
+                <span class="arrow">+</span>
+                <span class="node">RIAV</span>
+                <span class="arrow">+</span>
+                <span class="node">RSA</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Frequence respiratoire</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Variabilite respiratoire</span>
+            </div>
+
+            <p>La RIIV (Respiratory-Induced Intensity Variation) capture les changements d'amplitude du signal lies aux variations de pression intrathoracique. La RIAV (Respiratory-Induced Amplitude Variation) mesure les fluctuations de l'enveloppe du signal. La RSA (Respiratory Sinus Arrhythmia) extrait la modulation respiratoire de la frequence cardiaque. En fusionnant ces trois approches, l'Oura Ring — dont le capteur PPG est comparable — atteint un MAE de 0,46 respiration/min.</p>
+
+            <div class="highlight-box animate-in">
+                <strong>Le biceps, plus proche du thorax, offre une modulation respiratoire plus forte qu'au poignet</strong> — chaque signal gagne en qualite. La RIIV en particulier beneficie de la proximite avec l'artere brachiale, dont les pulsations sont plus directement modulees par les variations de pression intrathoracique.
+            </div>
+
+            <h3>5. SpO2 (saturation en oxygene)</h3>
+
+            <p>La mesure de SpO2 requiert deux longueurs d'onde : rouge (660 nm) et infrarouge (940 nm). Le ratio d'absorption entre ces deux longueurs d'onde, calibre empiriquement, fournit la saturation arterielle en oxygene. Une troisieme LED verte sert au rejet d'artefacts : les mouvements affectent les trois canaux de maniere similaire, tandis que les variations physiologiques reelles n'affectent que le rouge et l'infrarouge.</p>
+
+            <p>Au biceps, les resultats sont remarquables : un ARMS de 1,9 % (vs 3,2 % au poignet) et surtout un taux de rejet des donnees de seulement 3,1 %, contre 30,4 % au poignet (Adam 2025). Cette fiabilite transforme la SpO2 nocturne d'un gadget imprecis en un outil de screening credible pour les troubles respiratoires du sommeil.</p>
+
+            <h3>6. Temperature cutanee</h3>
+
+            <p>Un thermistor NTC integre au PCB mesure la temperature cutanee du biceps, typiquement entre 33 et 35 °C pendant le sommeil. Ce signal, souvent neglige, contribue significativement au staging. Altini (2021) demontre que l'ajout de la temperature cutanee ameliore la precision du staging 4 classes de 79 %. La temperature suit un rythme circadien marque, avec un nadir en fin de nuit qui coincide avec la fenetre optimale de reveil en sommeil leger.</p>
+
+            <ul class="styled-list">
+                <li><strong>Frequence cardiaque</strong> : MAE &lt; 1 bpm, precision 99,7 % (nocturne)</li>
+                <li><strong>HRV</strong> : biais 3-4,4 ms vs ECG, six metriques derivees</li>
+                <li><strong>Actigraphie</strong> : sensibilite 0,965, specificite 0,329 (seul)</li>
+                <li><strong>Frequence respiratoire</strong> : MAE 0,46 resp/min (3 methodes fusionnees)</li>
+                <li><strong>SpO2</strong> : ARMS 1,9 %, rejet 3,1 % au biceps</li>
+                <li><strong>Temperature cutanee</strong> : +79 % precision staging avec ce signal</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section class="article-section animate-in" id="section3">
+            <div class="section-label">Section 03</div>
+            <h2>Staging PPG — performances actuelles</h2>
+
+            <p>L'evolution des algorithmes de staging par PPG entre 2017 et 2025 est spectaculaire. En moins de huit ans, la precision 4 classes (eveil, leger, profond, paradoxal) est passee de 59 % a 84 %, et le kappa de Cohen de 0,42 a 0,74. Cette trajectoire est portee par trois avancees convergentes : les architectures de deep learning, les bases de donnees polysomnographiques publiques, et l'amelioration des capteurs PPG eux-memes.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Etude</th>
+                            <th>Annee</th>
+                            <th>Precision 4 classes</th>
+                            <th>Kappa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fonseca et al.</td>
+                            <td>2017</td>
+                            <td>59 %</td>
+                            <td>0,42</td>
+                        </tr>
+                        <tr>
+                            <td>Beattie et al.</td>
+                            <td>2017</td>
+                            <td>69 %</td>
+                            <td>0,52</td>
+                        </tr>
+                        <tr>
+                            <td>Radha et al.</td>
+                            <td>2021</td>
+                            <td>76 %</td>
+                            <td>0,65</td>
+                        </tr>
+                        <tr>
+                            <td>Wulterkens et al.</td>
+                            <td>2023</td>
+                            <td>78 %</td>
+                            <td>0,64</td>
+                        </tr>
+                        <tr>
+                            <td>Kotzen (SleepPPG-Net)</td>
+                            <td>2022</td>
+                            <td>83 %</td>
+                            <td>0,72</td>
+                        </tr>
+                        <tr>
+                            <td>InsightSleepNet</td>
+                            <td>2024</td>
+                            <td class="accent-text">84 %</td>
+                            <td class="accent-text">0,742</td>
+                        </tr>
+                        <tr>
+                            <td><em>Accord inter-humains</em></td>
+                            <td>—</td>
+                            <td><em>83 %</em></td>
+                            <td><em>0,76</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>InsightSleepNet (2024)</strong> atteint 84,2 % de precision et un kappa de 0,742 en classification 4 classes. Ce resultat est a seulement 2 points de kappa de l'accord inter-scoreurs humains (0,76) — le plafond theorique impose par la variabilite inherente a la polysomnographie elle-meme. Autrement dit, l'algorithme approche la limite de ce qu'un expert humain peut faire avec un EEG complet.</p>
+
+            <h3>Le point faible : le sommeil profond N3</h3>
+
+            <p>Le talon d'Achille du staging PPG reste la detection du sommeil profond N3, avec un F1-score de seulement 0,33 dans la plupart des etudes. La signature HRV du N3 (dominance parasympathique, RMSSD eleve, puissance HF maximale) se confond partiellement avec celle du N2 profond. Cette confusion est cliniquement peu impactante pour un reveil intelligent : on souhaite surtout distinguer le sommeil leger (fenetre de reveil optimale) du reste, et cette distinction atteint un F1 superieur a 0,80.</p>
+
+            <h3>Performances des dispositifs commerciaux</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Dispositif</th>
+                            <th>Capteur</th>
+                            <th>Kappa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Oura Gen3</td>
+                            <td>PPG doigt</td>
+                            <td class="accent-text">0,65</td>
+                        </tr>
+                        <tr>
+                            <td>Apple Watch S8</td>
+                            <td>PPG poignet</td>
+                            <td>0,53-0,60</td>
+                        </tr>
+                        <tr>
+                            <td>Fitbit Sense 2</td>
+                            <td>PPG poignet</td>
+                            <td>0,42-0,55</td>
+                        </tr>
+                        <tr>
+                            <td>WHOOP 4.0</td>
+                            <td>PPG poignet/bras</td>
+                            <td>0,37-0,47</td>
+                        </tr>
+                        <tr>
+                            <td>Garmin</td>
+                            <td>PPG poignet</td>
+                            <td>0,21-0,35</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>L'Oura Gen3, porte au doigt — un site anatomique dont le SNR PPG est comparable au biceps — domine le classement avec un kappa de 0,65. Les montres de poignet plafonnent a 0,55-0,60 dans le meilleur des cas. Un brassard biceps, beneficiant d'un signal superieur au doigt (artere plus large, meilleure stabilite), peut legitimement viser le haut de la fourchette academique : kappa 0,65-0,74.</p>
+
+            <div class="key-box animate-in">
+                <span class="key-number">90 %</span>
+                <strong>Probabilite de detecter au moins un epoch de sommeil leger dans une fenetre de 30 minutes</strong>, meme avec un kappa modere de 0,52. Les cycles de ~90 minutes creent des fenetres previsibles ou le sommeil leger est statistiquement certain, rendant le reveil intelligent fiable meme avec un staging imparfait.
+            </div>
+
+            <h3>SleepPPG-Net : un algorithme open-source</h3>
+
+            <p>SleepPPG-Net (Kotzen et al. 2022) est disponible en open-source sur GitHub. Son architecture combine des blocs ResConv (convolutions residuelles pour l'extraction de features temporelles) et un TCN (Temporal Convolutional Network pour la modelisation des transitions entre stades). Le modele est pre-entraine sur la base SHHS (Sleep Heart Health Study, 5 804 nuits) puis fine-tune sur MESA (Multi-Ethnic Study of Atherosclerosis, 2 055 nuits). Cette strategie de transfer learning permet une generalisation robuste a de nouvelles populations.</p>
+
+            <p>Pour AURA, cette architecture open-source constitue un point de depart ideal. Le fine-tuning sur des donnees de brassard biceps — plutot que de capteur au doigt ou au poignet — devrait ameliorer encore les performances grace a la qualite superieure du signal PPG a ce site.</p>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section class="article-section animate-in" id="section4">
+            <div class="section-label">Section 04</div>
+            <h2>Architecture materielle — BOM de 19 dollars</h2>
+
+            <p>Le brassard AURA repose sur trois composants actifs principaux : un front-end analogique PPG, un accelerometre MEMS, et un microcontroleur avec radio BLE integree. Le choix de chaque composant vise le meilleur rapport performance/cout a un volume de 10 000 unites.</p>
+
+            <h3>Front-end PPG : MAX86141</h3>
+
+            <p>Le MAX86141 de Maxim Integrated (aujourd'hui Analog Devices) est le composant recommande pour ce projet. Avec une resolution de 19 bits, un SNR d'environ 92 dB, et 3 drivers LED configurables, il offre la meilleure qualite de signal de sa categorie. Son prix de ~4,50 $ en volume (10K) est justifie par les economies en post-traitement logiciel : un signal propre a la source reduit drastiquement la complexite algorithmique du rejet d'artefacts.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Chipset PPG</th>
+                            <th>SNR</th>
+                            <th>Resolution</th>
+                            <th>Prix @10K</th>
+                            <th>Meilleur pour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="accent-text">MAX86141</td>
+                            <td class="accent-text">~92 dB</td>
+                            <td>19 bits</td>
+                            <td>~4,50 $</td>
+                            <td>Staging sommeil</td>
+                        </tr>
+                        <tr>
+                            <td>ams AS7058</td>
+                            <td>~85 dB</td>
+                            <td>20 bits</td>
+                            <td>~3,80 $</td>
+                            <td>Multi-sport</td>
+                        </tr>
+                        <tr>
+                            <td>TI AFE4404</td>
+                            <td>~88 dB</td>
+                            <td>22 bits</td>
+                            <td>~4,20 $</td>
+                            <td>SpO2 clinique</td>
+                        </tr>
+                        <tr>
+                            <td>MAX30101</td>
+                            <td>~80 dB</td>
+                            <td>18 bits</td>
+                            <td>~2,80 $</td>
+                            <td>Budget/SpO2</td>
+                        </tr>
+                        <tr>
+                            <td>Si117x</td>
+                            <td>~78 dB</td>
+                            <td>17 bits</td>
+                            <td>~2,50 $</td>
+                            <td>Ultra-low cost</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Accelerometre : BMA400</h3>
+
+            <p>Le BMA400 de Bosch consomme seulement 3,2 microA a 25 Hz en mode continu — un ordre de grandeur en dessous des accelerometres classiques. A ~2 $ en volume, il fournit une actigraphie fiable avec un impact negligeable sur le budget energetique. Sa resolution de 12 bits et sa plage de &plusmn;4 g sont amplement suffisantes pour la detection de mouvements corporels pendant le sommeil.</p>
+
+            <h3>MCU/BLE : nRF52832</h3>
+
+            <p>Le nRF52832 de Nordic Semiconductor integre un processeur Cortex-M4F (avec unite flottante), 512 KB de Flash, 64 KB de RAM, et une radio BLE 5.0. Sa consommation en veille de 0,3 microA et son prix de ~2,50 $ en volume en font le choix de reference pour les wearables de sommeil. Le Cortex-M4F est suffisamment puissant pour executer l'extraction de features en temps reel (IBI, RMSSD, frequence respiratoire) et transmettre les resultats a la base lumineuse via BLE.</p>
+
+            <h3>Budget d'alimentation</h3>
+
+            <ul class="styled-list">
+                <li><strong>PPG MAX86141</strong> : 150 microA (echantillonnage 25 Hz, 3 LED multiplexees)</li>
+                <li><strong>Accelerometre BMA400</strong> : 3,5 microA (25 Hz continu)</li>
+                <li><strong>MCU nRF52832</strong> (10 % duty cycle) : 350 microA</li>
+                <li><strong>BLE sync toutes les 30 s</strong> : 8 microA (moyenne)</li>
+                <li><strong>Total</strong> : ~520 microA</li>
+            </ul>
+
+            <div class="key-box animate-in">
+                <span class="key-number">192 heures</span>
+                <strong>Autonomie sur 100 mAh = 8 jours.</strong> Plus d'une semaine sans recharge, eliminant la friction quotidienne — premier facteur d'abandon des wearables. L'utilisateur porte le brassard le dimanche soir, le retire le samedi matin. Zero charge mentale.
+            </div>
+
+            <h3>BOM detaille</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Composant</th>
+                            <th>Detail</th>
+                            <th>Cout @10K</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PPG AFE + LEDs + PD</td>
+                            <td>MAX86141 + 3 LEDs + photodiode</td>
+                            <td>5,70 $</td>
+                        </tr>
+                        <tr>
+                            <td>Accelerometre</td>
+                            <td>BMA400</td>
+                            <td>2,00 $</td>
+                        </tr>
+                        <tr>
+                            <td>MCU / BLE</td>
+                            <td>nRF52832</td>
+                            <td>2,50 $</td>
+                        </tr>
+                        <tr>
+                            <td>Batterie</td>
+                            <td>LiPo 100 mAh</td>
+                            <td>1,50 $</td>
+                        </tr>
+                        <tr>
+                            <td>PMIC + USB-C</td>
+                            <td>Charge + regulation</td>
+                            <td>1,00 $</td>
+                        </tr>
+                        <tr>
+                            <td>PCB + passifs</td>
+                            <td>4 couches FR4 + CMS</td>
+                            <td>2,30 $</td>
+                        </tr>
+                        <tr>
+                            <td>Moteur vibrant</td>
+                            <td>LRA 8 mm</td>
+                            <td>0,60 $</td>
+                        </tr>
+                        <tr>
+                            <td>Bande textile</td>
+                            <td>Elasthanne + velcro</td>
+                            <td>1,50 $</td>
+                        </tr>
+                        <tr>
+                            <td>Assemblage</td>
+                            <td>SMT + test + emballage</td>
+                            <td>2,00 $</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL</strong></td>
+                            <td></td>
+                            <td class="accent-text"><strong>~19,10 $</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="shock-box animate-in">
+                <span class="shock-number">~19 $</span>
+                <p>BOM complet du brassard a 10K unites. Compatible avec un prix de vente de 55-80 dollars — en dessous de tout concurrent offrant du staging reel.</p>
+            </div>
+
+            <p>Avec un facteur multiplicatif standard de 3-4x entre BOM et prix de vente (couvrant logistique, marge distributeur, R&D amortie, support), un BOM de 19 $ autorise un prix de detail entre 55 et 80 $. C'est 3 a 5 fois moins cher qu'un Oura Ring (299 $) ou un WHOOP (239 $ + abonnement), tout en offrant un staging comparable grace au signal PPG superieur du biceps.</p>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section class="article-section animate-in" id="section5">
+            <div class="section-label">Section 05</div>
+            <h2>Brassard vs sous-matelas — deux approches complementaires</h2>
+
+            <p>Le brassard biceps et le <a href="etude-detection-sommeil.html" class="aura-link">capteur sous-matelas (BCG/radar)</a> representent deux philosophies distinctes de la detection du sommeil. Plutot que de les opposer, AURA les propose comme deux gammes complementaires, chacune optimisee pour un profil d'utilisateur different.</p>
+
+            <h3>Comparaison technique</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Critere</th>
+                            <th>Brassard biceps</th>
+                            <th>Sous-matelas (BCG)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Precision staging (kappa)</td>
+                            <td class="accent-text">0,40-0,65</td>
+                            <td>0,20-0,40</td>
+                        </tr>
+                        <tr>
+                            <td>Independance partenaire</td>
+                            <td class="accent-text">Totale</td>
+                            <td>Partielle (algorithmes)</td>
+                        </tr>
+                        <tr>
+                            <td>Compliance</td>
+                            <td>~70 % (wearable)</td>
+                            <td class="accent-purple">~95 % (invisible)</td>
+                        </tr>
+                        <tr>
+                            <td>Confort</td>
+                            <td>Bon (textile &lt; 20 g)</td>
+                            <td class="accent-purple">Parfait (zero contact)</td>
+                        </tr>
+                        <tr>
+                            <td>Cout BOM</td>
+                            <td class="accent-text">~19 $</td>
+                            <td>~35-50 $</td>
+                        </tr>
+                        <tr>
+                            <td>SpO2</td>
+                            <td class="accent-text">Oui (ARMS 1,9 %)</td>
+                            <td>Non</td>
+                        </tr>
+                        <tr>
+                            <td>Mobilite</td>
+                            <td class="accent-text">Portable (voyage)</td>
+                            <td>Fixe (lit)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>L'argument decisif : le partenaire de lit</h3>
+
+            <p>Entre 80 et 89 % des adultes partagent leur lit avec un partenaire. C'est un fait fondamental que la plupart des dispositifs sous-matelas ignorent ou sous-estiment. Un capteur BCG (balistocardiographique) place sous le matelas capte les vibrations des deux occupants. Les algorithmes de separation de sources tentent de les distinguer, mais en sommeil agite — precisement le moment ou le staging est le plus critique — les artefacts du partenaire contaminent le signal.</p>
+
+            <div class="highlight-box animate-in">
+                <strong>Le brassard detecte VOTRE sommeil. Le capteur sous-matelas detecte le sommeil du lit.</strong> En couple, la difference est decisive. Le brassard fournit un signal individuel pur, sans contamination croisee, sans ambiguite algorithmique.
+            </div>
+
+            <p>Inversement, le capteur sous-matelas excelle en compliance : une fois installe, l'utilisateur n'a plus rien a faire. Zero friction, zero oubli, zero inconfort. Pour les personnes dormant seules et peu tolerantes aux wearables, c'est la solution ideale.</p>
+
+            <h3>Compliance et abandon</h3>
+
+            <p>Selon Gartner, environ 30 % des utilisateurs de wearables abandonnent leur dispositif dans les six premiers mois. Les deux principales raisons sont l'autonomie insuffisante et l'inconfort. Le brassard AURA repond a ces deux objections : 8 jours d'autonomie (elimination de la charge quotidienne) et un poids inferieur a 20 g (contre 45 g pour le SenseWear ou 30 g pour une Apple Watch). Sept nuits et plus d'autonomie transforment le rituel de charge d'une contrainte quotidienne en un geste hebdomadaire negligeable.</p>
+
+            <h3>Strategie multi-gammes AURA</h3>
+
+            <ul class="styled-list">
+                <li><strong>Entree de gamme</strong> (brassard + base lumineuse) : <span class="accent-text">129-149 EUR</span> — staging individuel, portable, SpO2, ideal pour les couples et les voyageurs</li>
+                <li><strong>Premium</strong> (sous-matelas + base lumineuse) : <span class="accent-purple">249-349 EUR</span> — zero contact, compliance maximale, ideal pour les dormeurs solo</li>
+                <li><strong>Ultra-premium</strong> (brassard + sous-matelas, fusion) : <span class="accent-text">349-449 EUR</span> — deux sources de donnees fusionnees, precision maximale, screening apnees</li>
+            </ul>
+
+            <p>La version ultra-premium fusionne les donnees PPG du brassard et BCG du sous-matelas pour un staging dont la precision devrait depasser le kappa 0,75 — au-dela de l'accord inter-humains. Cette approche multi-capteurs suit exactement la meme logique que la polysomnographie clinique, qui combine EEG, EOG, EMG et ECG pour une classification plus robuste.</p>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section class="article-section animate-in" id="section6">
+            <div class="section-label">Section 06</div>
+            <h2>Paysage concurrentiel — un creneau vacant</h2>
+
+            <p>Le marche actuel se divise en deux categories etanches : les simulateurs d'aube d'un cote, les trackers de sommeil de l'autre. Aucun produit ne les combine. C'est cette fragmentation qui cree l'opportunite d'AURA.</p>
+
+            <h3>Les simulateurs d'aube : des minuteries glorifiees</h3>
+
+            <ul class="styled-list">
+                <li><strong>Philips SmartSleep Connected</strong> (110-180 $) : simulation d'aube sur minuterie fixe, pas de capteur biometrique, arret programme en 2024</li>
+                <li><strong>Hatch Restore 3</strong> (170 $) : lumiere + sons + routines, mais reveil sur horloge fixe — aucune detection du stade de sommeil</li>
+                <li><strong>Lumie Bodyclock</strong> (80-260 $) : simulation d'aube pure, design britannique elegant, zero intelligence adaptative</li>
+            </ul>
+
+            <p>Ces produits repondent a la moitie du probleme : la lumiere progressive du matin. Mais ils ignorent completement l'autre moitie : <em>quand</em> declencher cette lumiere. Un reveil a 6h30 fixe peut tomber en plein sommeil profond N3, annulant tous les benefices de la simulation d'aube. L'intelligence du reveil ne reside pas dans la lumiere — elle reside dans le <em>timing</em>.</p>
+
+            <h3>Les trackers de sommeil : des capteurs sans action</h3>
+
+            <ul class="styled-list">
+                <li><strong>Oura Ring Gen3</strong> (299 $ + abo) : meilleur staging commercial (kappa 0,65), mais ne controle aucune lumiere — l'utilisateur recoit un rapport le matin, c'est tout</li>
+                <li><strong>WHOOP 4.0</strong> (239 $ + abo mensuel) : brassard biceps, excellente FC, mais staging mediocre (kappa 0,37-0,47) et aucune integration domotique</li>
+                <li><strong>Garmin Index BPM</strong> (~170 $) : staging rudimentaire (kappa 0,21-0,35), ecosysteme sport, pas de fonctions sommeil avancees</li>
+            </ul>
+
+            <p>Ces produits mesurent le sommeil mais n'agissent pas dessus. L'utilisateur recoit un graphique hypnogramme au reveil — une information retrospective qui ne change rien a la qualite du reveil lui-meme. C'est l'equivalent d'un thermometre qui affiche la fievre sans proposer de traitement.</p>
+
+            <div class="shock-box animate-in">
+                <span class="shock-number">0 concurrent</span>
+                <p>Aucun produit sur le marche ne combine detection du stade de sommeil et simulation d'aube intelligente. Ce creneau est entierement vacant.</p>
+            </div>
+
+            <h3>Un marche en pleine expansion</h3>
+
+            <p>Le marche mondial de la sleep tech atteint <strong>20,5 milliards de dollars en 2024</strong>, avec une projection a 65,7 milliards en 2033 (CAGR 13,8 %). Le segment specifique des reveils intelligents croit encore plus vite, avec un CAGR de 26 %. Et 52 % des utilisateurs declarent preferer la simulation d'aube comme methode de reveil — une majorite qui ne dispose aujourd'hui d'aucun produit veritablement intelligent.</p>
+
+            <div class="key-box animate-in">
+                <span class="key-number">65,7 milliards $</span>
+                <strong>Projection du marche sleep tech en 2033</strong> (contre 20,5 milliards en 2024). La croissance est portee par la prise de conscience collective que le sommeil est le pilier fondamental de la sante — et que la technologie peut l'ameliorer sans l'envahir.
+            </div>
+
+            <p>AURA se positionne a l'intersection exacte de ces trois tendances : simulation d'aube (52 % de preference), tracking biometrique (kappa 0,65+), et prix accessible (a partir de 129 EUR). Le brassard biceps, avec son BOM de 19 $, permet d'adresser le segment entree de gamme sans compromis sur la qualite du staging — un compromis que les montres de poignet ne peuvent pas offrir.</p>
+
+            <p>La question n'est pas de savoir si ce marche existera. Il existe deja, fragmente entre deux categories de produits qui refusent de se parler. AURA est le premier produit qui les reunit.</p>
+        </section>
+
+        <!-- CTA BANNER -->
+        <div class="cta-banner animate-in">
+            <div class="mini-aura">
+                <div class="aura-halo"></div>
+                <div class="aura-ring"></div>
+                <div class="aura-disk"></div>
+                <div class="aura-center"></div>
+            </div>
+            <h3>AURA : le reveil qui comprend votre sommeil</h3>
+            <p>Detection du stade de sommeil. Simulation d'aube au moment parfait. Disponible en version brassard et sous-matelas.</p>
+            <p class="cta-sub">A partir de 149 EUR &middot; Pre-commande ouverte</p>
+            <a href="aura.html" class="cta-btn">Pre-commander AURA &rarr;</a>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    <p><strong>Les Zintrepreneurs</strong></p>
+    <p>Projets innovants, finances par la communaute.</p>
+    <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="recherche.html">Recherche</a>
+        <a href="aura.html">AURA</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+</footer>
+
+<script>
+    // Reading time calculation
+    (function() {
+        const text = document.querySelector('.article-content').innerText;
+        const words = text.trim().split(/\s+/).length;
+        const minutes = Math.ceil(words / 230);
+        document.getElementById('reading-time').textContent = minutes + ' min';
+    })();
+
+    // IntersectionObserver for TOC active states
+    (function() {
+        const sections = document.querySelectorAll('.article-section');
+        const sidebarLinks = document.querySelectorAll('.toc-sidebar a');
+        const mobileLinks = document.querySelectorAll('.toc-mobile a');
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    sidebarLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                    mobileLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    })();
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc-sidebar a, .toc-mobile a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Fade-in animations
+    (function() {
+        var animItems = document.querySelectorAll('.animate-in');
+        var animObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animItems.forEach(function(item) {
+            animObserver.observe(item);
+        });
+    })();
+</script>
+
+</body>
+</html>

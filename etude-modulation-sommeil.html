@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sommeil et recuperation du jeune athlete : la technologie peut-elle aider ? — Les Zintrepreneurs</title>
+    <meta name="description" content="Fatigue au reveil, blessures a repetition : comment le sommeil repare le corps des athletes, et quelles technologies peuvent reellement ameliorer la recuperation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: #333; overflow-x: hidden; font-size: 1.05rem; line-height: 1.9; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 2.5rem; background: rgba(250,250,248,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid #e5e5e5; }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #1A1A1A; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.2s; }
+        .nav-links a:hover { color: #1A1A1A; }
+        .article-wrapper { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+        .article-content { max-width: 720px; width: 100%; padding-top: 100px; padding-bottom: 4rem; }
+        .article-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 1.2rem; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.01em; }
+        .article-subtitle { font-size: 1.1rem; color: #6B6B6B; font-style: italic; margin-bottom: 1rem; font-weight: 400; }
+        .article-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .gradient-line { width: 100px; height: 2px; background: linear-gradient(90deg, #E8934A, #9B6EC6); border: none; margin-bottom: 2.5rem; }
+        .chapeau { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: #1A1A1A; margin-bottom: 3rem; }
+        .article-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+        .article-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.02em; line-height: 1.1; }
+        .article-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #1A1A1A; margin-top: 1.5rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+        .article-section p { margin-bottom: 1.2rem; }
+        .key-box { background: #f5f0eb; border-left: 3px solid; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; }
+        .key-box strong { color: #1A1A1A; }
+        .key-box .key-number { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; display: block; }
+        .highlight-box { background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06)); border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #1A1A1A; }
+        .highlight-box strong { color: #1A1A1A; }
+        .shock-box { background: #1A1A1A; color: #fff; border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+        .shock-box .shock-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; display: block; }
+        .shock-box p { color: #ccc; margin: 0; }
+        .styled-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+        .styled-list li { position: relative; padding: 0.5rem 0 0.5rem 1.4rem; border-bottom: 1px solid #f0f0f0; }
+        .styled-list li:last-child { border-bottom: none; }
+        .styled-list li::before { content: ''; position: absolute; left: 0; top: 1rem; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); }
+        .pathway { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1.2rem 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.02em; color: #6B6B6B; }
+        .pathway .node { background: #f5f0eb; padding: 0.35rem 0.65rem; border-radius: 6px; color: #1A1A1A; font-weight: 700; white-space: nowrap; }
+        .pathway .arrow { color: #E8934A; font-size: 0.9rem; }
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        .data-table th { background: #f5f0eb; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1A1A1A; padding: 0.8rem; text-align: left; font-weight: 700; }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table td { padding: 0.8rem; border-bottom: 1px solid #e5e5e5; color: #333; }
+        .data-table tbody tr:nth-child(even) td { background: #faf8f5; }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .accent-text { color: #E8934A; font-weight: 700; }
+        .accent-purple { color: #9B6EC6; font-weight: 700; }
+        .accent-red { color: #e74c3c; font-weight: 700; }
+        .aura-link { color: #9B6EC6; text-decoration: none; border-bottom: 1px solid rgba(155,110,198,0.3); transition: border-color 0.2s; }
+        .aura-link:hover { border-color: #9B6EC6; }
+        .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #E8934A; margin-bottom: 0.4rem; }
+        .cta-banner { background: #f5f0eb; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 3rem 0; }
+        .cta-banner .mini-aura { width: 150px; height: 150px; margin: 0 auto 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+        .mini-aura .aura-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%); animation: auraPulse 4s ease-in-out infinite; }
+        .mini-aura .aura-ring { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(232,147,74,0.25); animation: auraRotate 12s linear infinite; }
+        .mini-aura .aura-disk { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2)); animation: auraPulse 4s ease-in-out infinite reverse; }
+        .mini-aura .aura-center { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); box-shadow: 0 0 30px rgba(232,147,74,0.3); }
+        @keyframes auraPulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes auraRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .cta-banner h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1A1A1A; margin-bottom: 0.5rem; }
+        .cta-banner p { font-size: 0.9rem; color: #6B6B6B; margin-bottom: 0.3rem; line-height: 1.6; }
+        .cta-banner .cta-sub { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #E8934A, #9B6EC6); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s, transform 0.15s; }
+        .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .toc-sidebar { position: sticky; top: 80px; width: 220px; min-width: 220px; align-self: flex-start; margin-right: 3rem; padding-top: 100px; }
+        .toc-sidebar .toc-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #bbb; margin-bottom: 0.8rem; }
+        .toc-sidebar ul { list-style: none; padding: 0; }
+        .toc-sidebar li { margin-bottom: 0.4rem; }
+        .toc-sidebar a { display: block; font-size: 0.75rem; color: #999; text-decoration: none; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 2px solid transparent; transition: all 0.2s; line-height: 1.4; }
+        .toc-sidebar a:hover { color: #1A1A1A; }
+        .toc-sidebar a.active { color: #1A1A1A; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-left-width: 2px; border-left-style: solid; font-weight: 500; }
+        .toc-mobile { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; padding: 0.8rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e5e5; }
+        .toc-mobile a { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #999; text-decoration: none; padding: 0.3rem 0.8rem; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .toc-mobile a:hover { color: #1A1A1A; }
+        .toc-mobile a.active { color: #1A1A1A; border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1; }
+        footer { background: #f0ede8; border-top: 1px solid #e5e5e5; padding: 3rem 5rem; text-align: center; }
+        footer p { font-size: 0.85rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 0.4rem; }
+        footer p strong { color: #1A1A1A; font-weight: 600; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+        .footer-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #1A1A1A; }
+        .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #999; }
+        .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .toc-sidebar { display: none; } .toc-mobile { display: block; } }
+        @media (max-width: 768px) { nav { padding: 0 1.5rem; } .nav-links { display: none; } .article-wrapper { padding: 0 1.2rem; } .article-content { padding-top: 80px; } footer { padding: 2.5rem 1.5rem; } .cta-banner { padding: 2rem 1.5rem; } }
+        @media (max-width: 480px) { .article-content { padding-top: 75px; } .data-table { font-size: 0.8rem; } .data-table th, .data-table td { padding: 0.6rem 0.5rem; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+        <li><a href="recherche.html">Recherche</a></li>
+        <li><a href="aura.html">AURA</a></li>
+        <li><a href="index.html">Accueil</a></li>
+    </ul>
+</nav>
+
+<div class="article-wrapper">
+
+    <!-- TOC Sidebar -->
+    <aside class="toc-sidebar">
+        <div class="toc-label">Sommaire</div>
+        <ul>
+            <li><a href="#section1" style="font-weight:600;color:#1A1A1A;">Le probleme</a></li>
+            <li><a href="#section2" style="font-weight:600;color:#1A1A1A;">Comment le sommeil repare</a></li>
+            <li><a href="#section3" style="font-weight:600;color:#1A1A1A;">Peut-on ameliorer la recuperation ?</a></li>
+            <li style="margin-top:0.6rem;margin-bottom:0.2rem;"><span style="font-family:'Space Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;color:#E8934A;">Solutions</span></li>
+            <li><a href="#section4">&rarr; Stimulation auditive</a></li>
+            <li><a href="#section5">&rarr; Thermoregulation</a></li>
+            <li><a href="#section6">&rarr; Stimulation vestibulaire</a></li>
+            <li><a href="#section7">&rarr; Lumiere pulsee</a></li>
+            <li><a href="#section8">&rarr; Stimulation electrique</a></li>
+            <li><a href="#section9">&rarr; Pharmacologie</a></li>
+            <li style="margin-top:0.4rem;"><a href="#section10" style="font-weight:600;color:#1A1A1A;">Comparaison &amp; AURA</a></li>
+        </ul>
+    </aside>
+
+    <article class="article-content">
+
+        <div class="article-tag">Neurosciences &middot; Technologie &middot; Sommeil</div>
+        <h1 class="article-title">Sommeil et recuperation du jeune athlete : la technologie peut-elle aider ?</h1>
+        <p class="article-subtitle">Se reveiller fatigue, se blesser plus : comprendre le probleme, explorer les solutions</p>
+        <p class="article-meta">Les Zintrepreneurs &middot; Mars 2026 &middot; <span id="reading-time">--</span> de lecture</p>
+        <hr class="gradient-line">
+
+        <!-- TOC Mobile -->
+        <div class="toc-mobile">
+            <a href="#section1">Le probleme</a>
+            <a href="#section2">Reparation</a>
+            <a href="#section3">Ameliorer ?</a>
+            <a href="#section4">Sons roses</a>
+            <a href="#section5">Thermoreg.</a>
+            <a href="#section6">Vestibulaire</a>
+            <a href="#section7">Lumiere</a>
+            <a href="#section8">Electrique</a>
+            <a href="#section9">Pharma</a>
+            <a href="#section10">Comparaison</a>
+        </div>
+
+        <p class="chapeau">Tu dors 7 heures mais tu te reveilles claque. Tu enchaines les pepins musculaires. Tu sens que ton corps ne recupere pas assez &mdash; mais tu n'as pas plus de temps a consacrer au sommeil. <strong>Ce probleme touche la majorite des jeunes athletes.</strong> Cet article explore pourquoi le sommeil est le premier outil de recuperation, comment il repare concretement le corps, et si la technologie peut reellement ameliorer ce processus.</p>
+
+        <!-- Section 1 : LE PROBLEME -->
+        <section class="article-section animate-in" id="section1">
+            <div class="section-label">Section 01</div>
+            <h2>Le probleme : se reveiller fatigue, se blesser plus</h2>
+
+            <p>Le quotidien d'un jeune athlete ressemble souvent a ca : reveil a 5h30&ndash;6h, entrainement le matin, cours ou travail, deuxieme session le soir, coucher a 23h. <strong>Le corps n'a jamais le temps de recuperer.</strong> La fatigue s'accumule, la technique se degrade, et les blessures arrivent.</p>
+
+            <h3>Les chiffres sont sans appel</h3>
+            <p><a href="etude-reveil-sport.html" class="aura-link">Sargent et al. (2021, n=175 athletes d'elite)</a> ont mesure objectivement le sommeil par actigraphie. Le deficit moyen est de <strong class="accent-text">96 minutes par nuit</strong> &mdash; besoin declare : 8,3h, sommeil reel : 6,7h. Chez les nageurs, le temps de sommeil tombe a <strong>5h24</strong> les jours d'entrainement matinal. Et <strong>26 a 50 %</strong> des athletes d'elite rapportent une mauvaise qualite de sommeil subjective.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">x1,7</span>
+                <p>Risque de blessure multiplie par 1,7 chez les athletes dormant moins de 8 heures (Milewski et al. 2014). Chaque heure de sommeil supplementaire reduit le risque de blessure de 43 %.</p>
+            </div>
+
+            <h3>La fatigue n'est pas qu'une sensation &mdash; c'est un facteur de blessure</h3>
+            <p>Quand le corps ne recupere pas suffisamment pendant la nuit, trois mecanismes se declenchent :</p>
+            <ul class="styled-list">
+                <li><strong class="accent-text">Reparation musculaire incomplete</strong> &mdash; Les micro-lesions de l'entrainement ne sont pas entierement reparees. Le tissu est plus fragile a la session suivante.</li>
+                <li><strong class="accent-text">Degradation de la coordination motrice</strong> &mdash; Le cerveau consolide les gestes techniques pendant le sommeil. Mal dormir, c'est perdre une partie de l'entrainement de la veille.</li>
+                <li><strong class="accent-text">Compensation technique</strong> &mdash; Un athlete fatigue modifie inconsciemment sa biomecanique pour compenser. C'est la que les blessures de surcharge apparaissent.</li>
+            </ul>
+
+            <h3>Dormir plus ? Souvent impossible</h3>
+            <p>Les athletes ne compensent pas par un coucher plus precoce : leur heure de coucher reste stable a 22h&ndash;23h meme avec un reveil a 5h48. <a href="etude-reveil-pre-aube.html" class="aura-link">72 % ne sont pas des leve-tot naturels</a> (Lastella et al. 2016). Entre les contraintes d'entrainement, d'etudes et de vie sociale, etendre la duree de sommeil n'est pas realiste. <strong>La seule option : ameliorer la qualite de la recuperation dans le temps disponible.</strong></p>
+
+            <div class="highlight-box">
+                <strong>Le vrai probleme :</strong> ce n'est pas juste &laquo; mal dormir &raquo;. C'est un cercle vicieux : sommeil insuffisant &rarr; recuperation incomplete &rarr; fatigue accumulee &rarr; technique degradee &rarr; blessure &rarr; arret force &rarr; deconditionnement. Briser ce cycle est l'enjeu central pour les jeunes athletes.
+            </div>
+        </section>
+
+        <!-- Section 2 : COMMENT LE SOMMEIL REPARE -->
+        <section class="article-section animate-in" id="section2">
+            <div class="section-label">Section 02</div>
+            <h2>Comment le sommeil repare ton corps</h2>
+
+            <p>Le sommeil n'est pas une pause passive. C'est un programme de reparation actif, orchestre en phases precises. Comprendre <strong>quand</strong> et <strong>comment</strong> la recuperation se produit est essentiel pour savoir si on peut l'ameliorer.</p>
+
+            <h3>Le sommeil profond (N3) : l'usine de reparation</h3>
+            <p>Le stade N3 &mdash; le sommeil profond, ou <em>slow-wave sleep</em> &mdash; represente 10 a 25 % de la nuit mais concentre les processus de reparation physique les plus critiques :</p>
+
+            <ul class="styled-list">
+                <li><strong class="accent-text">Pic d'hormone de croissance (GH)</strong> &mdash; 75 % de la secretion quotidienne de GH se produit pendant le N3. La GH active la synthese proteique dans les muscles et la reparation du tissu conjonctif : <strong>x3,9 de synthese de collagene dans les tendons</strong> (Doessing 2010).</li>
+                <li><strong class="accent-text">Sensibilite a l'insuline</strong> &mdash; Directement correlee a la quantite de N3. Tasali et al. (2008, n=9) : r=0,89 entre SWA et disposition index. Supprimer selectivement le sommeil profond rend les sujets pre-diabetiques en 3 nuits. Pour un athlete, ca signifie une moins bonne utilisation du glucose musculaire.</li>
+                <li><strong class="accent-text">Systeme immunitaire</strong> &mdash; La vaccination apres une nuit de sommeil produit <strong>2x plus d'anticorps</strong> qu'apres une nuit de privation (Spiegel 2002). Un systeme immunitaire affaibli = plus d'infections, plus d'arrets.</li>
+            </ul>
+
+            <div class="key-box">
+                <span class="key-number">75 %</span>
+                <strong>De la GH quotidienne est liberee pendant le sommeil profond.</strong> Moins de N3 = moins de GH = reparation musculaire et tendineuse ralentie. C'est le lien direct entre qualite de sommeil et risque de blessure.
+            </div>
+
+            <h3>Le sommeil paradoxal (REM) : le cerveau qui repare le cerveau</h3>
+            <p>Le REM intervient principalement en seconde moitie de nuit et joue un role complementaire mais tout aussi critique :</p>
+
+            <ul class="styled-list">
+                <li><strong class="accent-purple">Regulation du cortisol</strong> &mdash; Le REM participe a la gestion du stress. Un deficit de REM augmente le cortisol matinal, ce qui favorise le catabolisme musculaire et inhibe la recuperation.</li>
+                <li><strong class="accent-purple">Regulation emotionnelle</strong> &mdash; Gestion de la frustration, motivation, capacite a gerer la pression. Un athlete en deficit de REM est plus irritable et moins resilient mentalement.</li>
+                <li><strong class="accent-purple">Memoire procedurale</strong> &mdash; Le REM contribue a l'integration des schemas moteurs complexes, en complement des fuseaux du stade N2.</li>
+            </ul>
+
+            <h3>Les fuseaux de sommeil (N2) : la memoire motrice</h3>
+            <p>Entre le sommeil profond et le REM, le stade N2 abrite les <strong>fuseaux de sommeil</strong> (12&ndash;15 Hz) &mdash; les grands oublies. Pourtant, <strong>Lustenberger et al. (2016, Current Biology)</strong> ont demontre une double dissociation decisive :</p>
+
+            <div class="key-box">
+                <span class="key-number">Double dissociation</span>
+                <strong>Ondes lentes &rarr; memoire declarative (faits, mots). Fuseaux &rarr; memoire motrice (geste technique, coordination).</strong> Pour un athlete, c'est la memoire motrice qui compte. Le sommeil consolide l'entrainement de la veille &mdash; a condition d'avoir assez de fuseaux.
+            </div>
+
+            <h3>L'architecture complete : 4&ndash;5 cycles par nuit</h3>
+            <p>Une nuit se compose de 4 a 5 cycles de ~90 minutes. Les premiers cycles sont riches en N3 (reparation physique), les derniers en REM (regulation neurale et emotionnelle). <strong>Chaque cycle compte.</strong> Perdre le dernier cycle (reveil trop tot) prive de REM. Retarder l'endormissement reduit le N3 du premier cycle.</p>
+
+            <div class="highlight-box">
+                <strong>Recuperation et blessure sont les deux faces de la meme piece :</strong> un athlete qui recupere mieux est un athlete qui se blesse moins. Le N3 repare les muscles et les tendons. Les fuseaux consolident la technique. Le REM gere le stress et le cortisol. Toute perturbation de cette architecture se paie en fatigue, en gestes approximatifs et en blessures.
+            </div>
+        </section>
+
+        <!-- Section 3 : PEUT-ON AMELIORER LA RECUPERATION -->
+        <section class="article-section animate-in" id="section3">
+            <div class="section-label">Section 03</div>
+            <h2>Peut-on ameliorer la recuperation pendant le sommeil ?</h2>
+
+            <p>Maintenant que l'on sait <em>comment</em> le sommeil repare, la question devient : <strong>peut-on amplifier ces mecanismes ?</strong> Peut-on augmenter la recuperation physique et reduire le risque de blessure en agissant sur la qualite du sommeil ? Avant de regarder les technologies, il faut definir ce qu'on cherche a ameliorer &mdash; et identifier les leviers physiologiques existants.</p>
+
+            <h3>Les trois priorites du jeune sportif</h3>
+            <p>&laquo; Mieux dormir &raquo; est un objectif flou. Pour un jeune athlete, l'objectif est concret : <strong>se reveiller repose et se blesser moins</strong>. Parmi tout ce que le sommeil fait, trois mecanismes sont directement lies a ces deux objectifs :</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Priorite</th>
+                            <th>Ce qui se passe pendant le sommeil</th>
+                            <th>Ce qui se passe quand ca manque</th>
+                            <th>Impact sportif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="accent-text">1. Reparation physique</strong></td>
+                            <td>N3 &rarr; pic de GH &rarr; synthese proteique, reparation tendineuse (x3,9 collagene), sensibilite a l'insuline</td>
+                            <td>Micro-lesions non reparees, tissu conjonctif fragilise, glucose musculaire mal utilise</td>
+                            <td>Fatigue musculaire au reveil, blessures de surcharge, recuperation allongee entre sessions</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="accent-text">2. Regulation nerveuse</strong></td>
+                            <td>REM &rarr; cortisol normalise, inflammation resolue, systeme nerveux autonome reequilibre</td>
+                            <td>Cortisol matinal eleve, catabolisme musculaire, sommeil fragmente par le stress</td>
+                            <td>Fatigue nerveuse au reveil, surentrainement, irritabilite, motivation en chute</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="accent-text">3. Architecture complete</strong></td>
+                            <td>4&ndash;5 cycles complets (N1&rarr;N2&rarr;N3&rarr;REM) &rarr; chaque phase fait son travail dans le bon ordre</td>
+                            <td>Phases tronquees, dette de sommeil malgre 7&ndash;8h au lit</td>
+                            <td>Se reveiller fatigue malgre une nuit &laquo; suffisante &raquo;, premiere session degradee, risque accru</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Ces trois priorites convergent vers un meme resultat : <strong>se reveiller reellement repose</strong>. Un corps mal repare (priorite 1) genere de la fatigue musculaire. Un systeme nerveux desequilibre (priorite 2) genere de la fatigue nerveuse. Des cycles incomplets (priorite 3) empechent les deux premiers de fonctionner. Les trois doivent etre reunis pour que le sommeil soit reellement reparateur.</p>
+
+            <div class="key-box">
+                <span class="key-number">Pourquoi ces 3 et pas les autres ?</span>
+                <strong>La memoire motrice</strong> (consolidation des gestes techniques via les fuseaux N2), la <strong>memoire declarative</strong> (consignes tactiques) et la <strong>regulation emotionnelle</strong> (gestion du stress) sont reelles mais ne repondent pas au probleme central &mdash; se reveiller fatigue. Un athlete fatigue au reveil ne tire pas profit de gestes bien consolides : il les execute mal parce que son corps et son systeme nerveux n'ont pas recupere. <strong>Ces trois priorites ciblent les causes directes de la fatigue au reveil.</strong>
+            </div>
+
+            <h3>Pourquoi c'est amplifie chez le jeune sportif</h3>
+            <p>Un adolescent de 15&ndash;25 ans n'est pas un adulte en miniature. Sa physiologie nocturne est <strong>radicalement differente</strong> &mdash; et c'est ce qui rend l'optimisation du sommeil a la fois plus prometteuse et plus urgente pour cette population.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">&times;3 a &times;6</span>
+                <p>La secretion quotidienne de GH au pic pubertaire (~150 &micro;g/kg/jour) est 3 a 6 fois superieure a celle d'un adulte de 40&ndash;55 ans. Cette hormone repare tendons, ligaments et tissu conjonctif pendant le N3.</p>
+            </div>
+
+            <ul class="styled-list">
+                <li><strong class="accent-text">2&times; plus de sommeil profond</strong> &mdash; Le SWS represente ~20&ndash;25 % du temps de sommeil chez l'adolescent vs ~5&ndash;10 % chez l'adulte de 35&ndash;50 ans. L'amplitude des ondes lentes est encore <strong>66 % superieure</strong> a celle de l'adulte (Kurth 2010).</li>
+                <li><strong class="accent-text">Testosterone dependante du sommeil</strong> &mdash; Pendant la puberte, l'augmentation pulsatile de la LH est <strong>initialement restreinte au sommeil</strong> (Boyar 1974). Pas de sommeil de qualite = pas de maturation hormonale optimale.</li>
+                <li><strong class="accent-text">Immunite plus reactive</strong> &mdash; Une seule nuit de 4h reduit l'activite des cellules NK de ~70 % (Irwin). Dormir &lt;5h multiplie par <strong>4,5</strong> le risque d'infection (Prather 2015). Les jeunes athletes en deficit chronique accumulent les arrets maladie.</li>
+                <li><strong class="accent-purple">Mais un deficit paradoxalement plus grand</strong> &mdash; Les adolescents sportifs ne dorment en moyenne que <strong>~6,3h/nuit</strong> vs les 8&ndash;10h recommandees. Le retard de phase circadien pubertaire (1&ndash;4h) entre en conflit direct avec les entrainements matinaux.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>La fenetre biologique du jeune athlete est sans equivalent :</strong> plus de GH, plus de sommeil profond, plus de plasticite &mdash; mais aussi plus de deficit. C'est le groupe qui a <strong>le plus a gagner</strong> d'une amelioration du sommeil, et <strong>le plus a perdre</strong> d'une restriction. L'etude de Mah et al. (2011) le confirme : chez des basketteurs de 19 ans, <strong>+111 min de sommeil</strong> a produit &minus;0,7s au sprint (&minus;4,3 %), +9 % aux lancers francs, et +9,2 % au tir a 3 points. <a href="etude-recuperation-physique.html" class="aura-link">Voir l'analyse complete &rarr;</a>
+            </div>
+
+            <h3>Les cinq leviers physiologiques</h3>
+            <p>Quels mecanismes du sommeil peut-on cibler ? Tous ne se valent pas, et cibler le mauvais levier explique pourquoi tant de produits echouent.</p>
+
+            <h3>Levier 1 : Augmenter la puissance des ondes lentes (SWA) pendant le N3</h3>
+            <p>C'est l'hypothese dominante dans la litterature. Les oscillations lentes (~0,8 Hz) du sommeil profond orchestrent la consolidation de la memoire declarative via la cascade SO &rarr; fuseaux &rarr; ripples hippocampiques. Augmenter leur amplitude ou leur densite pourrait amplifier ce processus. C'est ce que visent la <strong>stimulation auditive</strong> (CLAS), la <strong>stimulation electrique</strong> (tSOS) et partiellement le <strong>bercement</strong>.</p>
+
+            <p><strong>Limite majeure :</strong> augmenter la SWA ne se traduit pas systematiquement en benefice fonctionnel. Les replications recentes (Henin 2019, Baldassarri 2024) montrent une augmentation des ondes lentes <strong>sans amelioration de la memoire</strong>. Les ondes lentes sont peut-etre necessaires mais pas suffisantes.</p>
+
+            <h3>Levier 2 : Augmenter la proportion de N3 dans la nuit</h3>
+            <p>Plutot que d'amplifier la qualite des ondes lentes existantes, on pourrait chercher a <strong>passer plus de temps en N3</strong>. C'est ce que fait la <strong>thermoregulation</strong> (Raymann 2008 : N3 presque double chez les ages) et potentiellement le <strong>bercement vestibulaire</strong> (Perrault 2019 : N3 plus long). L'oxybate de sodium produit +52,5 min de N3 par nuit &mdash; la reference pharmacologique.</p>
+
+            <p><strong>Limite :</strong> le sommeil a une architecture homeostasique. Le N3 se concentre naturellement en debut de nuit et diminue au fil des cycles. Forcer plus de N3 en seconde moitie de nuit pourrait empieter sur le REM &mdash; qui a ses propres fonctions critiques (regulation emotionnelle, creativite, memoire procedurale).</p>
+
+            <h3>Levier 3 : Augmenter les fuseaux de sommeil (N2)</h3>
+            <p>Les fuseaux de sommeil (12&ndash;15 Hz, stade N2) sont les grands oublies. Pourtant, <strong>Lustenberger et al. (2016, Current Biology)</strong> ont demontre une double dissociation : les ondes lentes ameliorent la memoire declarative (faits, mots) tandis que les fuseaux ameliorent la <strong>memoire motrice</strong> (geste technique, coordination). Pour un athlete, c'est la memoire motrice qui compte.</p>
+
+            <p>Or la quasi-totalite des technologies visent les ondes lentes, pas les fuseaux. <strong>Aucun produit consumer ne cible specifiquement les fuseaux.</strong> Seule exception : la vibration cardio-synchrone (Choi 2021) augmente a la fois les ondes lentes ET les fuseaux &mdash; ce qui en fait theoriquement l'approche la plus pertinente pour les athletes.</p>
+
+            <h3>Levier 4 : Reduire la fragmentation du sommeil</h3>
+            <p>Plutot que d'amplifier un stade, on peut chercher a <strong>proteger l'architecture existante</strong> en reduisant les micro-reveils. Chaque micro-eveil interrompt un cycle, retarde le retour au N3 et fragmente le REM. La thermoregulation excelle ici : Raymann 2008 reduit les reveils precoces de 0,58 a 0,04 ; Fronczek 2008 obtient <strong>-68 % d'eveils nocturnes</strong> chez les narcoleptiques.</p>
+
+            <p><strong>Paradoxe :</strong> le bruit rose continu, cense ameliorer le sommeil, peut en realite le fragmenter. Penn Medicine (2024) rapporte une reduction de ~19 min de REM avec du bruit rose a 50 dB. Le remede peut etre pire que le mal.</p>
+
+            <h3>Levier 5 : Faciliter l'endormissement (reduire la latence)</h3>
+            <p>La latence d'endormissement &mdash; le temps pour s'endormir &mdash; est un levier souvent neglige. Chaque minute de latence est une minute de sommeil perdue. Le bain chaud reduit la latence de <strong>~36 %</strong> (meta-analyse de 17 etudes). La stimulation alpha anti-phase (Elemind, 2024) la reduit de <strong>48 %</strong>. La thermoregulation agit principalement par ce mecanisme via le gradient distal-proximal.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Levier</th>
+                            <th>Cible</th>
+                            <th>Technologies</th>
+                            <th>Pertinence athlete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amplifier SWA</strong></td>
+                            <td>Puissance ondes lentes en N3</td>
+                            <td>CLAS, tSOS, bercement</td>
+                            <td>Moderee (memoire declarative)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plus de N3</strong></td>
+                            <td>Proportion de sommeil profond</td>
+                            <td>Thermoregulation, GHB</td>
+                            <td class="accent-text">Forte (insuline, GH, immunitaire)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plus de fuseaux</strong></td>
+                            <td>Densite fuseaux en N2</td>
+                            <td>Vibration cardio-synchrone</td>
+                            <td class="accent-text">Forte (memoire motrice)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moins de fragmentation</strong></td>
+                            <td>Reduire micro-reveils</td>
+                            <td>Thermoregulation</td>
+                            <td class="accent-text">Forte (continuite = qualite)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endormissement rapide</strong></td>
+                            <td>Latence d'endormissement</td>
+                            <td>Bain chaud, Elemind, thermoreg.</td>
+                            <td>Moderee (temps total de sommeil)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <strong>La reponse courte : oui, en theorie.</strong> Les leviers physiologiques existent. Plus de N3 = plus de GH = meilleure reparation. Plus de fuseaux = meilleure consolidation motrice. Moins de fragmentation = architecture preservee. Mais l'erreur de la plupart des produits sleep-tech est de se focaliser sur l'amplification des ondes lentes (levier 1) alors que la proportion de N3 (levier 2), les fuseaux (levier 3) et la fragmentation (levier 4) sont probablement plus impactants pour la recuperation sportive. <strong>Voyons maintenant quelles technologies peuvent reellement activer ces leviers.</strong>
+            </div>
+        </section>
+
+        <!-- Section 4 : STIMULATION AUDITIVE -->
+        <section class="article-section animate-in" id="section4">
+            <div class="section-label">Solutions &mdash; 01</div>
+            <h2>La stimulation auditive &mdash; promesses initiales, crise de replication</h2>
+
+            <p>Les sons roses synchronises avec les oscillations lentes du cerveau sont la technologie de modulation du sommeil la plus mediatisee. C'est aussi celle dont les promesses se sont le plus erodees a mesure que les tentatives de replication s'accumulent.</p>
+
+            <h3>Le mecanisme : elegant et bien compris</h3>
+            <p>Les oscillations lentes du sommeil profond (~0,8 Hz) alternent entre un etat UP (depolarisation, neurones actifs) et un etat DOWN (hyperpolarisation, silence neuronal). Un bruit rose de 50 ms delivre pendant l'etat UP declenche un complexe K qui prolonge le train d'oscillations lentes et recrute des fuseaux thalamiques.</p>
+
+            <div class="pathway">
+                <span class="node">Bruit rose (50 ms)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Cortex auditif</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Complexe K</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Train d'ondes lentes</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Fuseaux thalamiques</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Ripples hippocampiques</span>
+            </div>
+
+            <p>L'etude fondatrice de <strong>Ngo et al. (2013, Neuron, n=11)</strong> a demontre que cette stimulation en boucle fermee (CLAS &mdash; <em>closed-loop auditory stimulation</em>) augmentait la puissance des ondes lentes de <strong>+9 %</strong> et ameliorait la memoire declarative. Le mecanisme est specifique au timing : 4 clicks ne surpassent pas 2 clicks (Ngo 2015), le systeme thalamocortical possede un mecanisme refractaire protecteur. Nous detaillons les trois approches (continu, stage-gated, phase-locked) dans notre <a href="etude-sons-roses-stage-gated.html" class="aura-link">etude dediee aux sons roses</a>.</p>
+
+            <h3>La crise de replication &mdash; les effets s'evaporent</h3>
+
+            <p>Les annees 2019&ndash;2024 ont apporte une succession de replications echouees :</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Etude</th>
+                            <th>n</th>
+                            <th>Effet sur SWA</th>
+                            <th>Effet sur la memoire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ngo 2013 (fondateur)</td>
+                            <td>11</td>
+                            <td class="accent-text">+9 %</td>
+                            <td class="accent-text">Amelioree (p&lt;0.05)</td>
+                        </tr>
+                        <tr>
+                            <td>Papalambros 2017 (ages)</td>
+                            <td>13</td>
+                            <td class="accent-text">Augmentee</td>
+                            <td class="accent-text">x3 rappel verbal</td>
+                        </tr>
+                        <tr>
+                            <td>Henin 2019</td>
+                            <td>19</td>
+                            <td class="accent-text">Augmentee</td>
+                            <td class="accent-red">ZERO effet</td>
+                        </tr>
+                        <tr>
+                            <td>Baldassarri 2024 (domicile)</td>
+                            <td>19</td>
+                            <td class="accent-text">Augmentee</td>
+                            <td class="accent-red">ZERO effet</td>
+                        </tr>
+                        <tr>
+                            <td>Dudysova 2024 (insomnie)</td>
+                            <td>27</td>
+                            <td>41 % ont recu assez</td>
+                            <td class="accent-red">ZERO effet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Le schema est clair : la CLAS <strong>augmente systematiquement les ondes lentes</strong>, mais cette augmentation <strong>ne se traduit pas en benefice comportemental ou cognitif</strong> dans la majorite des replications.</p>
+
+            <h3>La meta-analyse qui change tout</h3>
+            <p>La meta-analyse de <strong>Wunderlin et al. (2021, 10 etudes, 177 participants)</strong> est souvent citee avec un g=0,44. Ce chiffre est trompeur : c'est le sous-groupe le plus favorable (phase-locked + jeunes adultes uniquement). Le resultat global est <strong class="accent-red">g=0,25 (p=0,07) &mdash; non significatif</strong>.</p>
+
+            <p>Plus alarmant encore : une meta-analyse de 2023 sur la replicabilite montre que <strong class="accent-red">91,8 % de l'heterogeneite est expliquee par l'annee de publication</strong>. Les etudes anciennes montrent de grands effets ; les recentes montrent peu ou pas d'effet. C'est la signature classique d'un biais de publication.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">91,8 %</span>
+                <p>De l'heterogeneite entre etudes expliquee par la date de publication. Les effets initiaux s'evaporent a mesure que la recherche murit. Signal d'alarme pour toute l'approche.</p>
+            </div>
+
+            <h3>Le bruit rose continu est potentiellement nocif</h3>
+            <p>A distinguer de la CLAS phase-locked : le bruit rose diffuse en continu toute la nuit, souvent vendu via des apps ou des enceintes. Les donnees recentes sont preoccupantes :</p>
+
+            <ul class="styled-list">
+                <li><strong class="accent-red">Penn Medicine 2024</strong> &mdash; Le bruit rose a 50 dB reduit le sommeil REM de <strong>~19 minutes</strong> par nuit</li>
+                <li><strong class="accent-red">Schade et al. 2023</strong> &mdash; Le bruit rose toute la nuit empeche l'<em>insight</em> : seulement 4 % du groupe bruit rose vs 18 % du groupe silence parviennent a la solution</li>
+                <li><strong>Preprint 2025</strong> &mdash; La stimulation auditive aleatoire (mal synchronisee) <strong>reduit</strong> le sommeil profond et deteriore la memoire declarative</li>
+            </ul>
+
+            <div class="key-box">
+                <span class="key-number">Attention</span>
+                <strong>Le bruit rose continu (apps, enceintes) n'est PAS equivalent a la CLAS.</strong> Le timing est tout. Un son mal synchronise peut fragmenter le sommeil au lieu de l'ameliorer. La distinction entre stimulation ciblee et bruit de fond est critique.
+            </div>
+
+            <h3>L'industrie bat en retraite</h3>
+            <p>Deux signaux forts : <strong>Dreem</strong>, le bandeau EEG le plus avance, a abandonne la stimulation auditive dans sa version 3 et arrete la vente au grand public en 2021, puis coupe ses serveurs en 2023. <strong>Philips SmartSleep</strong> a ete discontinue en Europe. Ces retraits industriels sont un vote de non-confiance de la part d'entreprises qui avaient investi des millions dans cette technologie.</p>
+
+            <h3>Memoire declarative vs memoire motrice &mdash; le mauvais objectif pour les athletes ?</h3>
+            <p><strong>Lustenberger et al. (2016, Current Biology, n=16)</strong> ont demontre une double dissociation : les <strong>ondes lentes</strong> ameliorent la memoire declarative (faits, mots) tandis que les <strong>fuseaux de sommeil</strong> (12 Hz) ameliorent la memoire motrice. Pour un athlete, c'est la memoire motrice qui compte &mdash; technique, coordination, geste. Or la CLAS augmente les ondes lentes, pas specifiquement les fuseaux. <strong>Aucun produit consumer ne cible les fuseaux.</strong></p>
+
+            <h3>Ce qui reste valide</h3>
+            <p>La CLAS phase-locked EEG augmente la puissance delta de <strong>+9 a 22 %</strong> &mdash; ce resultat est reproductible. Chez les <strong>sujets ages</strong>, elle ameliore le rappel verbal d'un facteur 3 (Papalambros 2017, n=13, d=0,63). L'approche <strong>stage-gated</strong> (sans EEG, declenchee par detection de stade N3) augmente le delta power de <strong>+16 a 46 %</strong> mais avec seulement 2 etudes (Schade 2020 n=8, Weigenand 2016) et <strong>aucun effet sur la memoire</strong>. La GH n'augmente <strong class="accent-red">PAS</strong> sous CLAS (<a href="etude-recuperation-physique.html" class="aura-link">Besedovsky 2017</a>).</p>
+
+            <div class="highlight-box">
+                <strong>Verdict stimulation auditive :</strong> Le mecanisme neurophysiologique est reel &mdash; les ondes lentes augmentent. Mais la traduction en benefice fonctionnel est en crise de replication. Le bruit rose continu est potentiellement nocif. L'industrie recule. Pour un produit consumer, la stimulation auditive reste une feature interessante mais ne peut PAS etre le pilier.
+            </div>
+        </section>
+
+        <!-- Section 5 : THERMOREGULATION -->
+        <section class="article-section animate-in" id="section5">
+            <div class="section-label">Solutions &mdash; 02</div>
+            <h2>La thermoregulation &mdash; l'approche la plus puissante mais sous-estimee</h2>
+
+            <p>La manipulation de la temperature cutanee est l'intervention non pharmacologique qui produit les effets les plus importants sur le sommeil profond. Son mecanisme est mieux compris que celui de la stimulation auditive, et ses preuves sont plus robustes.</p>
+
+            <h3>Le mecanisme : le gradient distal-proximal (DPG)</h3>
+            <p>Le systeme circadien declenche le sommeil via une sequence thermique precise. Le soir, le noyau suprachiasmatique initie la liberation de melatonine, qui ouvre les shunts arterioveineux des extremites (mains, pieds). La chaleur s'echappe par les extremites, le coeur se refroidit. Ce <strong>gradient distal-proximal</strong> (DPG &mdash; extremites chaudes, tronc frais) est le <strong>meilleur predicteur de la latence d'endormissement</strong>, superieur a la temperature centrale seule.</p>
+
+            <div class="pathway">
+                <span class="node">SCN</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Melatonine</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Vasodilatation distale</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Perte de chaleur</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">&uarr; DPG</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">VLPO inhibe les centres d'eveil</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Sommeil profond</span>
+            </div>
+
+            <p>Les neurones thermosensibles de la zone preoptique (VLPO) et du noyau preoptique median (MnPO) detectent l'augmentation de temperature cutanee et inhibent les centres d'eveil du tronc cerebral &mdash; le switch flip-flop sommeil/eveil identifie par Saper et al.</p>
+
+            <h3>L'etude fondatrice : Raymann 2008</h3>
+            <p><strong>Raymann et al. (2008, Brain)</strong> ont utilise une combinaison thermique pour appliquer un rechauffement cutane de <strong>+0,4 &deg;C</strong> au niveau du tronc. Les resultats chez les sujets ages sont spectaculaires :</p>
+
+            <div class="shock-box">
+                <span class="shock-number">x2</span>
+                <p>Le sommeil profond presque double chez les sujets ages avec seulement +0,4 &deg;C de rechauffement cutane. La probabilite de reveil precoce chute de 0,58 a 0,04.</p>
+            </div>
+
+            <p>Chez les patients narcoleptiques, <strong>Fronczek et al. (2008)</strong> ont combine rechauffement proximal et refroidissement distal : <strong>+160 % de sommeil profond, +50 % de REM, -68 % d'eveils nocturnes</strong>. Aucune medication.</p>
+
+            <h3>Les donnees 2024 : plus nuancees</h3>
+            <p><strong>Scientific Reports 2024 (n=72, 3 centres)</strong> &mdash; Un matelas a haute capacite thermique produit <strong>+7,5 min de N3</strong> sur 7,5h, FC <strong>-2,36 bpm</strong> (p&lt;0,0001). La taille d'effet : d=0,347 &mdash; petit mais reel. Fait important : c'est le <strong>refroidissement peripherique</strong> (perte de chaleur par le corps) qui medite l'effet, pas le refroidissement du matelas directement.</p>
+
+            <p><strong>Eight Sleep 2024 (n=54)</strong> &mdash; +22 % de N3 chez les femmes (phase froide en debut de nuit), +7 % de HRV. Publie en peer-review mais <strong>finance par Eight Sleep</strong>, non randomise, 1 semaine seulement. Cout du produit : 2 000&ndash;2 500 $.</p>
+
+            <h3>Le bain chaud : la solution la plus simple</h3>
+            <p>Une meta-analyse de 17 etudes montre qu'un bain chaud (40&ndash;42,5 &deg;C, &ge;10 min, 1&ndash;2h avant le coucher) reduit la latence d'endormissement de <strong class="accent-text">~36 %</strong>. Le mecanisme est le meme : vasodilatation peripherique &rarr; augmentation du DPG &rarr; refroidissement central accelere. Cout : zero.</p>
+
+            <h3>Le null chez les athletes &mdash; une donnee critique</h3>
+            <p><strong>Chauvineau et al. (2024, n=21 coureurs d'endurance)</strong> ont teste un surmatelas thermoregule pendant 6 semaines (baseline, surcharge, taper). Resultat : <strong class="accent-red">ZERO benefice</strong> sur aucune variable de sommeil par rapport au controle. La charge d'entrainement elle-meme ameliorait le sommeil, masquant tout effet du matelas.</p>
+
+            <div class="highlight-box">
+                <strong>Verdict thermoregulation :</strong> L'intervention la plus puissante de la litterature non pharmacologique &mdash; chez les ages et les insomniaques. Mais l'effet est <strong>age-dependant</strong> (maximal chez 60+, modeste chez les jeunes) et <strong>nul chez les athletes entraines</strong> dans la seule etude disponible. Le bain chaud est presque aussi efficace qu'un matelas a 2 500 $. Pour AURA, un pad thermique en V2 reste pertinent mais pas urgent.
+            </div>
+        </section>
+
+        <!-- Section 6 : VESTIBULAIRE -->
+        <section class="article-section animate-in" id="section6">
+            <div class="section-label">Solutions &mdash; 03</div>
+            <h2>La stimulation vestibulaire &mdash; du berceau au dispositif medical</h2>
+
+            <p>Le bercement est peut-etre la plus ancienne technologie de sommeil de l'humanite. La science recente valide ce que chaque parent savait deja &mdash; et des produits commencent a l'exploiter.</p>
+
+            <h3>Le bercement mecanique : Perrault 2019</h3>
+            <p><strong>Perrault et al. (2019, Current Biology, n=18)</strong> ont soumis des sujets a un balancement lateral a 0,25 Hz pendant une nuit entiere dans un lit motorise. Resultats : latence d'endormissement raccourcie, N3 plus long, amplitude des ondes lentes augmentee, fuseaux de sommeil plus nombreux, et memoire consolidee amelioree le lendemain.</p>
+
+            <p>La demonstration mecaniste vient du modele murin. <strong>Kompotis et al. (2019)</strong> ont montre que l'effet est <strong>strictement dependant des otolithes vestibulaires</strong>. Les souris dont les otolithes sont inactives ne montrent aucune amelioration. Le circuit est direct :</p>
+
+            <div class="pathway">
+                <span class="node">Otolithes</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Noyaux vestibulaires</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Thalamus</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Circuit thalamocortical</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Ondes lentes + Fuseaux</span>
+            </div>
+
+            <h3>La vibration cardio-synchrone : Choi 2021</h3>
+            <p><strong>Choi et al. (2021, SLEEP, n=12)</strong> ont teste une vibration mecanique basse frequence couplee au rythme cardiaque pendant le sommeil profond. Resultats : augmentation significative de la SWA, <strong>densite de fuseaux augmentee</strong>, memoire amelioree, et activite parasympathique renforcee (+HF HRV). Ce resultat est notable : c'est la seule technologie testee qui augmente <strong>a la fois</strong> les ondes lentes ET les fuseaux &mdash; potentiellement plus pertinent pour les athletes (memoire motrice).</p>
+
+            <h3>Modius Sleep : le premier produit FDA-cleared</h3>
+            <p>En octobre 2023, <strong>Modius Sleep</strong> a obtenu l'autorisation FDA pour un bandeau de stimulation vestibulaire electrique (VeNS &mdash; <em>vestibular nerve stimulation</em>). L'essai controle (n=147, double aveugle, sham) montre une reduction de l'ISI (<em>Insomnia Severity Index</em>) de <strong class="accent-text">24,5&ndash;29,4 %</strong> vs 17,1&ndash;19,2 % pour le sham, avec 95 % des participants ameliores en 4 semaines. Sessions de 30 min quotidiennes. Cout : ~1 185 $.</p>
+
+            <div class="key-box">
+                <span class="key-number">FDA-cleared</span>
+                <strong>Modius Sleep est le premier dispositif de stimulation vestibulaire autorise par la FDA pour l'insomnie chronique.</strong> Essai controle n=147. Le mecanisme vestibulaire est le meme que celui du bercement &mdash; mais electrique et portable.
+            </div>
+
+            <div class="highlight-box">
+                <strong>Verdict vestibulaire :</strong> Preuves solides en laboratoire (Perrault, Kompotis) et dans un essai FDA (Modius). La vibration cardio-synchrone (Choi 2021) est la seule approche qui augmente fuseaux ET ondes lentes. Mais aucune etude chez les athletes, et les dispositifs restent chers. Pour AURA, une vibration integree a la base de chevet serait exploratoire mais mecanistiquement fondee.
+            </div>
+        </section>
+
+        <!-- Section 7 : LUMIERE PULSEE -->
+        <section class="article-section animate-in" id="section7">
+            <div class="section-label">Solutions &mdash; 04</div>
+            <h2>La lumiere pulsee &mdash; outil circadien, pas amplificateur d'ondes lentes</h2>
+
+            <p>La lumiere ne peut pas moduler les ondes lentes du sommeil profond. La barriere est double.</p>
+
+            <p><strong>Barriere physique :</strong> les paupieres humaines ne transmettent que <strong class="accent-text">0,28 %</strong> de la lumiere a 480 nm (<a href="etude-spectre-lumineux.html" class="aura-link">longueur d'onde de la melanopsine</a>). Moins de 3 photons bleus sur 1 000 atteignent la retine a travers les paupieres fermees (Bierman 2011).</p>
+
+            <p><strong>Barriere neuronale :</strong> pendant le sommeil NREM, le thalamus bascule en mode oscillatoire. Les fuseaux de sommeil bloquent la transmission des informations sensorielles vers le cortex. Les photons qui traversent les paupieres ne parviennent pas aux circuits generateurs d'ondes lentes.</p>
+
+            <p><strong>Zeitzer et al. (2014, n=13)</strong> le demontrent : des flashes lumineux de 2 ms pendant le sommeil produisent un decalage de phase circadien significatif, mais l'architecture du sommeil reste <strong>strictement inchangee</strong> (tous p&gt;0,30). La lumiere recalibre l'horloge mais ne touche pas aux ondes lentes.</p>
+
+            <p>Un signal emergent : la photobiomodulation transcranienne (tPBM) a 810 nm (proche infrarouge, penetrant le crane) montre une augmentation du delta frontal dans un essai isole (n=30, 2025). Mecanisme probablement mitochondrial. Non replique.</p>
+
+            <div class="key-box">
+                <span class="key-number">0 effet</span>
+                <strong>La lumiere module l'horloge circadienne, pas les ondes lentes.</strong> Toute publicite affirmant qu'une lampe ou un masque lumineux &laquo; amplifie le sommeil profond &raquo; est scientifiquement fausse.
+            </div>
+        </section>
+
+        <!-- Section 8 : STIMULATION ELECTRIQUE -->
+        <section class="article-section animate-in" id="section8">
+            <div class="section-label">Solutions &mdash; 05</div>
+            <h2>La stimulation electrique transcranienne &mdash; prometteur mais irreproductible</h2>
+
+            <p>La tSOS (<em>transcranial slow oscillation stimulation</em>) impose un champ electrique a 0,75 Hz au cortex &mdash; la meme frequence que les oscillations endogenes. L'etude fondatrice de <strong>Marshall et al. (2006, Nature, n=13)</strong> rapportait +8,4 % de rappel verbal. Mais la suite a ete decevante.</p>
+
+            <p>La meta-analyse de <strong>Barham et al. (2016)</strong> trouve un effet pool significatif (SMD=0,447, p=0,003) mais avec une heterogeneite considerable. Les replications recentes echouent systematiquement : Eggert 2013 (aucun effet chez les ages), Sahlem 2015 (echec chez les sains), Bueno-Lopez 2019 (pas d'amelioration cognitive). Plus de <strong>18 000 sessions</strong> ont ete administrees sans evenement indesirable grave, mais aucune donnee de securite a long terme n'existe pour un usage nocturne repete.</p>
+
+            <p>Un resultat de 2024 est neanmoins encourageant : une stimulation transcranienne a 0,75 Hz a reduit la latence d'endormissement de <strong class="accent-text">53 %</strong> vs baseline dans un essai randomise &mdash; plus efficace que la stimulation a 25 Hz (30 %).</p>
+
+            <p>La memoire procedurale &mdash; celle qui interesse les athletes &mdash; n'est <strong>pas amelioree</strong> par la tSOS (SMD=0,154, non significatif).</p>
+
+            <div class="highlight-box">
+                <strong>Verdict :</strong> Non praticable pour un produit consumer (pas de dispositif grand public certifie). La memoire motrice n'est pas amelioree. Mais la reduction de latence d'endormissement a 0,75 Hz merite d'etre surveillee.
+            </div>
+        </section>
+
+        <!-- Section 9 : PHARMACOLOGIE -->
+        <section class="article-section animate-in" id="section9">
+            <div class="section-label">Solutions &mdash; 06</div>
+            <h2>Le fosse pharmacologique &mdash; pour situer l'ambition</h2>
+
+            <p>Pour calibrer les attentes, comparons les approches sensorielles a la pharmacologie.</p>
+
+            <h3>Ce qui NE modifie PAS le sommeil profond</h3>
+            <p>La <strong>melatonine</strong> est un chronobiotique, pas un hypnotique : elle raccourcit la latence et decale la phase, mais N3 reste inchange (Arbon 2015, Cajochen 1997). Aucun supplement en vente libre (glycine, magnesium, L-theanine, ashwagandha) ne dispose de preuves polysomnographiques solides d'une augmentation du N3.</p>
+
+            <h3>La reference : l'oxybate de sodium</h3>
+            <p>Le GHB pharmaceutique (prescrit pour la narcolepsie) produit <strong class="accent-text">+52,5 min de SWS</strong> par nuit (Black 2010, n=228) et <strong>+145 %</strong> de duree de sommeil profond (Series 1992). Ces chiffres eclipsent toutes les interventions sensorielles &mdash; mais au prix d'effets secondaires significatifs et d'une prescription encadree.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Intervention</th>
+                            <th>Effet sur N3/SWA</th>
+                            <th>Evidence</th>
+                            <th>Praticabilite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GHB / oxybate de sodium</td>
+                            <td class="accent-text">+52,5 min / +145 %</td>
+                            <td>Forte (n=228)</td>
+                            <td>Prescription</td>
+                        </tr>
+                        <tr>
+                            <td>Thermoregulation (+0,4 &deg;C)</td>
+                            <td class="accent-text">x2 (ages)</td>
+                            <td>Forte (Brain)</td>
+                            <td>Matelas / pad</td>
+                        </tr>
+                        <tr>
+                            <td>CLAS phase-locked (EEG)</td>
+                            <td class="accent-purple">+9-22 % SWA</td>
+                            <td>Moderee (replications mitigees)</td>
+                            <td>Bandeau EEG</td>
+                        </tr>
+                        <tr>
+                            <td>Stage-gated (sans EEG)</td>
+                            <td>+16-46 % delta (2 etudes)</td>
+                            <td>Faible (n=8)</td>
+                            <td>Integrable</td>
+                        </tr>
+                        <tr>
+                            <td>Bercement vestibulaire</td>
+                            <td>Significatif (non quantifie)</td>
+                            <td>Forte (Current Biology)</td>
+                            <td>Lit motorise / VeNS</td>
+                        </tr>
+                        <tr>
+                            <td>Vibration cardio-synchrone</td>
+                            <td>SWA + fuseaux augmentes</td>
+                            <td>Emergente (n=12)</td>
+                            <td>A explorer</td>
+                        </tr>
+                        <tr>
+                            <td>tSOS (stimulation electrique)</td>
+                            <td>SMD = 0,447</td>
+                            <td>Moderee (replications echouees)</td>
+                            <td>Non disponible</td>
+                        </tr>
+                        <tr>
+                            <td>Lumiere pulsee</td>
+                            <td class="accent-red">NUL</td>
+                            <td>Forte (preuve negative)</td>
+                            <td>&mdash;</td>
+                        </tr>
+                        <tr>
+                            <td>Melatonine / supplements</td>
+                            <td class="accent-red">NUL</td>
+                            <td>Forte (preuve negative)</td>
+                            <td>En vente libre</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="shock-box">
+                <span class="shock-number">5-10x</span>
+                <p>L'ecart entre pharmacologie et neuromodulation sensorielle. Les approches non pharmacologiques restent modestes &mdash; mais sans risque, sans prescription, utilisables chaque nuit.</p>
+            </div>
+        </section>
+
+        <!-- Section 10 : COMPARAISON & AURA -->
+        <section class="article-section animate-in" id="section10">
+            <div class="section-label">Synthese</div>
+            <h2>Comparaison globale et l'approche AURA</h2>
+
+            <h3>Classement par niveau de preuve (mars 2026)</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Technologie</th>
+                            <th>Preuve</th>
+                            <th>Athletes</th>
+                            <th>Integrable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Thermoregulation</strong></td>
+                            <td class="accent-text">Solide</td>
+                            <td class="accent-red">Null (Chauvineau 2024)</td>
+                            <td>V2 &mdash; pad thermique</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Vestibulaire (bercement/VeNS)</strong></td>
+                            <td class="accent-text">Solide + FDA</td>
+                            <td>Non teste</td>
+                            <td>Complexe</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>CLAS phase-locked (EEG)</strong></td>
+                            <td class="accent-purple">Moderee (replications mitigees)</td>
+                            <td>Non teste</td>
+                            <td>Bandeau EEG</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>Sons roses stage-gated</strong></td>
+                            <td>Faible (2 etudes, n=8)</td>
+                            <td>Non teste</td>
+                            <td class="accent-text">Oui &mdash; BOM ~5 &euro;</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>Vibration cardio-synchrone</strong></td>
+                            <td>Emergente (n=12)</td>
+                            <td>Non teste</td>
+                            <td>A explorer</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><strong>tSOS electrique</strong></td>
+                            <td>Moderee (irreproductible)</td>
+                            <td>Null (memoire motrice)</td>
+                            <td>Non</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>L'approche AURA : pragmatisme et honnetete</h3>
+
+            <p>AURA integre les <strong>sons roses stage-gated</strong> comme fonctionnalite de modulation du sommeil. Ce choix n'est pas motive par le niveau de preuve (qui est faible) mais par trois arguments pragmatiques :</p>
+
+            <ul class="styled-list">
+                <li><strong class="accent-text">Cout d'integration quasi-nul</strong> &mdash; Le haut-parleur est deja present dans la base de chevet. La fonctionnalite est essentiellement logicielle.</li>
+                <li><strong class="accent-text">Absence de risque si correctement implemente</strong> &mdash; Des pulses brefs (50 ms) a 40&ndash;50 dB, emis uniquement pendant le N3 <a href="etude-detection-sommeil.html" class="aura-link">detecte par capteurs</a>, avec arret immediat si un micro-reveil est detecte.</li>
+                <li><strong class="accent-text">Potentiel d'amelioration continue</strong> &mdash; L'algorithme peut evoluer avec les donnees utilisateurs et les futures publications.</li>
+            </ul>
+
+            <h3>Ce qu'AURA ne pretend PAS</h3>
+            <ul class="styled-list">
+                <li>&laquo; Synchronise sur les ondes lentes du cerveau &raquo; &mdash; <strong>FAUX sans EEG.</strong> AURA diffuse des sons roses pendant le N3 detecte, pas en phase-lock avec chaque oscillation individuelle.</li>
+                <li>&laquo; Augmente la memoire &raquo; &mdash; <strong>Non demontre</strong> pour le stage-gated. Seule la CLAS phase-locked EEG le fait, et meme la, les replications echouent.</li>
+                <li>&laquo; Augmente la GH &raquo; &mdash; <strong>FAUX</strong> (<a href="etude-recuperation-physique.html" class="aura-link">Besedovsky 2017</a>).</li>
+                <li>&laquo; Remplace le sommeil manquant &raquo; &mdash; Rien ne remplace dormir plus longtemps. AURA optimise la qualite dans le temps disponible.</li>
+            </ul>
+
+            <h3>Ce qu'AURA peut honnetement proposer</h3>
+            <ul class="styled-list">
+                <li><strong class="accent-text">Augmentation probable du delta power pendant le N3</strong> &mdash; +16 a 46 % (Schade 2020, n=8). Effet reproductible sur l'electrophysiologie meme si la traduction fonctionnelle reste incertaine.</li>
+                <li><strong class="accent-text">Augmentation parasympathique pendant la stimulation</strong> &mdash; +25 % HF-HRV (Grimaldi 2019, n=20, mais en CLAS, pas stage-gated).</li>
+                <li><strong class="accent-text">Protection de l'architecture du sommeil</strong> &mdash; Le stage-gated preserve la macrostructure (Schade 2020), contrairement au bruit rose continu qui peut degrader le REM.</li>
+            </ul>
+
+            <h3>Les pistes V2 les plus prometteuses</h3>
+            <p>Deux technologies emergent comme candidates pour les evolutions futures d'AURA :</p>
+
+            <p><strong>Pad thermique</strong> &mdash; Rechauffement proximal +0,4 &deg;C, integre au drap-housse. Mecanisme le plus puissant de la litterature, mais effet nul chez les athletes dans la seule etude disponible. A tester specifiquement avec la population cible avant integration.</p>
+
+            <p><strong>Vibration cardio-synchrone</strong> &mdash; Integree a la base de chevet, synchronisee au rythme cardiaque detecte par le capteur PPG. Seule technologie a augmenter fuseaux ET ondes lentes (Choi 2021). Mecanistiquement pertinente pour la memoire motrice des athletes. Evidence emergente (n=12) &mdash; necessiterait un essai interne avant tout claim.</p>
+
+            <div class="highlight-box">
+                <strong>Le positionnement honnete :</strong> AURA ne pretend pas revolutionner le sommeil profond avec les sons roses. C'est une fonctionnalite supplementaire a cout marginal, fondee sur un mecanisme neurophysiologique reel mais dont les benefices fonctionnels restent a confirmer. L'avantage principal d'AURA reste <a href="etude-reveil-pre-aube.html" class="aura-link">la gestion du reveil</a> &mdash; pas la modulation du sommeil.
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <div class="cta-banner animate-in">
+            <div class="mini-aura">
+                <div class="aura-halo"></div>
+                <div class="aura-ring"></div>
+                <div class="aura-disk"></div>
+                <div class="aura-center"></div>
+            </div>
+            <h3>AURA : la science, pas le marketing</h3>
+            <p>Sons roses cibles pendant le N3. Honnetete sur les limites. Evolution continue.</p>
+            <p class="cta-sub">A partir de 149 EUR &middot; Un reveil fonde sur les preuves</p>
+            <a href="aura.html" class="cta-btn">Pre-commander AURA &rarr;</a>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    <p><strong>Les Zintrepreneurs</strong></p>
+    <p>Projets innovants, finances par la communaute.</p>
+    <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="recherche.html">Recherche</a>
+        <a href="aura.html">AURA</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+</footer>
+
+<script>
+    // Reading time
+    (function() {
+        var text = document.querySelector('.article-content').innerText;
+        var words = text.trim().split(/\s+/).length;
+        var minutes = Math.ceil(words / 230);
+        document.getElementById('reading-time').textContent = minutes + ' min';
+    })();
+
+    // TOC active states
+    (function() {
+        var sections = document.querySelectorAll('.article-section');
+        var sidebarLinks = document.querySelectorAll('.toc-sidebar a');
+        var mobileLinks = document.querySelectorAll('.toc-mobile a');
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var id = entry.target.getAttribute('id');
+                    sidebarLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                    mobileLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    })();
+
+    // Smooth scroll
+    document.querySelectorAll('.toc-sidebar a, .toc-mobile a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Fade-in
+    (function() {
+        var animItems = document.querySelectorAll('.animate-in');
+        var animObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        animItems.forEach(function(item) { animObserver.observe(item); });
+    })();
+</script>
+
+</body>
+</html>

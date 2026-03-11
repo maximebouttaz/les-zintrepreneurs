@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sons roses pendant le sommeil profond : faut-il un EEG ? — Les Zintrepreneurs</title>
+    <meta name="description" content="Stage-gated vs phase-locked : analyse critique des preuves scientifiques sur la stimulation auditive par bruit rose pendant le sommeil profond avec et sans EEG.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: #333; overflow-x: hidden; font-size: 1.05rem; line-height: 1.9; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 2.5rem; background: rgba(250,250,248,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid #e5e5e5; }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #1A1A1A; text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.2s; }
+        .nav-links a:hover { color: #1A1A1A; }
+        .article-wrapper { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+        .article-content { max-width: 720px; width: 100%; padding-top: 100px; padding-bottom: 4rem; }
+        .article-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 1.2rem; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.01em; }
+        .article-subtitle { font-size: 1.1rem; color: #6B6B6B; font-style: italic; margin-bottom: 1rem; font-weight: 400; }
+        .article-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .gradient-line { width: 100px; height: 2px; background: linear-gradient(90deg, #E8934A, #9B6EC6); border: none; margin-bottom: 2.5rem; }
+        .chapeau { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: #1A1A1A; margin-bottom: 3rem; }
+        .article-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+        .article-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.02em; line-height: 1.1; }
+        .article-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #1A1A1A; margin-top: 1.5rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+        .article-section p { margin-bottom: 1.2rem; }
+        .key-box { background: #f5f0eb; border-left: 3px solid; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; }
+        .key-box strong { color: #1A1A1A; }
+        .key-box .key-number { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; display: block; }
+        .highlight-box { background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06)); border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #1A1A1A; }
+        .highlight-box strong { color: #1A1A1A; }
+        .shock-box { background: #1A1A1A; color: #fff; border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+        .shock-box .shock-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; display: block; }
+        .shock-box p { color: #ccc; margin: 0; }
+        .styled-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+        .styled-list li { position: relative; padding: 0.5rem 0 0.5rem 1.4rem; border-bottom: 1px solid #f0f0f0; }
+        .styled-list li:last-child { border-bottom: none; }
+        .styled-list li::before { content: ''; position: absolute; left: 0; top: 1rem; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); }
+        .pathway { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1.2rem 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.02em; color: #6B6B6B; }
+        .pathway .node { background: #f5f0eb; padding: 0.35rem 0.65rem; border-radius: 6px; color: #1A1A1A; font-weight: 700; white-space: nowrap; }
+        .pathway .arrow { color: #E8934A; font-size: 0.9rem; }
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+        .data-table th { background: #f5f0eb; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1A1A1A; padding: 0.8rem; text-align: left; font-weight: 700; }
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table td { padding: 0.8rem; border-bottom: 1px solid #e5e5e5; color: #333; }
+        .data-table tbody tr:nth-child(even) td { background: #faf8f5; }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .accent-text { color: #E8934A; font-weight: 700; }
+        .accent-purple { color: #9B6EC6; font-weight: 700; }
+        .aura-link { color: #9B6EC6; text-decoration: none; border-bottom: 1px solid rgba(155,110,198,0.3); transition: border-color 0.2s; }
+        .aura-link:hover { border-color: #9B6EC6; }
+        .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #E8934A; margin-bottom: 0.4rem; }
+        .cta-banner { background: #f5f0eb; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 3rem 0; }
+        .cta-banner .mini-aura { width: 150px; height: 150px; margin: 0 auto 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+        .mini-aura .aura-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%); animation: auraPulse 4s ease-in-out infinite; }
+        .mini-aura .aura-ring { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(232,147,74,0.25); animation: auraRotate 12s linear infinite; }
+        .mini-aura .aura-disk { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2)); animation: auraPulse 4s ease-in-out infinite reverse; }
+        .mini-aura .aura-center { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); box-shadow: 0 0 30px rgba(232,147,74,0.3); }
+        @keyframes auraPulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes auraRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .cta-banner h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1A1A1A; margin-bottom: 0.5rem; }
+        .cta-banner p { font-size: 0.9rem; color: #6B6B6B; margin-bottom: 0.3rem; line-height: 1.6; }
+        .cta-banner .cta-sub { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #E8934A, #9B6EC6); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s, transform 0.15s; }
+        .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .toc-sidebar { position: sticky; top: 80px; width: 220px; min-width: 220px; align-self: flex-start; margin-right: 3rem; padding-top: 100px; }
+        .toc-sidebar .toc-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #bbb; margin-bottom: 0.8rem; }
+        .toc-sidebar ul { list-style: none; padding: 0; }
+        .toc-sidebar li { margin-bottom: 0.4rem; }
+        .toc-sidebar a { display: block; font-size: 0.75rem; color: #999; text-decoration: none; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 2px solid transparent; transition: all 0.2s; line-height: 1.4; }
+        .toc-sidebar a:hover { color: #1A1A1A; }
+        .toc-sidebar a.active { color: #1A1A1A; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-left-width: 2px; border-left-style: solid; font-weight: 500; }
+        .toc-mobile { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; padding: 0.8rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e5e5; }
+        .toc-mobile a { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #999; text-decoration: none; padding: 0.3rem 0.8rem; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .toc-mobile a:hover { color: #1A1A1A; }
+        .toc-mobile a.active { color: #1A1A1A; border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1; }
+        footer { background: #f0ede8; border-top: 1px solid #e5e5e5; padding: 3rem 5rem; text-align: center; }
+        footer p { font-size: 0.85rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 0.4rem; }
+        footer p strong { color: #1A1A1A; font-weight: 600; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+        .footer-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #1A1A1A; }
+        .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #999; }
+        .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 1024px) { .toc-sidebar { display: none; } .toc-mobile { display: block; } }
+        @media (max-width: 768px) { nav { padding: 0 1.5rem; } .nav-links { display: none; } .article-wrapper { padding: 0 1.2rem; } .article-content { padding-top: 80px; } footer { padding: 2.5rem 1.5rem; } .cta-banner { padding: 2rem 1.5rem; } }
+        @media (max-width: 480px) { .article-content { padding-top: 75px; } .data-table { font-size: 0.8rem; } .data-table th, .data-table td { padding: 0.6rem 0.5rem; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+        <li><a href="recherche.html">Recherche</a></li>
+        <li><a href="aura.html">AURA</a></li>
+        <li><a href="index.html">Accueil</a></li>
+    </ul>
+</nav>
+
+<div class="article-wrapper">
+
+    <!-- TOC Sidebar -->
+    <aside class="toc-sidebar">
+        <div class="toc-label">Sommaire</div>
+        <ul>
+            <li><a href="#section1">Trois approches</a></li>
+            <li><a href="#section2">Etudes stage-gated</a></li>
+            <li><a href="#section3">Bruit rose continu</a></li>
+            <li><a href="#section4">Philips SmartSleep</a></li>
+            <li><a href="#section5">Parametres optimaux</a></li>
+            <li><a href="#section6">Resistance du N3</a></li>
+            <li><a href="#section7">Le creneau vacant</a></li>
+            <li><a href="#section8">Ce que cela signifie pour AURA</a></li>
+        </ul>
+    </aside>
+
+    <!-- TOC Mobile -->
+    <nav class="toc-mobile">
+        <a href="#section1">Trois approches</a>
+        <a href="#section2">Etudes stage-gated</a>
+        <a href="#section3">Bruit rose continu</a>
+        <a href="#section4">Philips SmartSleep</a>
+        <a href="#section5">Parametres optimaux</a>
+        <a href="#section6">Resistance du N3</a>
+        <a href="#section7">Creneau vacant</a>
+        <a href="#section8">AURA</a>
+    </nav>
+
+    <article class="article-content">
+
+        <div class="article-tag">Neurosciences &middot; Sons roses &middot; AURA</div>
+        <h1 class="article-title">Sons roses pendant le sommeil profond : faut-il un EEG ?</h1>
+        <p class="article-subtitle">Stage-gated vs phase-locked : ce que la science dit vraiment sur les trois approches</p>
+        <p class="article-meta">Mars 2026 &middot; <span id="reading-time">--</span> de lecture</p>
+        <hr class="gradient-line">
+
+        <p class="chapeau">Le bruit rose stage-gated &mdash; diffuse uniquement pendant le sommeil profond detecte, sans synchronisation aux ondes lentes individuelles &mdash; augmente la puissance delta de 16 a 46 % et la proportion de N3 sans fragmenter le sommeil. En revanche, l'amelioration de la memoire declarative est reservee au CLAS phase-locked avec EEG. Pour un produit visant la recuperation physique plutot que la memoire, le stage-gating represente un compromis scientifiquement viable &mdash; et aucun produit commercial ne l'implemente aujourd'hui sans EEG.</p>
+
+        <!-- Section 1 -->
+        <section class="article-section animate-in" id="section1">
+            <div class="section-label">Section 01</div>
+            <h2>Trois approches, trois niveaux d'efficacite</h2>
+
+            <p>La stimulation auditive pendant le sommeil n'est pas un concept unique — c'est l'un des leviers explores dans notre <a href="etude-modulation-sommeil.html" class="aura-link">revue des approches de modulation du sommeil</a>. La litterature distingue trois paradigmes radicalement differents, et les confondre conduit a des affirmations erronees. Clarifions.</p>
+
+            <h3>1. Bruit rose continu toute la nuit</h3>
+            <p>Le son est diffuse en permanence, sans ciblage de stade. C'est ce que font les machines a bruit blanc grand public &mdash; Hatch Restore, LectroFan, applications smartphone. Le mecanisme principal est le <strong>masquage acoustique</strong> : le bruit rose eleve le seuil de bruit ambiant, reduisant la probabilite que des bruits exterieurs declenchent un micro-eveil. Ce n'est pas de la neuromodulation &mdash; c'est de l'isolation phonique active.</p>
+
+            <h3>2. Stage-gated (N3 seulement, sans phase-locking)</h3>
+            <p>Le son n'est diffuse que lorsqu'un systeme detecte que le dormeur est en sommeil profond (stade N3). Les pulses sont emis a un rythme fixe (~0,8&ndash;1 Hz) sans se synchroniser sur la phase exacte de chaque oscillation lente individuelle. C'est l'approche la plus pragmatique : elle necessite un <a href="etude-detection-sommeil.html" class="aura-link">systeme de detection de stade</a> mais pas un EEG temps reel.</p>
+
+            <h3>3. CLAS phase-locked (EEG obligatoire)</h3>
+            <p>La Closed-Loop Auditory Stimulation detecte en temps reel chaque oscillation lente individuelle via un EEG frontal et delivre un pulse de 50 ms precisement sur l'etat UP (phase positive) de l'onde. Cette precision a la milliseconde est ce qui permet le renforcement des fuseaux de sommeil et l'amelioration de la consolidation memorielle. C'est l'etalon-or de la litterature &mdash; et c'est impossible sans electrodes sur le front.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Critere</th>
+                            <th>Continu</th>
+                            <th>Stage-gated</th>
+                            <th>CLAS phase-locked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Puissance delta</strong></td>
+                            <td>Variable &mdash; augmentation possible a 40&ndash;50 dB (Suzuki 1991)</td>
+                            <td class="accent-text">+16 a 46 % (momentane, post-stimulus)</td>
+                            <td class="accent-purple">+9 a 46 % SWA (soutenu)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duree N3</strong></td>
+                            <td>Augmentee a 40&ndash;50 dB</td>
+                            <td class="accent-text">N3 % augmente (Schade 2020)</td>
+                            <td>Pas de changement macro</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memoire declarative</strong></td>
+                            <td>Aucun effet / potentiellement negatif (Lerner 2023)</td>
+                            <td>Aucun effet (Weigenand 2016)</td>
+                            <td class="accent-purple">Significatif &mdash; rappel x3 chez les ages (Papalambros 2017)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fragmentation</strong></td>
+                            <td>REM reduit de &ndash;19 min a 50 dB (Basner 2025)</td>
+                            <td class="accent-text">Aucune (Schade 2020)</td>
+                            <td>Aucune</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Equipement requis</strong></td>
+                            <td>Enceinte</td>
+                            <td>Detecteur de stade (PPG/accel.)</td>
+                            <td>EEG frontal temps reel</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Etudes cles</strong></td>
+                            <td>Suzuki 1991, Basner 2025, Lerner 2023</td>
+                            <td>Schade 2020, Weigenand 2016</td>
+                            <td>Ngo 2013, Papalambros 2017, Wunderlin 2021</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>L'observation critique vient de Ngo et al. (2013), qui ont montre que la stimulation en boucle ouverte (sans phase-locking) produisait des effets nuls sur la memoire. Leur explication : <em>&laquo; imposing rhythms ignoring the phase of endogenous oscillatory activity could explain the limited functional improvement &raquo;</em>. En clair, frapper au hasard sur une onde lente peut autant la perturber que la renforcer.</p>
+
+            <div class="highlight-box">
+                <strong>La phase-precision est ce qui separe l'amelioration de la memoire de la simple augmentation de puissance delta.</strong> Pour la recuperation physique &mdash; secretion d'hormone de croissance, clearance glymphatique, restauration metabolique &mdash; le stage-gating suffit : c'est la duree et l'intensite du N3 qui comptent. Pour la memoire declarative, il faut un EEG. C'est une distinction fondamentale que la plupart des produits grand public ignorent.
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="article-section animate-in" id="section2">
+            <div class="section-label">Section 02</div>
+            <h2>Les deux seules etudes stage-gated</h2>
+
+            <p>Quand on filtre la litterature pour ne garder que les etudes utilisant une stimulation auditive ciblee sur le sommeil profond <em>sans</em> phase-locking EEG, il ne reste que deux publications. Deux. C'est a la fois une limitation et une opportunite.</p>
+
+            <h3>Schade et al. (2020) &mdash; Nature and Science of Sleep</h3>
+
+            <p>Huit sujets, quatre nuits consecutives en laboratoire avec polysomnographie scoree en temps reel par un technicien RPSGT. Le protocole : des pulses de bruit rose de 50 ms a 0,8 Hz, diffuses uniquement pendant les periodes NREM detectees, a un volume calibre individuellement ~5 dB sous le seuil d'eveil de chaque sujet (environ 50 dB SPL en moyenne).</p>
+
+            <p>Six variantes de stimulation ont ete testees &mdash; differentes frequences et formes d'onde. Le bruit rose a 0,8 Hz s'est revele le plus efficace des six. Les resultats :</p>
+
+            <ul class="styled-list">
+                <li><strong>Augmentation significative du pourcentage de N3</strong> par rapport a la condition sham (nuits controles)</li>
+                <li><strong>Augmentation momentanee de la puissance delta et des oscillations lentes</strong> dans les 10 secondes post-stimulus (p&lt;0,05)</li>
+                <li><strong>Indice d'eveil identique</strong> entre la condition stimulee et la condition sham &mdash; aucune fragmentation du sommeil</li>
+                <li><strong>Memoire non evaluee</strong> &mdash; le protocole ne comportait pas de tache de consolidation</li>
+            </ul>
+
+            <p>La limitation majeure : n = 8. C'est une etude pilote. Mais la force du design &mdash; scoring PSG temps reel, controle sham rigoureux, calibration individuelle du volume &mdash; en fait une reference solide pour le paradigme stage-gated.</p>
+
+            <h3>Weigenand et al. (2016) &mdash; European Journal of Neuroscience</h3>
+
+            <p>Vingt-et-un sujets, stimulation par 3 clicks a 0,8 Hz pendant le sommeil lent profond uniquement. Le design est quasi-open-loop : les clicks sont gates sur le stade SWS mais pas synchronises sur la phase de l'oscillation lente.</p>
+
+            <p>Les resultats sont instructifs &mdash; et nuances :</p>
+
+            <ul class="styled-list">
+                <li><strong>La puissance des oscillations lentes a augmente</strong> &mdash; le stimulus a bien un effet sur l'activite delta</li>
+                <li><strong>Mais la puissance des fuseaux de sommeil a diminue significativement</strong> &mdash; c'est le point critique</li>
+                <li><strong>La consolidation memorielle (paires de mots) n'a pas differe du sham</strong></li>
+            </ul>
+
+            <p>L'explication proposee par Goldi et Schreiner (2017) est elegante : sans phase-locking, les clicks tombent aleatoirement sur differentes phases de l'oscillation lente. Ceux qui tombent en phase UP renforcent l'onde et couplent les fuseaux. Ceux qui tombent en phase DOWN la perturbent et decouplent les fuseaux. Le bilan net sur les fuseaux est negatif &mdash; et c'est le couplage fuseau-oscillation lente qui porte la consolidation memorielle.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">2 etudes</span>
+                <p>Seulement deux etudes publiees correspondent au paradigme stage-gated sans phase-locking. Un territoire scientifique quasi vierge &mdash; et une opportunite de recherche majeure pour quiconque dispose d'un dispositif capable de gater sur le N3 sans EEG.</p>
+            </div>
+
+            <p>Un fait remarquable : <strong>aucune etude publiee n'a jamais utilise un PPG ou un accelerometre pour gater la stimulation auditive pendant le sommeil.</strong> Toutes les etudes existantes utilisent soit un EEG complet, soit un technicien humain scorant en temps reel. L'approche que propose AURA &mdash; detection de stade par capteurs non invasifs pour declencher une stimulation auditive &mdash; n'a tout simplement jamais ete testee en laboratoire.</p>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="article-section animate-in" id="section3">
+            <div class="section-label">Section 03</div>
+            <h2>Le bruit rose continu &mdash; masquage utile, stimulation risquee</h2>
+
+            <p>Avant de considerer le stage-gating comme une innovation, il faut comprendre pourquoi le bruit rose continu toute la nuit &mdash; l'approche la plus simple et la plus repandue &mdash; pose probleme. Deux mecanismes distincts sont en jeu, et les confondre est une erreur frequente.</p>
+
+            <h3>Masquage acoustique vs stimulation neurale</h3>
+
+            <p>Le <strong>masquage</strong> consiste a elever le plancher de bruit ambiant pour que les bruits exterieurs (circulation, voisins, animaux) ne depassent plus le seuil de detection du cerveau endormi. C'est un mecanisme passif, physique, qui fonctionne. Le <strong>entrainement neural</strong> est un mecanisme actif ou le son module l'activite des oscillations lentes corticales. Le premier est protecteur ; le second est modulateur &mdash; et potentiellement perturbateur s'il est mal calibre.</p>
+
+            <h3>Basner et al. (2025) &mdash; la reference recente</h3>
+
+            <p>Sleep, 25 sujets, 7 nuits, design crossover avec PSG complete. C'est l'etude la plus rigoureuse a ce jour sur le bruit rose continu. Resultats a 50 dBA de bruit rose toute la nuit :</p>
+
+            <ul class="styled-list">
+                <li><strong>Reduction significative de la frequence des micro-eveils</strong> en reponse aux bruits environnementaux &mdash; le masquage fonctionne</li>
+                <li><strong>Mais reduction du sommeil REM d'environ 19 minutes</strong> &mdash; un effet secondaire non negligeable</li>
+                <li>A 40 dBA, le masquage est moins efficace pour les bruits superieurs a 55 dB</li>
+            </ul>
+
+            <p>Conclusion de Basner et al. : <strong>les bouchons d'oreilles sont superieurs au bruit rose pour la protection contre le bruit environnemental.</strong> Le bruit rose masque les bruits externes, mais il est lui-meme un bruit &mdash; et le cerveau le traite comme tel pendant les stades legers et le REM.</p>
+
+            <div class="key-box">
+                <span class="key-number">&ndash;19 min</span>
+                <strong>Reduction du sommeil REM avec bruit rose continu a 50 dBA toute la nuit</strong> (Basner et al., 2025). Le stage-gating elimine ce risque en ne diffusant rien pendant le REM &mdash; ni pendant le N1 ou le N2. Le son n'est present que pendant le N3, le stade le plus resistant au bruit.
+            </div>
+
+            <h3>Autres donnees sur le bruit continu</h3>
+
+            <p><strong>Suzuki (1991)</strong> : le bruit rose a 40&ndash;50 dB(A) augmente effectivement le stade 3. Mais a 60 dB, il approfondit le sommeil au prix d'une reduction significative du REM. L'effet dose-reponse est clair &mdash; et la fenetre therapeutique est etroite.</p>
+
+            <p><strong>Lerner (2023, n~46)</strong> : le bruit rose continu toute la nuit <strong>compromet l'insight dependant du sommeil</strong>. Les sujets exposes au bruit rose montrent une reduction de la capacite a extraire des regularites cachees apres une nuit de sommeil. Le bruit continu ne perturbe pas seulement l'architecture du sommeil &mdash; il peut en degrader les fonctions cognitives.</p>
+
+            <p><strong>Vincens (2026, n=12)</strong> : a 45 dB continus, pas d'alteration significative de la macrostructure du sommeil. Ce resultat suggere que 45 dBA pourrait etre un seuil de securite raisonnable pour le bruit continu &mdash; mais il ne dit rien sur les fonctions cognitives.</p>
+
+            <h3>Seuils d'eveil par stade</h3>
+
+            <p>Les seuils de reactivite auditive varient considerablement selon le stade de sommeil :</p>
+
+            <ul class="styled-list">
+                <li><strong>N2</strong> : complexes K a partir de 33 dBA, eveils EEG a partir de ~39 dBA</li>
+                <li><strong>N3</strong> : seuil d'eveil 50&ndash;80+ dBA, certains individus ne se reveillent pas meme au-dessus de 100 dB</li>
+                <li><strong>REM</strong> : variable, seuil intermediaire entre N2 et N3</li>
+            </ul>
+
+            <p>Implication pratique : en stage-gating sur le N3, une stimulation a 40&ndash;50 dB dispose d'une marge de securite de 20&ndash;30 dB par rapport au seuil d'eveil. Le meme volume en N2 ou en REM serait potentiellement perturbateur. C'est precisement pourquoi le ciblage de stade est essentiel.</p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="article-section animate-in" id="section4">
+            <div class="section-label">Section 04</div>
+            <h2>Philips SmartSleep &mdash; l'algorithme de reference</h2>
+
+            <p>Le SmartSleep Headband (HH1600) de Philips reste le seul produit commercial ayant fait l'objet de publications dans des revues a comite de lecture sur la stimulation auditive en sommeil profond. Il a ete <strong>arrete</strong> &mdash; mais son algorithme, documente par Garcia-Molina et al. (2018, 2019), est la reference technique la plus complete disponible.</p>
+
+            <h3>Architecture a trois niveaux</h3>
+
+            <div class="pathway">
+                <span class="node">Detection N3 (EEG)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Premier stimulus synchronise</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Driving constant 1 Hz</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Ajustement volume 20&ndash;65 dB</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Monitoring micro-eveils (&alpha;/&beta;)</span>
+                <span class="arrow">&rarr;</span>
+                <span class="node">Arret si eveil</span>
+            </div>
+
+            <p><strong>Niveau 1 &mdash; Detection de stade.</strong> Un reseau CNN+LSTM analyse le signal EEG d'un canal frontal unique (Fpz-M2) pour detecter le N3. Le stade doit etre stable depuis au minimum 1,5 minute avant le debut de la stimulation. Performance rapportee : sensibilite 74 %, specificite 97 %.</p>
+
+            <p><strong>Niveau 2 &mdash; Premier stimulus semi-phase-locked.</strong> Le premier tone est synchronise sur le pic positif de l'oscillation lente detectee (seuil &ndash;40 &mu;V). Ce n'est pas du vrai CLAS car la detection est basee sur un seuil d'amplitude, pas sur une prediction de phase en temps reel.</p>
+
+            <p><strong>Niveau 3 &mdash; Driving a intervalle fixe.</strong> Apres le premier stimulus, les tones suivants sont emis a intervalle fixe de 1 seconde. C'est du &laquo; driving &raquo; &mdash; une tentative d'entrainer le cerveau a une frequence cible &mdash; et non du vrai phase-locking continu. La distinction est importante : le driving impose un rythme, le CLAS s'adapte au rythme du cerveau.</p>
+
+            <p>Les tones utilises ne sont pas du bruit rose : ce sont des pulses de 50 ms avec une frequence randomisee entre 500 et 2000 Hz, pour prevenir l'habituation. Le volume est auto-ajuste entre 20 et 65 dB en fonction du ratio delta/beta &mdash; un indicateur de la profondeur du sommeil en temps reel.</p>
+
+            <h3>Resultats publies</h3>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Etude</th>
+                            <th>N</th>
+                            <th>SWA</th>
+                            <th>Effet fonctionnel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Garcia-Molina 2018</td>
+                            <td>28</td>
+                            <td class="accent-text">+16,1 % (p&lt;0,01)</td>
+                            <td>Uniquement chez les &lt;40 ans ; nul chez les &ge;40 ans</td>
+                        </tr>
+                        <tr>
+                            <td>Garcia-Molina 2019</td>
+                            <td>22</td>
+                            <td class="accent-purple">+45,8 % (p=0,0027)</td>
+                            <td>19/22 repondeurs</td>
+                        </tr>
+                        <tr>
+                            <td>Diep 2021</td>
+                            <td>25</td>
+                            <td>+17,7 % SWE nuit 1</td>
+                            <td>Amelioration significative vigilance subjective et attention objective apres 2 nuits</td>
+                        </tr>
+                        <tr>
+                            <td>Garcia-Molina 2025</td>
+                            <td>17 (ado.)</td>
+                            <td>+7,38 % (p=0,01)</td>
+                            <td>Adolescents en restriction de sommeil</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="key-box">
+                <span class="key-number">+45,8 %</span>
+                <strong>Augmentation maximale de la SWA avec l'algorithme hybride Philips.</strong> L'approche driving (sans vrai phase-locking) fonctionne &mdash; mais toutes les etudes utilisent un EEG frontal pour la detection. Et un probleme de taille : <strong>toutes ces etudes sont signees Philips</strong>. Aucune replication independante n'existe.
+            </div>
+
+            <p>L'absence de replication independante est un red flag methodologique classique. L'effet est probablement reel &mdash; les donnees sont coherentes et publiees dans des revues a comite de lecture &mdash; mais l'amplitude exacte reste a confirmer par un laboratoire sans conflit d'interet.</p>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="article-section animate-in" id="section5">
+            <div class="section-label">Section 05</div>
+            <h2>Parametres optimaux pour une implementation sans EEG</h2>
+
+            <p>Si les donnees scientifiques supportent l'approche stage-gated, quels parametres precis utiliser ? La convergence entre les differentes etudes est remarquablement claire.</p>
+
+            <h3>Volume : 40&ndash;50 dB SPL</h3>
+
+            <p>Les protocoles CLAS utilisent typiquement 50&ndash;55 dB chez les jeunes adultes et 30&ndash;50 dB chez les sujets ages (dont le seuil d'eveil est plus bas). Le seuil d'eveil en N3 etant de 50&ndash;80+ dB, une stimulation a 40&ndash;50 dB offre une marge de securite confortable de 20&ndash;30 dB. Schade et al. calibraient individuellement ~5 dB sous le seuil d'eveil &mdash; une approche qu'AURA pourrait repliquer via une calibration initiale.</p>
+
+            <h3>Pattern : pulses de 50 ms a 0,8&ndash;1 Hz</h3>
+
+            <p>La convergence est nette :</p>
+
+            <ul class="styled-list">
+                <li><strong>Duree du pulse</strong> : 50 ms avec rampes de 5 ms (onset/offset) pour eviter les transitoires</li>
+                <li><strong>Frequence de repetition</strong> : 0,8&ndash;1 Hz, alignee sur la frequence dominante des oscillations lentes en N3</li>
+                <li><strong>Type de son</strong> : bruit rose (spectre 1/f) > tons purs > bruit blanc. Le spectre 1/f est naturel et moins susceptible de declencher un eveil</li>
+                <li><strong>Organisation</strong> : blocs de 10&ndash;15 stimuli espaces de 1,25 s, separes par des pauses d'au minimum 15 secondes</li>
+            </ul>
+
+            <h3>Duree par nuit : 2,5&ndash;3,5 heures</h3>
+
+            <p>C'est la duree typique de N3 chez un adulte en bonne sante. Mais le temps acoustique reel est bien plus court : Ngo et al. (2015) ont montre que la reponse aux stimuli est <strong>maximale apres les 1&ndash;2 premiers stimuli d'un bloc, puis chute fortement</strong>. C'est un processus auto-limitant &mdash; le cerveau s'adapte rapidement a chaque serie de stimuli. Les pauses inter-blocs sont essentielles.</p>
+
+            <h3>Habituation multi-nuits : pas de probleme</h3>
+
+            <p>C'est un point crucial pour un produit utilise chaque nuit. Les donnees sont rassurantes :</p>
+
+            <ul class="styled-list">
+                <li><strong>Wunderlin et al. (2023, n=32, 3 nuits)</strong> : les effets sur la memoire sont en fait <em>retardes</em> &mdash; plus marques la troisieme nuit que la premiere. Pas d'habituation, mais une potentialisation.</li>
+                <li><strong>Zeller et al. (2024, 5 nuits)</strong> : aucune attenuation de l'effet sur les 5 nuits testees.</li>
+                <li><strong>Aucune etude publiee n'a rapporte d'habituation significative</strong> sur des protocoles allant jusqu'a 14 nuits.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Les parametres sont clairs : pulses de 50 ms de bruit rose a 0,8 Hz, en blocs de 10&ndash;15, a 40&ndash;50 dB, pendant le N3 detecte.</strong> Pas besoin de reinventer la roue &mdash; la litterature converge. Le defi n'est pas le stimulus lui-meme, mais la detection fiable du N3 sans EEG. C'est ce que le <a href="etude-detection-sommeil.html" class="aura-link">systeme PPG/accelerometre d'AURA</a> vise a accomplir.
+            </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="article-section animate-in" id="section6">
+            <div class="section-label">Section 06</div>
+            <h2>Le N3 est le stade le plus resistant au bruit</h2>
+
+            <p>Un argument fondamental en faveur du stage-gating sur le N3 est rarement mis en avant : <strong>le sommeil profond est le stade ou le cerveau est le plus isole du monde exterieur</strong>. Ce n'est pas une propriete marginale &mdash; c'est un argument de securite majeur.</p>
+
+            <h3>Hierarchie des seuils d'eveil</h3>
+
+            <p>Les seuils de reactivite acoustique suivent un gradient clair :</p>
+
+            <div class="pathway">
+                <span class="node">N1 (~25 dB)</span>
+                <span class="arrow">&lt;</span>
+                <span class="node">N2 (~39 dB)</span>
+                <span class="arrow">&lt;</span>
+                <span class="node">REM tonique</span>
+                <span class="arrow">&lt;</span>
+                <span class="node">REM phasique</span>
+                <span class="arrow">&lt;</span>
+                <span class="node">N3 (50&ndash;80+ dB)</span>
+            </div>
+
+            <p>En N3, certains individus ne se reveillent pas meme a des intensites superieures a 100 dB. Le thalamus, en mode oscillatoire, agit comme un portail sensoriel ferme : les signaux auditifs atteignent le cortex primaire mais ne sont pas relaye vers les reseaux attentionnels.</p>
+
+            <p>C'est precisement ce qui rend le N3 si tolerant a la stimulation auditive : les sons sont traites au niveau cortical &mdash; ils modulent l'activite des neurones &mdash; mais ne declenchent pas la cascade d'eveil. Le cerveau &laquo; entend &raquo; sans se &laquo; reveiller &raquo;.</p>
+
+            <div class="shock-box">
+                <span class="shock-number">50&ndash;80 dB</span>
+                <p>Seuil d'eveil en sommeil profond. Les sons roses d'AURA a 40&ndash;50 dB disposent d'une marge de securite de 20&ndash;30 dB. Vous ne les entendez pas. Votre cerveau, si.</p>
+            </div>
+
+            <h3>Preuve experimentale directe</h3>
+
+            <p>Schade et al. (2020) ont directement teste cette hypothese en comparant deux conditions :</p>
+
+            <ul class="styled-list">
+                <li><strong>Condition &laquo; Enhancing &raquo;</strong> (stimulation gatee sur le NREM) : preservation complete de la continuite du sommeil, indices d'eveil identiques au sham</li>
+                <li><strong>Condition &laquo; Disruptive &raquo;</strong> (stimulation sur tous les stades) : fragmentation significative du sommeil, augmentation des micro-eveils</li>
+            </ul>
+
+            <p>La difference entre les deux conditions est dramatique et confirme que <strong>le ciblage de stade n'est pas une optimisation &mdash; c'est une necessite</strong>. Diffuser des sons pendant les stades legers (N1, N2) ou le REM fragmente le sommeil. Les gater sur le N3 le preserve.</p>
+
+            <p>Tous les protocoles CLAS publies confirment ce point : aucune difference significative en temps total de sommeil, en efficacite de sommeil ou en indices d'eveil lorsque la stimulation est gatee sur le NREM. C'est un resultat robuste, replique sur des dizaines d'etudes.</p>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="article-section animate-in" id="section7">
+            <div class="section-label">Section 07</div>
+            <h2>Le creneau vacant &mdash; aucun produit ne fait ca sans EEG</h2>
+
+            <p>Le paysage concurrentiel actuel presente un vide remarquable. Chaque produit existant tombe dans l'une de deux categories : stimulation intelligente avec EEG, ou bruit continu sans aucun ciblage.</p>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Approche</th>
+                            <th>Capteurs</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Philips SmartSleep</strong></td>
+                            <td>Driving semi-phase-locked</td>
+                            <td>EEG frontal (1 canal)</td>
+                            <td class="accent-text">ARRETE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dreem / Waveband</strong></td>
+                            <td>CLAS phase-locked</td>
+                            <td>5 electrodes EEG</td>
+                            <td>Pivote vers le diagnostic uniquement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Elemind ($349)</strong></td>
+                            <td>CLAS phase-locked</td>
+                            <td>3 canaux EEG</td>
+                            <td>En vente, bandeau obligatoire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FRENZ Brainband</strong></td>
+                            <td>Multi-modale</td>
+                            <td>8 electrodes (EEG/EOG/EMG) + PPG</td>
+                            <td>En vente, bandeau obligatoire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hatch Restore ($170)</strong></td>
+                            <td>Bruit continu</td>
+                            <td>Aucun</td>
+                            <td>En vente, aucun ciblage de stade</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Le pattern est clair : les produits qui font de la stimulation intelligente necessitent un bandeau EEG &mdash; un dispositif intrusif, inconfortable pour la plupart des dormeurs, et dont deux des leaders (Philips et Dreem) ont deja abandonne le marche consumer. Les produits sans EEG diffusent du bruit en continu, sans aucune intelligence de ciblage.</p>
+
+            <div class="highlight-box">
+                <strong>Tous les produits qui font de la stimulation auditive intelligente necessitent un bandeau EEG.</strong> Tous les produits sans EEG diffusent du bruit en continu, sans ciblage. AURA vise l'espace entre les deux : stimulation ciblee, sans EEG, grace a la <a href="etude-detection-sommeil.html" class="aura-link">detection de stade par capteurs non invasifs</a>. C'est un creneau que personne n'occupe &mdash; parce que personne n'a encore demontre qu'un PPG/accelerometre pouvait detecter le N3 avec une fiabilite suffisante pour gater une stimulation auditive.
+            </div>
+
+            <p>Le risque est evident : si la detection de stade par PPG est insuffisamment precise, des pulses de bruit rose pourraient etre delivres pendant le N2, le N1 ou le REM &mdash; avec un risque de fragmentation. C'est pourquoi la specificite du classifieur (sa capacite a ne pas confondre un stade leger avec du N3) est plus importante que sa sensibilite. Mieux vaut manquer 20 % des episodes de N3 que d'en &laquo; inventer &raquo; qui n'en sont pas.</p>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="article-section animate-in" id="section8">
+            <div class="section-label">Section 08</div>
+            <h2>Ce que cela signifie pour AURA &mdash; honnetete et precision</h2>
+
+            <p>La transparence scientifique n'est pas un handicap marketing &mdash; c'est un avantage concurrentiel aupres d'un public informe. Voici exactement ce qu'AURA peut et ne peut pas affirmer, sur la base de la litterature existante.</p>
+
+            <h3>Ce qu'AURA peut affirmer</h3>
+
+            <ul class="styled-list">
+                <li><strong>&laquo; Sons roses diffuses pendant le sommeil profond detecte &raquo;</strong> &mdash; VRAI. C'est exactement ce que fait le systeme, sous reserve que la detection PPG soit validee.</li>
+                <li><strong>&laquo; Augmentation de la puissance delta pendant le N3 &raquo;</strong> &mdash; SUPPORTE par Schade 2020. L'augmentation momentanee post-stimulus est significative et robuste.</li>
+                <li><strong>&laquo; Aucune fragmentation du sommeil &raquo;</strong> &mdash; SUPPORTE par Schade 2020 et par l'ensemble de la litterature CLAS. Le N3 tolere la stimulation sans perturbation.</li>
+                <li><strong>&laquo; Preservation du sommeil REM &raquo;</strong> &mdash; SUPPORTE par contraste avec le bruit continu (Basner 2025). Le stage-gating evite toute exposition pendant le REM.</li>
+            </ul>
+
+            <h3>Ce qu'AURA ne peut PAS affirmer</h3>
+
+            <ul class="styled-list">
+                <li><strong>&laquo; Synchronises sur les ondes lentes du cerveau &raquo;</strong> &mdash; FAUX. Le phase-locking sur les oscillations lentes individuelles necessite un EEG. Le PPG ne detecte pas les ondes cerebrales.</li>
+                <li><strong>&laquo; Amelioration de la memoire &raquo;</strong> &mdash; NON SUPPORTE. Weigenand 2016 montre que la stimulation stage-gated sans phase-locking n'ameliore pas la consolidation memorielle.</li>
+                <li><strong>&laquo; +25 % d'amplitude du sommeil profond &raquo;</strong> &mdash; TROMPEUR. Ce chiffre provient d'etudes CLAS phase-locked avec EEG. L'extrapoler au stage-gating sans EEG serait malhonnete.</li>
+            </ul>
+
+            <div class="key-box">
+                <span class="key-number">Honnetete</span>
+                <strong>Le copy correct pour AURA n'est pas &laquo; synchronises sur les ondes lentes &raquo; mais &laquo; diffuses pendant le sommeil profond detecte &raquo;.</strong> C'est scientifiquement honnete, c'est prouve par Schade 2020, et c'est unique sur le marche. La plupart des concurrents font l'inverse &mdash; ils surcommuniquent sur des benefices non demontres par leur technologie specifique.
+            </div>
+
+            <h3>L'opportunite scientifique</h3>
+
+            <p>Un fait remarquable : <strong>aucune etude a trois bras (continu vs stage-gated vs CLAS) n'a jamais ete publiee</strong>. Personne n'a directement compare les trois approches dans un meme protocole. C'est une lacune majeure de la litterature &mdash; et c'est une opportunite strategique. Une telle etude, menee avec le dispositif AURA, fournirait des donnees uniques et publiquement citables.</p>
+
+            <p>En attendant, ce que l'approche d'AURA delivre est clairement delimite :</p>
+
+            <ul class="styled-list">
+                <li><strong>Augmentation de la puissance delta pendant le N3</strong> &mdash; prouve (Schade 2020)</li>
+                <li><strong>Zero fragmentation du sommeil</strong> &mdash; prouve (Schade 2020, consensus CLAS)</li>
+                <li><strong>Preservation integrale du sommeil REM</strong> &mdash; prouve par elimination (vs continu, Basner 2025)</li>
+                <li><strong>Aucun bandeau, aucune electrode, aucun inconfort</strong> &mdash; differenciateur produit, rendu possible par la detection via <a href="etude-brassard-sommeil.html" class="aura-link">brassard PPG</a> ou capteur sous-matelas</li>
+                <li><strong>Combinaison avec <a href="etude-simulateurs-aube.html" class="aura-link">simulation d'aube</a></strong> &mdash; unique sur le marche, deux interventions validees dans un seul dispositif</li>
+            </ul>
+
+            <p>Pour un athlete ou un individu visant la recuperation physique &mdash; secretion d'hormone de croissance, reparation tissulaire, clearance glymphatique &mdash; ce qui compte est la quantite et l'intensite du N3, pas la precision du phase-locking. Le stage-gating est l'approche minimum viable qui maximise le N3 sans compromettre les autres stades. C'est un compromis scientifiquement honnete &mdash; et personne d'autre ne le propose sans un bandeau sur le front.</p>
+        </section>
+
+        <!-- CTA Banner -->
+        <div class="cta-banner animate-in">
+            <div class="mini-aura">
+                <div class="aura-halo"></div>
+                <div class="aura-ring"></div>
+                <div class="aura-disk"></div>
+                <div class="aura-center"></div>
+            </div>
+            <h3>AURA : sons roses cibles, sans EEG</h3>
+            <p>Stimulation auditive pendant le sommeil profond detecte. Simulation d'aube au reveil.</p>
+            <p class="cta-sub">A partir de 149 EUR &middot; La science, sans le bandeau</p>
+            <a href="aura.html" class="cta-btn">Pre-commander AURA &rarr;</a>
+        </div>
+
+    </article>
+</div>
+
+<footer>
+    <p><strong>Les Zintrepreneurs</strong></p>
+    <p>Projets innovants, finances par la communaute.</p>
+    <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="recherche.html">Recherche</a>
+        <a href="aura.html">AURA</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+</footer>
+
+<script>
+    // Reading time calculation
+    (function() {
+        const text = document.querySelector('.article-content').innerText;
+        const words = text.trim().split(/\s+/).length;
+        const minutes = Math.ceil(words / 230);
+        document.getElementById('reading-time').textContent = minutes + ' min';
+    })();
+
+    // IntersectionObserver for TOC active states
+    (function() {
+        const sections = document.querySelectorAll('.article-section');
+        const sidebarLinks = document.querySelectorAll('.toc-sidebar a');
+        const mobileLinks = document.querySelectorAll('.toc-mobile a');
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    sidebarLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                    mobileLinks.forEach(function(link) {
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
+        });
+    })();
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc-sidebar a, .toc-mobile a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Fade-in animations
+    (function() {
+        var animItems = document.querySelectorAll('.animate-in');
+        var animObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animItems.forEach(function(item) {
+            animObserver.observe(item);
+        });
+    })();
+</script>
+
+</body>
+</html>

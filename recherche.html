@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recherche — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 2.5rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1A1A1A; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.5rem 1.3rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #6B6B6B;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* TREE LAYOUT */
+    .articles-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1rem 2rem 4rem;
+    }
+
+    .tree-hint {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 0.82rem;
+      color: #999;
+      font-style: italic;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ROOT CARD */
+    .tree-root {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .root-card {
+      background: #1A1A1A;
+      border-radius: 14px;
+      padding: 1.6rem 2rem;
+      text-decoration: none;
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      display: block;
+    }
+
+    .root-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.18);
+    }
+
+    .root-card .tc-tag { color: #777; }
+    .root-card .tc-title { color: #fff; font-size: 1.1rem; }
+    .root-card .tc-desc { color: #aaa; }
+    .root-card .tc-meta { color: #666; }
+    .root-card .tc-arrow { background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .root-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+      background: rgba(232,147,74,0.2);
+      color: #E8934A;
+      margin-bottom: 0.6rem;
+    }
+
+    /* STEM from root */
+    .tree-stem {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(180deg, #E8934A, #9B6EC6);
+    }
+
+    /* BRANCHES container */
+    .tree-branches {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      position: relative;
+      padding-top: 30px;
+    }
+
+    /* Horizontal bar connecting branches */
+    .tree-branches::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #E8934A, #c07ab8, #9B6EC6);
+      left: calc(100% / 8);
+      right: calc(100% / 8);
+    }
+
+    /* Each branch column */
+    .tree-branch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Vertical drop from horizontal bar */
+    .tree-branch::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(180deg, #c07ab8, #9B6EC6);
+    }
+
+    /* Branch label */
+    .branch-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 6px;
+    }
+
+    .branch-label.light { background: rgba(232,147,74,0.1); color: #E8934A; }
+    .branch-label.smart { background: rgba(76,175,80,0.1); color: #4CAF50; }
+    .branch-label.detect { background: rgba(59,130,246,0.1); color: #3B82F6; }
+    .branch-label.neuro { background: rgba(155,110,198,0.1); color: #9B6EC6; }
+
+    .tree-card.placeholder {
+      border-style: dashed;
+      border-color: #ccc;
+      background: #fafafa;
+    }
+    .tree-card.placeholder .tc-title {
+      font-style: italic;
+      color: #888;
+    }
+
+    /* TREE CARD (compact) */
+    .tree-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      display: block;
+    }
+
+    .tree-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    }
+
+    .tree-card.deep {
+      border-color: rgba(155,110,198,0.3);
+    }
+
+    .tc-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: #bbb;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .tc-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #1A1A1A;
+      line-height: 1.3;
+      margin-bottom: 0.3rem;
+    }
+
+    .tc-desc {
+      font-size: 0.75rem;
+      color: #6B6B6B;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.4rem;
+    }
+
+    .tc-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tc-arrow {
+      font-weight: 700;
+      font-size: 0.78rem;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tc-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.05em;
+      padding: 0.12rem 0.4rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .tc-badge.intro { background: rgba(232,147,74,0.1); color: #E8934A; }
+    .tc-badge.dd { background: rgba(155,110,198,0.1); color: #9B6EC6; }
+
+    /* Arrow between cards */
+    .tree-arrow {
+      width: 2px;
+      height: 22px;
+      background: linear-gradient(180deg, #ddd, #ccc);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .tree-arrow::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid #ccc;
+    }
+
+    /* "ou" separator for parallel sub-branches */
+    .tree-or {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: #999;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .tree-or::before, .tree-or::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    /* MERGE / CONVERGENCE section */
+    .tree-merge {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 0;
+    }
+
+    .merge-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      color: #999;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .tree-merge::before, .tree-merge::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+    }
+
+    /* Convergence cards (wider, centered) */
+    .tree-convergence {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 420px;
+      margin: 1.5rem auto 0;
+    }
+
+    .convergence-card {
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      display: block;
+      background-clip: padding-box;
+      box-shadow: 0 0 0 2px rgba(155,110,198,0.2);
+    }
+
+    .convergence-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 2px rgba(155,110,198,0.3), 0 8px 28px rgba(0,0,0,0.08);
+    }
+
+    .convergence-card .tc-title {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .convergence-card .tc-desc {
+      text-align: center;
+    }
+
+    .convergence-card .tc-meta {
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .convergence-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .convergence-badge.synth { background: linear-gradient(135deg, rgba(232,147,74,0.15), rgba(155,110,198,0.15)); color: #9B6EC6; }
+    .convergence-badge.app { background: rgba(76,175,80,0.1); color: #4CAF50; }
+
+    /* MOBILE */
+    @media (max-width: 860px) {
+      .tree-branches {
+        flex-direction: column;
+        gap: 2.5rem;
+        padding-top: 0;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .tree-branches::before { display: none; }
+      .tree-branch::before { display: none; }
+
+      .tree-stem { height: 24px; }
+
+      .branch-label {
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+      }
+
+      .tree-convergence { max-width: 400px; }
+    }
+
+    /* AURA BANNER */
+    .aura-banner {
+      max-width: 900px;
+      margin: 4rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .aura-banner-inner {
+      background: #f5f0eb;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .aura-banner-inner p {
+      font-size: 1rem;
+      color: #4a4a4a;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .aura-banner-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.7rem 1.8rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .aura-banner-cta:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede8;
+      margin-top: 6rem;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: #999;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #1A1A1A; }
+
+    /* FADE-IN ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE NAV */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.72rem; }
+      .nav-cta { padding: 0.4rem 1rem; font-size: 0.75rem; }
+      .hero { padding: 7rem 1.2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+      <li><a href="aura.html">AURA</a></li>
+      <li><a href="recherche.html">Recherche</a></li>
+      <li><a href="index.html">Accueil</a></li>
+    </ul>
+    <a href="index.html#financer" class="nav-cta">Soutenir le projet</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag fade-in">// RECHERCHE</div>
+    <h1 class="fade-in">La science derriere AURA</h1>
+    <p class="fade-in">Comprendre la fatigue au reveil et explorer les solutions pour la reduire — un enjeu amplifie chez les jeunes sportifs.</p>
+  </section>
+
+  <!-- ARBRE DE RECHERCHE -->
+  <section class="articles-section">
+    <p class="tree-hint fade-in">Suivez les branches pour approfondir chaque thematique</p>
+
+    <div class="tree fade-in">
+
+      <!-- 4 BRANCHES -->
+      <div class="tree-branches">
+
+        <!-- BRANCHE REVEIL LUMIERE -->
+        <div class="tree-branch fade-in">
+          <div class="branch-label light">Reveil lumiere</div>
+
+          <a href="etude-spectre-lumineux.html" class="tree-card">
+            <span class="tc-badge intro">Essentiel</span>
+            <div class="tc-tag">LUMIERE · SCIENCE</div>
+            <div class="tc-title">Le spectre lumineux optimal pour se reveiller en forme</div>
+            <div class="tc-desc">Melanopsine, temperature de couleur et timing matinal : pourquoi 481 nm et 6 500 K sont les cles du reveil.</div>
+            <div class="tc-meta"><span>8 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-arrow"></div>
+
+          <a href="etude-lumiere-cycles.html" class="tree-card">
+            <span class="tc-badge intro">Essentiel</span>
+            <div class="tc-tag">CIRCADIEN · LUMIERE</div>
+            <div class="tc-title">La lumiere peut-elle modifier vos cycles de sommeil ?</div>
+            <div class="tc-desc">Circuit circadien, courbe de reponse de phase et chronotherapie : la lumiere comme medicament.</div>
+            <div class="tc-meta"><span>10 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-arrow"></div>
+
+          <a href="etude-simulateurs-aube.html" class="tree-card">
+            <span class="tc-badge intro">Essentiel</span>
+            <div class="tc-tag">TECHNOLOGIE · SOMMEIL</div>
+            <div class="tc-title">Simulateurs d'aube : ce que dit la science</div>
+            <div class="tc-desc">Efficacite clinique, limites spectrales et comparaison avec la luminotherapie classique.</div>
+            <div class="tc-meta"><span>10 min</span><span class="tc-arrow">→</span></div>
+          </a>
+        </div>
+
+        <!-- BRANCHE REVEIL SMART -->
+        <div class="tree-branch fade-in">
+          <div class="branch-label smart">Reveil smart</div>
+
+          <a href="etude-cycles-sommeil.html" class="tree-card">
+            <span class="tc-badge intro">Essentiel</span>
+            <div class="tc-tag">SOMMEIL · SCIENCE</div>
+            <div class="tc-title">Se reveiller en forme : la science des cycles du sommeil</div>
+            <div class="tc-desc">Comment fonctionnent les quatre stades du sommeil et pourquoi le moment du reveil est plus important que la duree totale.</div>
+            <div class="tc-meta"><span>12 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-arrow"></div>
+
+          <div class="tree-card placeholder">
+            <div class="tc-tag">CHRONOBIOLOGIE · REVEIL</div>
+            <div class="tc-title">Pourquoi se reveiller au mauvais moment ruine votre journee ?</div>
+            <div class="tc-desc">Inertie du sommeil, stade N3 vs N1 et fenetre de reveil optimal : la science du bon timing.</div>
+            <div class="tc-meta"><span>A venir</span></div>
+          </div>
+
+          <div class="tree-arrow"></div>
+
+          <div class="tree-card placeholder">
+            <div class="tc-tag">ALGORITHME · SOMMEIL</div>
+            <div class="tc-title">Comment calculer le meilleur moment pour se reveiller ?</div>
+            <div class="tc-desc">Duree des cycles, variabilite inter-individuelle et alarme intelligente : les approches algorithmiques.</div>
+            <div class="tc-meta"><span>A venir</span></div>
+          </div>
+
+          <div class="tree-arrow"></div>
+
+          <div class="tree-card placeholder">
+            <div class="tc-tag">COMPARATIF · TECHNOLOGIE</div>
+            <div class="tc-title">Alarme fixe vs reveil intelligent : quelle difference sur la forme ?</div>
+            <div class="tc-desc">Etudes cliniques comparant le reveil a heure fixe et le reveil adaptatif sur la vigilance et l'humeur.</div>
+            <div class="tc-meta"><span>A venir</span></div>
+          </div>
+        </div>
+
+        <!-- BRANCHE DETECTION -->
+        <div class="tree-branch fade-in">
+          <div class="branch-label detect">Detection</div>
+
+          <a href="etude-detection-sommeil.html" class="tree-card deep">
+            <span class="tc-badge dd">Deep dive</span>
+            <div class="tc-tag">TECHNOLOGIE · SOMMEIL</div>
+            <div class="tc-title">Detecter le stade de sommeil sans contact</div>
+            <div class="tc-desc">BCG piezoelectrique, radar FMCW 60 GHz et deep learning : comment AURA identifie le moment ideal.</div>
+            <div class="tc-meta"><span>10 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-or">ou</div>
+
+          <a href="etude-brassard-sommeil.html" class="tree-card deep">
+            <span class="tc-badge dd">Deep dive</span>
+            <div class="tc-tag">TECHNOLOGIE · WEARABLE</div>
+            <div class="tc-title">Brassard biceps : la detection du sommeil accessible</div>
+            <div class="tc-desc">PPG, accelerometrie et deep learning : comment un brassard a 19 dollars detecte vos stades de sommeil.</div>
+            <div class="tc-meta"><span>12 min</span><span class="tc-arrow">→</span></div>
+          </a>
+        </div>
+
+        <!-- BRANCHE SOMMEIL AUGMENTE -->
+        <div class="tree-branch fade-in">
+          <div class="branch-label neuro">Sommeil</div>
+
+          <a href="etude-modulation-sommeil.html" class="tree-card">
+            <span class="tc-badge intro">Essentiel</span>
+            <div class="tc-tag">NEUROSCIENCES · TECHNOLOGIE</div>
+            <div class="tc-title">Sommeil et recuperation du jeune athlete : la technologie peut-elle aider ?</div>
+            <div class="tc-desc">Fatigue, blessures, recuperation incomplete : pourquoi le sommeil est le premier outil de l'athlete, et ce que la science dit des technologies pour l'ameliorer.</div>
+            <div class="tc-meta"><span>20 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-arrow"></div>
+
+          <a href="etude-sons-roses-stage-gated.html" class="tree-card deep">
+            <span class="tc-badge dd">Deep dive</span>
+            <div class="tc-tag">NEUROSCIENCES · SONS ROSES</div>
+            <div class="tc-title">Sons roses pendant le sommeil profond : faut-il un EEG ?</div>
+            <div class="tc-desc">Stage-gated vs phase-locked : les trois approches de stimulation auditive et pourquoi AURA n'a pas besoin d'un bandeau.</div>
+            <div class="tc-meta"><span>14 min</span><span class="tc-arrow">→</span></div>
+          </a>
+
+          <div class="tree-arrow"></div>
+
+          <a href="etude-recuperation-physique.html" class="tree-card deep">
+            <span class="tc-badge dd">Deep dive</span>
+            <div class="tc-tag">SPORT · NEUROSCIENCES</div>
+            <div class="tc-title">Sommeil profond et recuperation sportive : la chaine causale decryptee</div>
+            <div class="tc-desc">GH, HRV, cortisol, insuline : ce qui est prouve, ce qui est speculatif, et ce qui est faux. Une analyse critique pour les athletes.</div>
+            <div class="tc-meta"><span>16 min</span><span class="tc-arrow">→</span></div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- CONVERGENCE -->
+      <div class="tree-merge fade-in">
+        <span class="merge-label">Synthese</span>
+      </div>
+
+      <div class="tree-convergence fade-in">
+        <a href="etude-simulateur-next-gen.html" class="convergence-card" style="text-align:center;">
+          <div class="convergence-badge synth">Convergence</div>
+          <div class="tc-tag">INGENIERIE · AURA</div>
+          <div class="tc-title">Comment concevoir le simulateur d'aube parfait</div>
+          <div class="tc-desc">Sept axes d'amelioration : spectre inverse, detection de stade, sons roses synchronises et tout ce qu'AURA integre.</div>
+          <div class="tc-meta"><span>10 min</span><span class="tc-arrow">Lire →</span></div>
+        </a>
+
+        <div class="tree-arrow"></div>
+
+        <a href="etude-reveil-sport.html" class="convergence-card" style="text-align:center;">
+          <div class="convergence-badge app">Application</div>
+          <div class="tc-tag">SPORT · RECUPERATION</div>
+          <div class="tc-title">Reveil intelligent et recuperation sportive</div>
+          <div class="tc-desc">Simulation d'aube, inertie du sommeil et performance athletique : le resultat concret de toute la recherche.</div>
+          <div class="tc-meta"><span>14 min</span><span class="tc-arrow">Lire →</span></div>
+        </a>
+
+        <div class="tree-arrow"></div>
+
+        <a href="etude-reveil-pre-aube.html" class="convergence-card fade-in" style="text-align:center;">
+          <div class="convergence-badge app">Application</div>
+          <div class="tc-tag">CHRONOBIOLOGIE · SPORT</div>
+          <div class="tc-title">Se reveiller avant le soleil : la science du reveil pre-aube</div>
+          <div class="tc-desc">PRC au pic de sensibilite, inertie 3,6x plus severe, nageurs a 5h24 : pourquoi la simulation d'aube pourrait etre plus efficace a 5h qu'a 7h.</div>
+          <div class="tc-meta"><span>18 min de lecture · Mars 2026</span><span class="tc-arrow">Lire →</span></div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AURA BANNER -->
+  <section class="aura-banner fade-in">
+    <div class="aura-banner-inner">
+      <p>Ces recherches nourrissent le developpement d'AURA, notre reveil IA.</p>
+      <a href="aura.html" class="aura-banner-cta">Decouvrir AURA →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Les Zintrepreneurs · Recherche & Innovation</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="aura.html">AURA</a></li>
+      <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+  </footer>
+
+  <!-- JS: IntersectionObserver fade-in -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>

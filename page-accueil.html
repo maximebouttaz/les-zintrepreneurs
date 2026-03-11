@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LES ZINTREPRENEURS — Soutenez notre aventure</title>
+  <title>StartupName — Soutenez notre aventure</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -771,97 +771,6 @@
       .nav-links { display: none; }
     }
 
-    /* PROJECT CARD */
-    .projet-card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .projet-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      max-width: 600px;
-      margin: 3rem auto 0;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-      cursor: pointer;
-    }
-
-    .projet-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #ff8c42, #e85d75, #9b59b6);
-    }
-
-    .projet-card:hover {
-      border-color: rgba(255, 140, 66, 0.4);
-      transform: translateY(-4px);
-    }
-
-    .projet-card-badge {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--green);
-      border: 1px solid var(--green);
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .projet-card-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .projet-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(90deg, #ff8c42, #9b59b6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .projet-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-
-    .projet-card-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--text);
-      margin-bottom: 1.2rem;
-    }
-
-    .projet-card-cta {
-      display: inline-block;
-      background: linear-gradient(90deg, #ff8c42, #9b59b6);
-      color: #fff;
-      padding: 0.7rem 1.6rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .projet-card:hover .projet-card-cta {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 140, 66, 0.3);
-    }
-
     @media (max-width: 600px) {
       .needs-grid { grid-template-columns: 1fr; }
       .modal-form-row { grid-template-columns: 1fr; }
@@ -873,9 +782,8 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">LES ZINTREPRENEURS</div>
+  <div class="nav-logo">StartupName</div>
   <ul class="nav-links">
-    <li><a href="#projets">Nos projets</a></li>
     <li><a href="#about">Notre histoire</a></li>
     <li><a href="#besoins">Nos besoins</a></li>
     <li><a href="#actus">Actus</a></li>
@@ -923,25 +831,6 @@
       <button class="donate-btn" onclick="openModal()">💛 Participer au projet</button>
     </div>
   </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROJETS -->
-<section id="projets">
-  <div class="section-tag">// Notre premier projet</div>
-  <div class="section-title animate-in">Decouvrez <span>AURA</span></div>
-
-  <a href="aura.html" class="projet-card-link">
-    <div class="projet-card animate-in">
-      <div class="projet-card-badge">EN FINANCEMENT</div>
-      <div class="projet-card-icon">🌅</div>
-      <h3>AURA</h3>
-      <p>Le premier reveil IA simulateur d'aube. Synchronise a vos cycles de sommeil, il vous reveille au moment ideal. Sons roses en phase profonde pour une recuperation optimale.</p>
-      <div class="projet-card-price">A partir de 149 €</div>
-      <div class="projet-card-cta">Decouvrir AURA →</div>
-    </div>
-  </a>
 </section>
 
 <div class="divider"></div>
@@ -1098,7 +987,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">LES ZINTREPRENEURS</div>
+  <div class="footer-logo">StartupName</div>
   <div class="footer-text">Fait avec 💛 par deux cousins depuis Paris · 2026</div>
   <div class="footer-social">
     <a href="#" target="_blank">📸 Instagram</a>

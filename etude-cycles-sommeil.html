@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Se reveiller en forme : la science des cycles du sommeil — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFAF8;
+      color: #333;
+      overflow-x: hidden;
+      font-size: 1.05rem;
+      line-height: 1.9;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 2.5rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1A1A1A; }
+
+    /* ARTICLE LAYOUT */
+    .article-wrapper {
+      display: flex;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .article-content {
+      max-width: 720px;
+      width: 100%;
+      padding-top: 100px;
+      padding-bottom: 4rem;
+    }
+
+    /* HEADER */
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: #6B6B6B;
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .article-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+
+    .gradient-line {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+      border: none;
+      margin-bottom: 2.5rem;
+    }
+
+    /* CHAPEAU */
+    .chapeau {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #1A1A1A;
+      margin-bottom: 3rem;
+    }
+
+    /* SECTIONS */
+    .article-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    .article-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #1A1A1A;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .article-section h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: #1A1A1A;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .article-section p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* ENCADRES CHIFFRES CLES */
+    .key-box {
+      background: #f5f0eb;
+      border-left: 3px solid;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-radius: 0 8px 8px 0;
+      padding: 1.2rem 1.4rem;
+      margin: 1.2rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .key-box strong {
+      color: #1A1A1A;
+    }
+
+    /* ENCADRE SPECIAL */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06));
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #1A1A1A;
+    }
+
+    .highlight-box strong {
+      color: #1A1A1A;
+    }
+
+    /* LISTES STYLEES */
+    .styled-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .styled-list li:last-child { border-bottom: none; }
+
+    .styled-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+    }
+
+    /* AGE LIST */
+    .age-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .age-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .age-item:nth-child(even) { background: #faf8f5; }
+
+    .age-label {
+      font-weight: 600;
+      color: #1A1A1A;
+    }
+
+    .age-hours {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: #E8934A;
+      font-weight: 700;
+    }
+
+    /* TABLES */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 400px;
+    }
+
+    .data-table th {
+      background: #f5f0eb;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1A1A1A;
+      padding: 0.8rem;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .data-table th:first-child { border-radius: 8px 0 0 0; }
+    .data-table th:last-child { border-radius: 0 8px 0 0; }
+
+    .data-table td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #e5e5e5;
+      color: #333;
+    }
+
+    .data-table tbody tr:nth-child(even) td {
+      background: #faf8f5;
+    }
+
+    .data-table tbody tr:last-child td { border-bottom: none; }
+
+    /* FORMULE */
+    .formula-box {
+      background: #1A1A1A;
+      color: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .formula-box code {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .formula-box .formula-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+
+    /* HABITUDES */
+    .habit-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #E8934A;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .accent-text {
+      color: #E8934A;
+      font-weight: 700;
+    }
+
+    /* AURA LINK */
+    .aura-link {
+      color: #9B6EC6;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(155,110,198,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .aura-link:hover {
+      border-color: #9B6EC6;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: #f5f0eb;
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-banner .mini-aura {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-aura .aura-halo {
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%);
+      animation: auraPulse 4s ease-in-out infinite;
+    }
+
+    .mini-aura .aura-ring {
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 2px solid rgba(232,147,74,0.25);
+      animation: auraRotate 12s linear infinite;
+    }
+
+    .mini-aura .aura-disk {
+      position: absolute;
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2));
+      animation: auraPulse 4s ease-in-out infinite reverse;
+    }
+
+    .mini-aura .aura-center {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      box-shadow: 0 0 30px rgba(232,147,74,0.3);
+    }
+
+    @keyframes auraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @keyframes auraRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-banner h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #1A1A1A;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-banner p {
+      font-size: 0.9rem;
+      color: #6B6B6B;
+      margin-bottom: 0.3rem;
+      line-height: 1.6;
+    }
+
+    .cta-banner .cta-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* SIDEBAR TOC */
+    .toc-sidebar {
+      position: sticky;
+      top: 80px;
+      width: 200px;
+      min-width: 200px;
+      align-self: flex-start;
+      margin-right: 3rem;
+      padding-top: 100px;
+    }
+
+    .toc-sidebar .toc-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #bbb;
+      margin-bottom: 0.8rem;
+    }
+
+    .toc-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-sidebar li {
+      margin-bottom: 0.4rem;
+    }
+
+    .toc-sidebar a {
+      display: block;
+      font-size: 0.75rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0 0.3rem 0.8rem;
+      border-left: 2px solid transparent;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .toc-sidebar a:hover {
+      color: #1A1A1A;
+    }
+
+    .toc-sidebar a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1;
+      border-left-width: 2px;
+      border-left-style: solid;
+      font-weight: 500;
+    }
+
+    /* MOBILE TOC */
+    .toc-mobile {
+      display: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+      padding: 0.8rem 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .toc-mobile a {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      text-decoration: none;
+      padding: 0.3rem 0.8rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .toc-mobile a:hover { color: #1A1A1A; }
+
+    .toc-mobile a.active {
+      color: #1A1A1A;
+      border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede8;
+      border-top: 1px solid #e5e5e5;
+      padding: 3rem 5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+
+    footer p strong { color: #1A1A1A; font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #1A1A1A; }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #999;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .toc-sidebar { display: none; }
+      .toc-mobile { display: block; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .article-wrapper { padding: 0 1.2rem; }
+      .article-content { padding-top: 80px; }
+      footer { padding: 2.5rem 1.5rem; }
+      .cta-banner { padding: 2rem 1.5rem; }
+      .formula-box { padding: 1.2rem 1rem; }
+      .formula-box code { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .article-content { padding-top: 75px; }
+      .data-table { font-size: 0.8rem; }
+      .data-table th, .data-table td { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+  <ul class="nav-links">
+    <li><a href="etude-cycles-sommeil.html">Recherche</a></li>
+    <li><a href="aura.html">AURA</a></li>
+    <li><a href="index.html">Accueil</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN -->
+<div class="article-wrapper">
+
+  <!-- SIDEBAR TOC (desktop) -->
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <div class="toc-label">Sommaire</div>
+    <ul>
+      <li><a href="#section-1" data-section="section-1">Les quatre stades</a></li>
+      <li><a href="#section-2" data-section="section-2">L'inertie du sommeil</a></li>
+      <li><a href="#section-3" data-section="section-3">L'horloge biologique</a></li>
+      <li><a href="#section-4" data-section="section-4">Heures ideales de reveil</a></li>
+      <li><a href="#section-5" data-section="section-5">Recommandations par age</a></li>
+      <li><a href="#section-6" data-section="section-6">Sept habitudes concretes</a></li>
+      <li><a href="#section-7" data-section="section-7">Sieste et decalage horaire</a></li>
+      <li><a href="#section-8" data-section="section-8">Conclusion</a></li>
+    </ul>
+  </aside>
+
+  <!-- ARTICLE -->
+  <main class="article-content">
+
+    <!-- HEADER -->
+    <header class="animate-in">
+      <div class="article-tag">RECHERCHE &middot; SOMMEIL &middot; AURA</div>
+      <h1 class="article-title">Se reveiller en forme : la science des cycles du sommeil</h1>
+      <p class="article-subtitle">Quel est le meilleur moment pour se reveiller ?</p>
+      <div class="article-meta">Temps de lecture : <span id="reading-time">12</span> min &middot; Mars 2026</div>
+      <hr class="gradient-line">
+    </header>
+
+    <!-- MOBILE TOC -->
+    <div class="toc-mobile" id="toc-mobile">
+      <a href="#section-1" data-section="section-1">Stades</a>
+      <a href="#section-2" data-section="section-2">Inertie</a>
+      <a href="#section-3" data-section="section-3">Horloge</a>
+      <a href="#section-4" data-section="section-4">Heures</a>
+      <a href="#section-5" data-section="section-5">Ages</a>
+      <a href="#section-6" data-section="section-6">Habitudes</a>
+      <a href="#section-7" data-section="section-7">Sieste</a>
+      <a href="#section-8" data-section="section-8">Conclusion</a>
+    </div>
+
+    <!-- CHAPEAU -->
+    <div class="chapeau animate-in">
+      Se reveiller au bon moment du cycle de sommeil &mdash; en phase legere plutot qu'en sommeil profond &mdash; est le facteur le plus determinant pour se sentir alerte des le matin. Un cycle complet dure environ 90 minutes et comprend quatre stades distincts ; en programmant son reveil pour coincider avec la fin d'un cycle (apres 5 ou 6 cycles complets, soit 7 h 30 ou 9 h de sommeil), on evite l'inertie du sommeil, cet etat de confusion et de brouillard mental qui peut durer jusqu'a une heure. Combinee a la regularite des horaires, a l'exposition a la lumiere naturelle matinale et a une bonne hygiene de sommeil, cette strategie transforme radicalement la qualite du reveil.
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="article-section animate-in" id="section-1">
+      <h2>Comment fonctionnent les quatre stades d'un cycle de sommeil</h2>
+      <p>Chaque nuit, le cerveau enchaine 4 a 6 cycles d'environ 90 minutes (fourchette reelle : 70 a 120 minutes). Chaque cycle traverse quatre stades aux fonctions tres differentes.</p>
+
+      <h3>Stade N1 — L'endormissement</h3>
+      <div class="key-box">
+        <strong>2 a 5 % du sommeil total</strong><br>
+        Phase de transition entre l'eveil et le sommeil. Les ondes cerebrales passent des ondes alpha aux ondes theta. Duree typique : <strong>1 a 7 minutes</strong>. Le tonus musculaire diminue progressivement, et il est frequent de ressentir des sursauts hypniques &mdash; ces sensations de chute qui nous reveillent brievement.
+      </div>
+
+      <h3>Stade N2 — Le sommeil leger</h3>
+      <div class="key-box">
+        <strong>45 a 55 % du sommeil total</strong><br>
+        Le cerveau produit des fuseaux de sommeil (bouffees rapides de 12-14 Hz) et des complexes K (ondes lentes isolees). Ces signatures electriques jouent un role central dans la <strong>consolidation de la memoire procedurale</strong> &mdash; celle qui nous permet d'apprendre a faire du velo ou a jouer d'un instrument. La temperature corporelle commence a baisser et la frequence cardiaque ralentit.
+      </div>
+
+      <h3>Stade N3 — Le sommeil profond</h3>
+      <div class="key-box">
+        <strong>10 a 25 % du sommeil total</strong><br>
+        La phase de reparation tissulaire par excellence. Le corps libere <strong>90 % de l'hormone de croissance</strong> quotidienne durant ce stade. Le seuil d'eveil est maximal : il faudrait un bruit superieur a <strong>100 dB</strong> (l'equivalent d'une tondeuse a gazon) pour reveiller quelqu'un en N3. C'est aussi la phase ou le systeme glymphatique nettoie le cerveau des dechets metaboliques, notamment les proteines beta-amyloides liees a la maladie d'Alzheimer.
+      </div>
+
+      <h3>Stade REM — Le sommeil paradoxal</h3>
+      <div class="key-box">
+        <strong>20 a 25 % du sommeil total</strong><br>
+        Phase des reves vivides. L'activite cerebrale est presque aussi intense qu'a l'eveil, mais le corps est en <strong>atonie musculaire</strong> (paralysie temporaire). Le REM est essentiel a la <strong>memoire declarative</strong> (faits, evenements) et a la regulation emotionnelle. Les episodes durent <strong>10 minutes</strong> en debut de nuit et s'allongent jusqu'a <strong>60 minutes</strong> en fin de nuit.
+      </div>
+
+      <div class="highlight-box">
+        <strong>Fait important :</strong> Les deux premiers tiers de la nuit sont domines par le sommeil profond N3, tandis que le dernier tiers est riche en sommeil paradoxal. C'est pourquoi se coucher tard ne "rattrape" pas le sommeil profond perdu &mdash; on ne peut pas le reprogrammer.
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="article-section animate-in" id="section-2">
+      <h2>L'inertie du sommeil, l'ennemi invisible du matin</h2>
+      <p>L'inertie du sommeil est cet etat de brouillard cognitif qui suit le reveil. Pendant cette periode, les capacites de decision, la memoire de travail et le temps de reaction sont significativement alteres.</p>
+
+      <div class="key-box">
+        <strong>Duree typique : 15 a 30 minutes</strong><br>
+        En cas de dette de sommeil chronique, l'inertie peut s'etendre sur <strong>2 a 4 heures</strong>, affectant serieusement la productivite matinale et meme la securite routiere.
+      </div>
+
+      <p><strong>Le mecanisme :</strong> Au reveil, le cerveau presente encore des ondes delta residuelles (caracteristiques du sommeil profond), un taux d'adenosine eleve (la molecule de la fatigue que la cafeine bloque), et un cortex prefrontal &mdash; siege de la prise de decision &mdash; qui redemarre plus lentement que les autres regions cerebrales.</p>
+
+      <p><strong>Trois facteurs aggravants :</strong></p>
+      <ul class="styled-list">
+        <li><strong>Etre reveille en sommeil profond (N3)</strong> &mdash; le cerveau met beaucoup plus de temps a passer des ondes delta aux ondes beta de l'eveil complet.</li>
+        <li><strong>La dette de sommeil accumulee</strong> &mdash; dormir moins de 6 heures plusieurs nuits de suite augmente la proportion de sommeil profond, rendant chaque reveil plus difficile.</li>
+        <li><strong>Le bouton snooze</strong> &mdash; chaque cycle de 9 minutes fragmentaires replonge le cerveau dans un debut de cycle sans le terminer, aggravant la confusion.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>Facteur ameliorant decisif :</strong> Se reveiller en fin de cycle &mdash; c'est-a-dire pendant le stade N1 ou N2, lorsque le cerveau est deja proche de la surface &mdash; reduit l'inertie du sommeil de maniere spectaculaire.
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="article-section animate-in" id="section-3">
+      <h2>L'horloge biologique : melatonine, cortisol et lumiere</h2>
+      <p>Notre rythme veille-sommeil est orchestre par le noyau suprachiasmatique, un minuscule amas d'environ <strong class="accent-text">20 000 neurones</strong> situe dans l'hypothalamus. Cette horloge interne fonctionne sur un cycle naturel de <strong>24,2 heures</strong> &mdash; legerement plus long qu'une journee &mdash; et doit etre resynchronisee quotidiennement par la lumiere.</p>
+
+      <h3>La melatonine</h3>
+      <div class="key-box">
+        La production de melatonine commence a augmenter entre <strong>19 h et 21 h</strong>, atteint son pic entre <strong>2 h et 4 h du matin</strong>, puis decline pour preparer le reveil. La lumiere bleue (longueur d'onde <strong>460-480 nm</strong>, emise par les ecrans) supprime la production de melatonine jusqu'a 2 heures apres l'exposition, retardant l'endormissement d'autant.
+        Pour approfondir le role de la melanopsine et du spectre lumineux, voir <a href="etude-spectre-lumineux.html" class="aura-link">notre etude sur le spectre lumineux optimal</a>.
+      </div>
+
+      <h3>Le cortisol et la reponse d'eveil (CAR)</h3>
+      <div class="key-box">
+        Le Cortisol Awakening Response (CAR) se produit dans les <strong>30 a 45 minutes</strong> suivant le reveil. Le taux de cortisol augmente de <strong>50 a 100 %</strong>, preparant le corps a l'action. Ce pic est essentiel : il booste la vigilance, la motivation et le metabolisme. S'exposer a la lumiere naturelle des le reveil amplifie et stabilise cette reponse.
+      </div>
+
+      <h3>Les chronotypes</h3>
+      <p>Tout le monde n'a pas la meme horloge interne. La recherche a identifie trois grands chronotypes :</p>
+      <ul class="styled-list">
+        <li><strong>Les alouettes (15 % de la population)</strong> &mdash; coucher tot, reveil facile a l'aube.</li>
+        <li><strong>Les intermediaires (55 a 60 %)</strong> &mdash; le profil le plus courant, adaptable aux horaires sociaux standard.</li>
+        <li><strong>Les hiboux (15 %)</strong> &mdash; pic de performance en fin de journee, difficulte a se lever tot.</li>
+      </ul>
+
+      <div class="highlight-box">
+        Une etude GWAS portant sur <strong>700 000 participants</strong> a identifie <strong>351 variants genetiques</strong> associes au chronotype. En d'autres termes, votre preference matin/soir est en grande partie inscrite dans votre ADN.
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="article-section animate-in" id="section-4">
+      <h2>Heures ideales de reveil selon l'heure de coucher</h2>
+      <p>La formule de base pour programmer son reveil en fin de cycle :</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Formule</div>
+        <code>Heure de reveil = Heure de coucher + 15 min + N &times; 90 min</code>
+      </div>
+
+      <p>Le delai de 15 minutes correspond au temps d'endormissement moyen. N est le nombre de cycles souhaites (idealement 5 ou 6).</p>
+
+      <h3>Tableau 1 : A quelle heure se reveiller ?</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Heure de coucher</th>
+              <th>5 cycles (7 h 30)</th>
+              <th>6 cycles (9 h)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>21 h 30</td><td>05 h 15</td><td>06 h 45</td></tr>
+            <tr><td>22 h 00</td><td>05 h 45</td><td>07 h 15</td></tr>
+            <tr><td>22 h 30</td><td>06 h 15</td><td>07 h 45</td></tr>
+            <tr><td>23 h 00</td><td>06 h 45</td><td>08 h 15</td></tr>
+            <tr><td>23 h 30</td><td>07 h 15</td><td>08 h 45</td></tr>
+            <tr><td>00 h 00</td><td>07 h 45</td><td>09 h 15</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tableau 2 : A quelle heure se coucher ?</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Heure de reveil souhaitee</th>
+              <th>Coucher (5 cycles)</th>
+              <th>Coucher (6 cycles)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>06 h 00</td><td>22 h 15</td><td>20 h 45</td></tr>
+            <tr><td>06 h 30</td><td>22 h 45</td><td>21 h 15</td></tr>
+            <tr><td>07 h 00</td><td>23 h 15</td><td>21 h 45</td></tr>
+            <tr><td>07 h 30</td><td>23 h 45</td><td>22 h 15</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlight-box">
+        <strong>Nuance importante :</strong> La duree de 90 minutes par cycle est une moyenne simplifiee. En realite, la duree des cycles varie entre 70 et 120 minutes selon les individus et au cours de la nuit. La strategie la plus fiable reste la <strong>regularite des horaires</strong> : se coucher et se lever a la meme heure chaque jour &mdash; y compris le weekend &mdash; permet au corps de se synchroniser naturellement.
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="article-section animate-in" id="section-5">
+      <h2>Recommandations de sommeil selon l'age</h2>
+      <p>Les besoins en sommeil evoluent considerablement au cours de la vie. Voici les recommandations consensuelles issues des recherches en medecine du sommeil :</p>
+
+      <div class="age-list">
+        <div class="age-item">
+          <span class="age-label">Nouveau-nes (0-3 mois)</span>
+          <span class="age-hours">14 - 17 h</span>
+        </div>
+        <div class="age-item">
+          <span class="age-label">Nourrissons (4-11 mois)</span>
+          <span class="age-hours">12 - 15 h</span>
+        </div>
+        <div class="age-item">
+          <span class="age-label">Enfants (6-13 ans)</span>
+          <span class="age-hours">9 - 11 h</span>
+        </div>
+        <div class="age-item">
+          <span class="age-label">Adolescents (14-17 ans)</span>
+          <span class="age-hours">8 - 10 h</span>
+        </div>
+        <div class="age-item">
+          <span class="age-label">Adultes (18-64 ans)</span>
+          <span class="age-hours">7 - 9 h</span>
+        </div>
+        <div class="age-item">
+          <span class="age-label">Seniors (65 ans et +)</span>
+          <span class="age-hours">7 - 8 h</span>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>Signal d'alerte :</strong> Si vous vous endormez systematiquement en <strong>moins de 5 minutes</strong> apres vous etre couche, cela n'est pas un signe de "bon dormeur" &mdash; c'est un indicateur de <strong>dette de sommeil severe</strong>. Un endormissement normal prend entre 10 et 20 minutes.
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="article-section animate-in" id="section-6">
+      <h2>Sept habitudes concretes pour transformer ses matins</h2>
+
+      <div class="habit-section-label">Le soir</div>
+
+      <ul class="styled-list">
+        <li><strong>Chambre a <span class="accent-text">18-20 &deg;C</span></strong> &mdash; La baisse de temperature corporelle est un signal d'endormissement puissant. Une chambre fraiche facilite ce processus naturel.</li>
+        <li><strong>Stopper les ecrans <span class="accent-text">1 h</span> avant le coucher</strong> &mdash; La lumiere bleue des ecrans supprime la melatonine. Remplacer le scrolling par de la lecture augmente la duree de sommeil de <strong class="accent-text">+27 minutes</strong> en moyenne.</li>
+        <li><strong>Derniere cafeine a <span class="accent-text">14 h</span></strong> &mdash; La demi-vie de la cafeine est de 5 a 7 heures. Un cafe a 16 h signifie qu'a 22 h, la moitie de la cafeine circule encore dans votre organisme.</li>
+        <li><strong>Rituel de decompression fixe</strong> &mdash; Le cerveau a besoin d'un sas entre l'activite et le sommeil. 20 minutes de lecture, de stretching ou de respiration suffisent a amorcer la descente vers le sommeil.</li>
+      </ul>
+
+      <div class="habit-section-label">Le matin</div>
+
+      <ul class="styled-list">
+        <li><strong><span class="accent-text">20 minutes</span> de lumiere naturelle</strong> &mdash; L'exposition a la lumiere du jour dans les 30 premieres minutes apres le reveil est le synchroniseur le plus puissant de l'horloge circadienne. Meme par temps couvert, la lumiere exterieure (10 000 lux) est 20 fois plus intense qu'un eclairage interieur.</li>
+        <li><strong><span class="accent-text">500 ml</span> d'eau au reveil</strong> &mdash; Apres 7-8 heures sans hydratation, le corps est en deficit hydrique. La deshydratation aggrave la fatigue et le brouillard mental.</li>
+        <li><strong>Exercice physique de <span class="accent-text">20 a 60 minutes</span></strong> &mdash; L'exercice matinal eleve la temperature corporelle, stimule la secretion de cortisol et de dopamine, et avance l'horloge circadienne pour faciliter l'endormissement le soir.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>Le simulateur d'aube, allie scientifique du reveil :</strong> Les etudes montrent qu'un <a href="etude-simulateurs-aube.html" class="aura-link">simulateur d'aube</a> reduit de moitie la severite et la duree de l'inertie du sommeil. En reproduisant la montee progressive de la lumiere naturelle, il prepare le cerveau au reveil avant meme que le son ne se declenche. <a href="aura.html" class="aura-link">Decouvrir AURA, le simulateur d'aube intelligent</a>.
+      </div>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section class="article-section animate-in" id="section-7">
+      <h2>La sieste strategique et le decalage horaire social</h2>
+
+      <h3>La sieste optimale</h3>
+      <p>La science est formelle : la sieste ideale dure <strong class="accent-text">10 minutes</strong>. Au-dela de 20 minutes, on risque d'entrer en sommeil profond et de subir une inertie du sommeil au reveil. La fenetre optimale se situe entre <strong>13 h et 15 h</strong>, pendant le creux circadien naturel de l'apres-midi.</p>
+
+      <div class="key-box">
+        <strong>Le "Nappuccino"</strong> &mdash; Boire un cafe juste avant une sieste de 20 minutes. La cafeine met exactement 20 a 30 minutes pour agir : on se reveille au moment precis ou elle entre en action, combinant les bienfaits de la sieste et de la cafeine pour un pic de vigilance maximal.
+      </div>
+
+      <h3>Le decalage horaire social</h3>
+      <p>Le decalage horaire social &mdash; la difference entre les horaires de sommeil en semaine et le weekend &mdash; touche <strong class="accent-text">70 % de la population</strong>. Chaque heure de decalage a les memes effets cognitifs qu'un voyage transatlantique d'un fuseau horaire. La recommandation : limiter l'ecart entre semaine et weekend a <strong>1 heure maximum</strong>.</p>
+
+      <div class="key-box">
+        <strong>Stat alarmante :</strong> Les Francais dorment en moyenne <strong>6 h 42</strong> en semaine &mdash; soit <strong>1 h 30 de moins</strong> qu'il y a 50 ans. Cette tendance a l'erosion du sommeil a des consequences majeures sur la sante publique.
+      </div>
+
+      <div class="highlight-box">
+        <strong>Equivalence choc :</strong> Rester eveille pendant <strong>18 heures</strong> consecutives produit des performances cognitives equivalentes a un taux d'alcoolemie de <strong>0,5 g/L</strong> &mdash; le seuil legal en France.
+      </div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section class="article-section animate-in" id="section-8">
+      <h2>Conclusion</h2>
+      <p>La science du sommeil nous enseigne quatre lecons fondamentales pour transformer durablement la qualite de nos reveils :</p>
+
+      <ul class="styled-list">
+        <li><strong>La regularite prime sur la duree.</strong> Se coucher et se lever a la meme heure chaque jour &mdash; y compris le weekend &mdash; est plus impactant que de "rattraper" le sommeil perdu.</li>
+        <li><strong>La lumiere matinale est le synchroniseur numero un.</strong> 20 minutes d'exposition a la lumiere naturelle chaque matin recalibrent l'horloge biologique et stabilisent le cycle veille-sommeil.</li>
+        <li><strong>Les <a href="etude-simulateurs-aube.html" class="aura-link">simulateurs d'aube</a> sont la solution technologique la plus elegante.</strong> En repliquant le signal lumineux de l'aube, ils preparent le cerveau au reveil et divisent par deux l'inertie du sommeil.</li>
+        <li><strong>La revolution du reveil se joue le soir.</strong> Temperature fraiche, arret des ecrans, regularite du coucher : chaque matin reussi se prepare la veille au soir.</li>
+      </ul>
+
+      <p>Comprendre ses cycles, respecter son horloge interne et creer un environnement propice au sommeil ne sont pas des luxes &mdash; ce sont les fondements d'une vie plus alerte, plus productive et plus saine.</p>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner animate-in">
+      <div class="mini-aura">
+        <div class="aura-halo"></div>
+        <div class="aura-ring"></div>
+        <div class="aura-disk"></div>
+        <div class="aura-center"></div>
+      </div>
+      <h3>AURA utilise cette science pour reinventer votre reveil.</h3>
+      <p>Simulateur d'aube IA. Synchronise a vos cycles. Sons roses en phase profonde.</p>
+      <p class="cta-sub">&nbsp;</p>
+      <a href="aura.html" class="cta-btn">Decouvrir AURA &rarr;</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Les Zintrepreneurs</strong> &middot; Recherche &amp; Innovation</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="aura.html">AURA</a>
+    <a href="#" target="_blank">Instagram</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</div>
+</footer>
+
+<script>
+  // ---- READING TIME ----
+  (function() {
+    const text = document.querySelector('.article-content').innerText;
+    const words = text.trim().split(/\s+/).length;
+    const minutes = Math.ceil(words / 200);
+    const el = document.getElementById('reading-time');
+    if (el) el.textContent = minutes;
+  })();
+
+  // ---- INTERSECTION OBSERVER — TOC HIGHLIGHT ----
+  (function() {
+    const sections = document.querySelectorAll('.article-section[id]');
+    const tocLinks = document.querySelectorAll('[data-section]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === id);
+          });
+        }
+      });
+    }, {
+      rootMargin: '-80px 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => observer.observe(section));
+  })();
+
+  // ---- SMOOTH SCROLL ----
+  document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById(this.getAttribute('data-section'));
+      if (target) {
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---- SCROLL ANIMATIONS ----
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        animObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.animate-in').forEach(el => animObserver.observe(el));
+</script>
+</body>
+</html>

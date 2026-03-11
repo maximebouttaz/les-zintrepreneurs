@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AURA — Le reveil IA qui respecte votre sommeil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFAF8;
+      color: #1A1A1A;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 2.5rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1A1A1A; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.5rem 1.3rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #6B6B6B;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border: 1px solid #d5d5d5;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: #1A1A1A;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #6B6B6B;
+      margin-bottom: 0.8rem;
+      font-weight: 400;
+    }
+
+    .hero-subtitle strong {
+      color: #1A1A1A;
+      font-weight: 600;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      max-width: 550px;
+      margin: 0 auto 2rem;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232,147,74,0.2); }
+
+    .btn-ghost {
+      color: #6B6B6B;
+      padding: 0.85rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover { color: #1A1A1A; border-color: #999; }
+
+    .hero-price {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: #6B6B6B;
+      margin-top: 0.5rem;
+    }
+
+    /* CSS ART AURA */
+    .aura-art {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 4rem auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .aura-halo {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(232,147,74,0.15);
+    }
+
+    .aura-ring {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: conic-gradient(#E8934A, #9B6EC6, #E8934A) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: breathe 4s infinite ease-in-out;
+    }
+
+    .aura-disk {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff8f0, #f0d4a8);
+      animation: breathe 4s infinite ease-in-out;
+    }
+
+    .aura-center {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(232,147,74,0.6);
+      animation: glow 4s infinite ease-in-out;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.98); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* SECTIONS COMMON */
+    section {
+      padding: 6rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #E8934A;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      color: #1A1A1A;
+    }
+
+    .section-intro {
+      font-size: 0.95rem;
+      color: #6B6B6B;
+      line-height: 1.8;
+      max-width: 700px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    /* SCIENCE — HYPNOGRAMME */
+    .hypno-container {
+      margin: 3rem auto;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .hypno-labels {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 30px;
+      width: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+
+    .hypno-labels span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: #999;
+    }
+
+    .hypno-chart {
+      display: flex;
+      gap: 4px;
+      height: 200px;
+      align-items: flex-end;
+      margin-left: 65px;
+      position: relative;
+    }
+
+    .hypno-bar {
+      width: 12px;
+      border-radius: 4px 4px 0 0;
+      background: #e0ddd8;
+      transition: height 0.8s ease;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hypno-bar.deep {
+      background: linear-gradient(to top, #E8934A, #9B6EC6);
+      box-shadow: 0 -4px 12px rgba(232,147,74,0.15);
+    }
+
+    .hypno-bar .bar-label {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      color: #E8934A;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    .hypno-bar .wake-label {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: #9B6EC6;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .wake-label .arrow {
+      width: 1px;
+      height: 10px;
+      background: #9B6EC6;
+    }
+
+    /* PHASES CARDS */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .phase-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .phase-card.highlight {
+      border-left: 3px solid transparent;
+      border-image: linear-gradient(to bottom, #E8934A, #9B6EC6) 1;
+      border-image-slice: 1;
+      border-left-width: 3px;
+      border-left-style: solid;
+    }
+
+    .phase-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: #1A1A1A;
+    }
+
+    .phase-card p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.6;
+    }
+
+    .phase-card .phase-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: #999;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    /* SONS ROSES */
+    .sons-roses {
+      background: #f5f0eb;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 700px;
+      margin: 3rem auto;
+      border-left: 3px solid #E8934A;
+      font-size: 0.92rem;
+      color: #4a4a4a;
+      line-height: 1.8;
+    }
+
+    .section-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .section-cta a {
+      color: #E8934A;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .section-cta a:hover { opacity: 0.7; }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: #d0d0d0;
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    /* Icon: Soleil */
+    .icon-sun {
+      position: relative;
+      width: 40px;
+      height: 40px;
+    }
+
+    .icon-sun .core {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8934A, #f0b060);
+    }
+
+    .icon-sun .ray {
+      position: absolute;
+      width: 2px;
+      height: 6px;
+      background: #E8934A;
+      top: 2px;
+      left: 50%;
+      transform-origin: center 18px;
+      border-radius: 1px;
+    }
+
+    .icon-sun .ray:nth-child(2) { transform: translateX(-50%) rotate(0deg); }
+    .icon-sun .ray:nth-child(3) { transform: translateX(-50%) rotate(45deg); }
+    .icon-sun .ray:nth-child(4) { transform: translateX(-50%) rotate(90deg); }
+    .icon-sun .ray:nth-child(5) { transform: translateX(-50%) rotate(135deg); }
+    .icon-sun .ray:nth-child(6) { transform: translateX(-50%) rotate(180deg); }
+    .icon-sun .ray:nth-child(7) { transform: translateX(-50%) rotate(225deg); }
+    .icon-sun .ray:nth-child(8) { transform: translateX(-50%) rotate(270deg); }
+    .icon-sun .ray:nth-child(9) { transform: translateX(-50%) rotate(315deg); }
+
+    /* Icon: Brain */
+    .icon-brain {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      height: 40px;
+    }
+
+    .icon-brain .wave {
+      width: 30px;
+      height: 8px;
+      border: 2px solid #9B6EC6;
+      border-radius: 50%;
+      border-bottom: none;
+    }
+
+    .icon-brain .wave:nth-child(2) { width: 24px; margin-left: 3px; }
+    .icon-brain .wave:nth-child(3) { width: 18px; margin-left: 6px; }
+
+    /* Icon: Sound */
+    .icon-sound {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-sound .arc {
+      position: absolute;
+      border: 2px solid #E8934A;
+      border-radius: 50%;
+      border-left: none;
+      border-top: none;
+      border-bottom: none;
+    }
+
+    .icon-sound .arc:nth-child(1) { width: 14px; height: 14px; }
+    .icon-sound .arc:nth-child(2) { width: 24px; height: 24px; opacity: 0.6; }
+    .icon-sound .arc:nth-child(3) { width: 34px; height: 34px; opacity: 0.3; }
+
+    /* Icon: Phone */
+    .icon-phone {
+      width: 22px;
+      height: 34px;
+      border: 2px solid #6B6B6B;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .icon-phone::after {
+      content: '';
+      position: absolute;
+      top: 4px; left: 3px; right: 3px; bottom: 8px;
+      background: #f0ede8;
+      border-radius: 2px;
+    }
+
+    .feature-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #1A1A1A;
+    }
+
+    .feature-card p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+    }
+
+    /* DESIGN SECTION */
+    .design-section {
+      text-align: center;
+    }
+
+    .design-desc {
+      font-size: 0.95rem;
+      color: #6B6B6B;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      font-weight: 300;
+    }
+
+    .aura-art-large {
+      background: #faf5f0;
+      border-radius: 20px;
+      padding: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .aura-art-large .aura-art {
+      width: 350px;
+      height: 350px;
+      margin: 0;
+    }
+
+    .aura-art-large .aura-ring {
+      width: 320px;
+      height: 320px;
+    }
+
+    .aura-art-large .aura-disk {
+      width: 270px;
+      height: 270px;
+    }
+
+    /* PRECOMMANDE */
+    .precommande-desc {
+      font-size: 0.95rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .progress-container {
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e5e5e5;
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+      border-radius: 100px;
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #6B6B6B;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-meta .raised {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #1A1A1A;
+    }
+
+    .progress-meta .goal {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      align-self: flex-end;
+    }
+
+    .precommande-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 400px;
+      margin-bottom: 3rem;
+    }
+
+    .precommande-stat {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+    }
+
+    .precommande-stat .val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #1A1A1A;
+      line-height: 1;
+    }
+
+    .precommande-stat .label {
+      font-size: 0.72rem;
+      color: #6B6B6B;
+      margin-top: 0.25rem;
+    }
+
+    /* TIER CARDS */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .tier-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .tier-card.featured {
+      border-top: 3px solid transparent;
+      border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1;
+      border-image-slice: 1;
+      border-top-width: 3px;
+      border-top-style: solid;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+
+    .tier-badge.accent {
+      color: #E8934A;
+      border: 1px solid rgba(232,147,74,0.4);
+      background: rgba(232,147,74,0.05);
+    }
+
+    .tier-badge.green {
+      color: #2d8a56;
+      border: 1px solid rgba(45,138,86,0.3);
+      background: rgba(45,138,86,0.05);
+    }
+
+    .tier-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #1A1A1A;
+      margin-bottom: 0.2rem;
+    }
+
+    .tier-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: #1A1A1A;
+      margin-bottom: 1.2rem;
+    }
+
+    .tier-price span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #6B6B6B;
+    }
+
+    .tier-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .tier-list li {
+      font-size: 0.82rem;
+      color: #6B6B6B;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .tier-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d5d5d5;
+    }
+
+    .tier-list li:last-child { border-bottom: none; }
+
+    .tier-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+
+    .tier-cta {
+      width: 100%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .tier-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: #f0ede8;
+      border-top: 1px solid #e5e5e5;
+      padding: 3rem 5rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      line-height: 1.7;
+      margin-bottom: 0.4rem;
+    }
+
+    footer p strong { color: #1A1A1A; font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #6B6B6B;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #1A1A1A; }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #999;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 480px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: #f0f0f0;
+      border: none;
+      color: #6B6B6B;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: #e5e5e5; color: #1A1A1A; }
+
+    .modal h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+      color: #1A1A1A;
+    }
+
+    .modal .modal-sub {
+      font-size: 0.85rem;
+      color: #6B6B6B;
+      margin-bottom: 1.8rem;
+    }
+
+    .modal .modal-tier-info {
+      background: #faf5f0;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal .modal-tier-info .tier-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1A1A1A;
+    }
+
+    .modal .modal-tier-info .tier-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #E8934A;
+    }
+
+    .amount-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .amount-option {
+      background: #f5f5f3;
+      border: 1px solid #e5e5e5;
+      color: #1A1A1A;
+      padding: 0.7rem 0.3rem;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+
+    .amount-option:hover,
+    .amount-option.selected {
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .custom-amount {
+      width: 100%;
+      background: #f5f5f3;
+      border: 1px solid #e5e5e5;
+      color: #1A1A1A;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .custom-amount:focus { border-color: #E8934A; }
+
+    .modal-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-field label {
+      font-size: 0.72rem;
+      color: #999;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .form-field input {
+      background: #f5f5f3;
+      border: 1px solid #e5e5e5;
+      color: #1A1A1A;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-field input:focus { border-color: #E8934A; }
+
+    .stripe-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      color: #999;
+      margin-bottom: 1.2rem;
+    }
+
+    .pay-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .pay-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* SCROLL ANIMATIONS */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 1px;
+      background: #e5e5e5;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .tiers-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      section { padding: 5rem 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero h1 { font-size: clamp(3rem, 10vw, 4.5rem); }
+      .phases-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .hero-actions { flex-direction: column; }
+      .aura-art { width: 220px; height: 220px; }
+      .aura-ring { width: 200px !important; height: 200px !important; }
+      .aura-disk { width: 170px !important; height: 170px !important; }
+      .aura-art-large { padding: 2.5rem; }
+      .aura-art-large .aura-art { width: 260px; height: 260px; }
+      .aura-art-large .aura-ring { width: 240px !important; height: 240px !important; }
+      .aura-art-large .aura-disk { width: 200px !important; height: 200px !important; }
+      .hypno-chart { overflow-x: auto; }
+      footer { padding: 2.5rem 1.5rem; }
+      .modal-form-row { grid-template-columns: 1fr; }
+      .precommande-stats { max-width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .amount-options { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+  <ul class="nav-links">
+    <li><a href="#science">La science</a></li>
+    <li><a href="#features">Fonctionnalites</a></li>
+    <li><a href="#precommande">Pre-commander</a></li>
+  </ul>
+  <a href="#precommande" class="nav-cta">Soutenir le projet</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="max-width:100%; padding-left:2rem; padding-right:2rem;">
+  <div class="hero-badge">NOUVEAU — PREMIER PROJET</div>
+  <h1>Reveillez la meilleure<br>version de vous-meme.</h1>
+  <p class="hero-subtitle"><strong>AURA.</strong> Le premier reveil a intelligence artificielle qui respecte votre sommeil.</p>
+  <p class="hero-desc">AURA analyse vos cycles de sommeil en temps reel et declenche une aube progressive au moment precis ou votre corps est pret a se reveiller.</p>
+  <div class="hero-actions">
+    <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
+    <a href="#science" class="btn-ghost">Decouvrir</a>
+  </div>
+  <p class="hero-price">A partir de 149 EUR</p>
+
+  <div class="aura-art">
+    <div class="aura-halo"></div>
+    <div class="aura-ring"></div>
+    <div class="aura-disk"></div>
+    <div class="aura-center"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SCIENCE -->
+<section id="science">
+  <div class="section-tag animate-in">// LA SCIENCE</div>
+  <div class="section-title animate-in">Votre sommeil est un langage.<br>AURA le parle.</div>
+  <p class="section-intro animate-in">Chaque nuit, votre cerveau traverse des cycles precis. Chacun a un role. Etre reveille au mauvais moment genere cette sensation de brouillard. AURA identifie le moment juste.</p>
+
+  <!-- HYPNOGRAMME -->
+  <div class="hypno-container animate-in">
+    <div class="hypno-labels">
+      <span>Eveil</span>
+      <span>Leger</span>
+      <span>Profond</span>
+    </div>
+    <div class="hypno-chart" id="hypno-chart">
+      <!-- Cycle 1 -->
+      <div class="hypno-bar" style="height:20%"></div>
+      <div class="hypno-bar" style="height:40%"></div>
+      <div class="hypno-bar" style="height:60%"></div>
+      <div class="hypno-bar deep" style="height:90%"><span class="bar-label">Sons roses</span></div>
+      <!-- Cycle 2 -->
+      <div class="hypno-bar" style="height:20%"></div>
+      <div class="hypno-bar" style="height:40%"></div>
+      <div class="hypno-bar" style="height:60%"></div>
+      <div class="hypno-bar deep" style="height:85%"></div>
+      <!-- Cycle 3 -->
+      <div class="hypno-bar" style="height:15%"></div>
+      <div class="hypno-bar" style="height:45%"></div>
+      <div class="hypno-bar" style="height:55%"></div>
+      <div class="hypno-bar deep" style="height:92%"></div>
+      <!-- Cycle 4 -->
+      <div class="hypno-bar" style="height:20%"></div>
+      <div class="hypno-bar" style="height:35%"></div>
+      <div class="hypno-bar" style="height:65%"></div>
+      <div class="hypno-bar deep" style="height:80%"></div>
+      <!-- Cycle 5 — reveil -->
+      <div class="hypno-bar" style="height:25%"></div>
+      <div class="hypno-bar" style="height:40%"></div>
+      <div class="hypno-bar" style="height:50%"></div>
+      <div class="hypno-bar" style="height:20%"><span class="wake-label"><span style="font-weight:600">Reveil optimal</span><span class="arrow"></span></span></div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div class="phases-grid">
+    <div class="phase-card animate-in">
+      <div class="phase-label">N1</div>
+      <h4>L'endormissement</h4>
+      <p>La frontiere entre l'eveil et le sommeil. Vos muscles se relachent.</p>
+    </div>
+    <div class="phase-card animate-in">
+      <div class="phase-label">N2</div>
+      <h4>Le sommeil leger</h4>
+      <p>La fenetre ideale pour un reveil sans resistance. AURA la detecte.</p>
+    </div>
+    <div class="phase-card highlight animate-in">
+      <div class="phase-label">N3</div>
+      <h4>Le sommeil profond</h4>
+      <p>La phase de reconstruction. C'est ici qu'AURA intervient.</p>
+    </div>
+    <div class="phase-card animate-in">
+      <div class="phase-label">REM</div>
+      <h4>Le sommeil paradoxal</h4>
+      <p>Le territoire des reves et de la creativite.</p>
+    </div>
+  </div>
+
+  <!-- SONS ROSES -->
+  <div class="sons-roses animate-in">
+    Pendant la phase N3, AURA diffuse des sons roses — des frequences basses, calibrees, a peine perceptibles. La recherche en neurosciences a demontre que ces stimulations augmentent l'amplitude du sommeil profond de 25%. Vous ne les entendez pas. Votre cerveau, si.
+  </div>
+
+  <div class="section-cta animate-in">
+    <a href="#features">Decouvrir les fonctionnalites &darr;</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-tag animate-in">// FONCTIONNALITES</div>
+  <div class="section-title animate-in">Quatre technologies.<br>Un seul objectif : le reveil parfait.</div>
+
+  <div class="features-grid">
+    <div class="feature-card animate-in">
+      <div class="feature-icon">
+        <div class="icon-sun">
+          <div class="core"></div>
+          <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+          <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+          <div class="ray"></div><div class="ray"></div>
+        </div>
+      </div>
+      <h4>L'aube, reinventee.</h4>
+      <p>Une lumiere progressive qui simule un lever de soleil naturel, calibree sur votre rythme circadien. Du rouge profond au blanc chaud, en 30 minutes.</p>
+    </div>
+
+    <div class="feature-card animate-in">
+      <div class="feature-icon">
+        <div class="icon-brain">
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
+      </div>
+      <h4>Une IA qui apprend vos nuits.</h4>
+      <p>AURA analyse vos micro-mouvements et votre rythme cardiaque pour cartographier vos cycles. Chaque nuit, l'algorithme s'affine.</p>
+    </div>
+
+    <div class="feature-card animate-in">
+      <div class="feature-icon">
+        <div class="icon-sound">
+          <div class="arc"></div>
+          <div class="arc"></div>
+          <div class="arc"></div>
+        </div>
+      </div>
+      <h4>Le son que votre cerveau attendait.</h4>
+      <p>Des sons roses diffuses pendant le sommeil profond pour amplifier sa qualite. Inaudibles pour vous, decisifs pour votre recuperation.</p>
+    </div>
+
+    <div class="feature-card animate-in">
+      <div class="feature-icon">
+        <div class="icon-phone"></div>
+      </div>
+      <h4>Vos nuits, eclairees.</h4>
+      <p>L'application AURA vous offre un tableau de bord complet : score de sommeil, tendances, recommandations personnalisees.</p>
+    </div>
+  </div>
+
+  <div class="section-cta animate-in" style="margin-top:3rem;">
+    <a href="#precommande">Choisir mon offre &darr;</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DESIGN -->
+<section class="design-section">
+  <div class="section-tag animate-in">// DESIGN</div>
+  <div class="section-title animate-in">Un objet qui sait se taire.</div>
+  <p class="design-desc animate-in">AURA a ete dessine pour disparaitre dans votre chambre — et sublimer votre table de nuit. Lignes epurees, eclairage ambiant modulable.</p>
+
+  <div class="aura-art-large animate-in">
+    <div class="aura-art">
+      <div class="aura-halo"></div>
+      <div class="aura-ring"></div>
+      <div class="aura-disk"></div>
+      <div class="aura-center"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRECOMMANDE -->
+<section id="precommande">
+  <div class="section-tag animate-in">// PRE-COMMANDE</div>
+  <div class="section-title animate-in">Les premiers leves seront<br>les mieux servis.</div>
+  <p class="precommande-desc animate-in">Soutenez le projet et faites partie des premiers a vivre le reveil tel qu'il devrait etre.</p>
+
+  <div class="progress-container animate-in">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-meta">
+      <div>
+        <div class="raised" id="total-amount">0 EUR</div>
+        <span>recoltes</span>
+      </div>
+      <div class="goal">objectif 30 000 EUR</div>
+    </div>
+  </div>
+
+  <div class="precommande-stats animate-in">
+    <div class="precommande-stat">
+      <div class="val" id="nb-contributors">0</div>
+      <div class="label">Contributeurs</div>
+    </div>
+    <div class="precommande-stat">
+      <div class="val" id="days-left">0</div>
+      <div class="label">Jours restants</div>
+    </div>
+  </div>
+
+  <!-- TIERS -->
+  <div class="tiers-grid">
+    <!-- Early Bird -->
+    <div class="tier-card featured animate-in">
+      <div class="tier-badge accent">LIMITE A 100 UNITES</div>
+      <div class="tier-name">Early Bird</div>
+      <div class="tier-price">149 EUR</div>
+      <ul class="tier-list">
+        <li>1 reveil AURA</li>
+        <li>Application premium 1 an</li>
+        <li>Livraison France incluse</li>
+        <li>Votre nom parmi les premiers soutiens</li>
+      </ul>
+      <div class="tier-date">Livraison estimee : septembre 2026</div>
+      <button class="tier-cta" onclick="openModal('Early Bird', 149)">J'en profite — 149 EUR</button>
+    </div>
+
+    <!-- Standard -->
+    <div class="tier-card animate-in">
+      <div class="tier-name" style="margin-top:0.5rem;">Standard</div>
+      <div class="tier-price">179 EUR</div>
+      <ul class="tier-list">
+        <li>1 reveil AURA</li>
+        <li>Application premium 1 an</li>
+        <li>Livraison France incluse</li>
+        <li>Choix de la couleur</li>
+      </ul>
+      <div class="tier-date">Livraison estimee : octobre 2026</div>
+      <button class="tier-cta" onclick="openModal('Standard', 179)">Pre-commander — 179 EUR</button>
+    </div>
+
+    <!-- Premium -->
+    <div class="tier-card featured animate-in">
+      <div class="tier-badge green">POPULAIRE</div>
+      <div class="tier-name">Premium</div>
+      <div class="tier-price">199 EUR</div>
+      <ul class="tier-list">
+        <li>1 reveil AURA</li>
+        <li>Application premium a vie</li>
+        <li>Livraison France + EU incluse</li>
+        <li>3 coloris au choix</li>
+        <li>Acces beta IA avancee</li>
+      </ul>
+      <div class="tier-date">Livraison estimee : octobre 2026</div>
+      <button class="tier-cta" onclick="openModal('Premium', 199)">Pre-commander — 199 EUR</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>AURA</strong> est un projet porte par Les Zintrepreneurs.</p>
+  <p>Deux cousins, une obsession : vous offrir le meilleur reveil de votre vie.</p>
+  <div class="footer-links">
+    <a href="#" target="_blank">Instagram</a>
+    <a href="mailto:contact@leszintrepreneurs.com">Email</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <h3>Pre-commander AURA</h3>
+    <p class="modal-sub" id="modal-subtitle">Choisissez votre offre et rejoignez les premiers soutiens.</p>
+
+    <div class="modal-tier-info" id="modal-tier-info" style="display:none;">
+      <span class="tier-label" id="modal-tier-label">Early Bird</span>
+      <span class="tier-amount" id="modal-tier-amount">149 EUR</span>
+    </div>
+
+    <div class="amount-options" id="amount-options">
+      <div class="amount-option" onclick="selectAmount(149)">149 EUR</div>
+      <div class="amount-option" onclick="selectAmount(179)">179 EUR</div>
+      <div class="amount-option" onclick="selectAmount(199)">199 EUR</div>
+    </div>
+    <input type="number" class="custom-amount" placeholder="Ou saisissez un montant personnalise en EUR" id="custom-amount" oninput="clearSelection()"/>
+
+    <div class="modal-form-row">
+      <div class="form-field">
+        <label>Prenom</label>
+        <input type="text" placeholder="Alexandre" id="form-prenom"/>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="alex@email.com" id="form-email"/>
+      </div>
+    </div>
+
+    <div class="stripe-note">
+      &#128274; Paiement securise par Stripe — Vos donnees ne sont jamais stockees
+    </div>
+
+    <button class="pay-btn" onclick="simulatePayment()">Contribuer</button>
+  </div>
+</div>
+
+<script>
+  // ---- DATA ----
+  let totalRaised = 4200;
+  const goal = 30000;
+  let contributors = 28;
+  let selectedAmount = null;
+
+  // ---- INIT ----
+  function init() {
+    animateCounter('total-amount', 0, totalRaised, 'EUR', 1800);
+    animateCounter('nb-contributors', 0, contributors, '', 1500);
+
+    setTimeout(() => {
+      const pct = Math.min((totalRaised / goal) * 100, 100);
+      document.getElementById('progress-fill').style.width = pct + '%';
+    }, 400);
+
+    // Days remaining: 90 days after 2026-03-01
+    const launch = new Date('2026-03-01');
+    const end = new Date(launch);
+    end.setDate(end.getDate() + 90);
+    const now = new Date();
+    const diff = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
+    document.getElementById('days-left').textContent = diff;
+  }
+
+  function animateCounter(id, from, to, suffix, duration) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const start = performance.now();
+    function update(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const val = Math.floor(from + (to - from) * easeOut(p));
+      el.textContent = val.toLocaleString('fr-FR') + (suffix ? ' ' + suffix : '');
+      if (p < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+  // ---- MODAL ----
+  function openModal(tierName, tierPrice) {
+    const modal = document.getElementById('modal');
+    const tierInfo = document.getElementById('modal-tier-info');
+    const amountOpts = document.getElementById('amount-options');
+
+    if (tierName && tierPrice) {
+      document.getElementById('modal-subtitle').textContent = 'Vous avez choisi l\'offre ' + tierName + '.';
+      document.getElementById('modal-tier-label').textContent = tierName;
+      document.getElementById('modal-tier-amount').textContent = tierPrice + ' EUR';
+      tierInfo.style.display = 'flex';
+      amountOpts.style.display = 'none';
+      document.getElementById('custom-amount').style.display = 'none';
+      selectedAmount = tierPrice;
+    } else {
+      document.getElementById('modal-subtitle').textContent = 'Choisissez votre offre et rejoignez les premiers soutiens.';
+      tierInfo.style.display = 'none';
+      amountOpts.style.display = 'grid';
+      document.getElementById('custom-amount').style.display = 'block';
+      selectedAmount = null;
+    }
+
+    modal.classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function selectAmount(val) {
+    selectedAmount = val;
+    document.querySelectorAll('.amount-option').forEach(el => el.classList.remove('selected'));
+    event.target.classList.add('selected');
+    document.getElementById('custom-amount').value = '';
+  }
+
+  function clearSelection() {
+    selectedAmount = null;
+    document.querySelectorAll('.amount-option').forEach(el => el.classList.remove('selected'));
+  }
+
+  function simulatePayment() {
+    const custom = document.getElementById('custom-amount').value;
+    const amount = selectedAmount || parseFloat(custom);
+    if (!amount || amount <= 0) {
+      const input = document.getElementById('custom-amount');
+      if (input.style.display !== 'none') {
+        input.style.borderColor = '#E8934A';
+        setTimeout(() => input.style.borderColor = '', 1000);
+      }
+      return;
+    }
+    alert('Merci pour votre soutien !\n\nCette demo simule un paiement de ' + amount + ' EUR.\nAvec Stripe, vous serez redirige vers une page de paiement securisee.');
+    closeModal();
+    totalRaised += amount;
+    contributors += 1;
+    animateCounter('total-amount', totalRaised - amount, totalRaised, 'EUR', 800);
+    animateCounter('nb-contributors', contributors - 1, contributors, '', 600);
+    const pct = Math.min((totalRaised / goal) * 100, 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  // ---- SCROLL ANIMATIONS ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // ---- START ----
+  window.addEventListener('load', init);
+</script>
+</body>
+</html>

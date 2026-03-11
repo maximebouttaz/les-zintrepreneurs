@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comment concevoir le simulateur d'aube parfait — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #FAFAF8;
+      --bg-nav: rgba(250,250,248,0.92);
+      --surface: #FFFFFF;
+      --border: #E8E8E4;
+      --border-light: #F0F0EC;
+      --text: #333333;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --accent-start: #E8934A;
+      --accent-end: #9B6EC6;
+      --gradient: linear-gradient(135deg, #E8934A, #9B6EC6);
+      --gradient-h: linear-gradient(90deg, #E8934A, #9B6EC6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: var(--bg-nav);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.12em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-search {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s;
+    }
+
+    .nav-search:hover { border-color: var(--text-muted); }
+    .nav-search svg { width: 14px; height: 14px; stroke: var(--text-muted); }
+
+    /* ── LAYOUT ── */
+    .article-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── HEADER ── */
+    .article-header {
+      padding-top: 120px;
+      padding-bottom: 3rem;
+    }
+
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-start);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .article-subtitle {
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+
+    .gradient-line {
+      height: 3px;
+      background: var(--gradient-h);
+      border-radius: 2px;
+      border: none;
+    }
+
+    /* ── TOC ── */
+    .toc-wrapper {
+      position: relative;
+    }
+
+    .toc {
+      margin: 2.5rem 0 3rem;
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .toc-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc li {
+      counter-increment: toc;
+      margin-bottom: 0.5rem;
+    }
+
+    .toc li a {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      transition: color 0.2s;
+      padding: 0.2rem 0;
+    }
+
+    .toc li a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .toc li a:hover { color: var(--accent-start); }
+
+    .toc li a.active {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .toc li a.active::before {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Desktop sidebar TOC */
+    @media (min-width: 1100px) {
+      .toc {
+        position: fixed;
+        top: 100px;
+        left: calc(50% - 360px - 260px);
+        width: 220px;
+        margin: 0;
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+      }
+
+      .toc ol { border-left: 1px solid var(--border); padding-left: 1rem; }
+      .toc li a { font-size: 0.8rem; }
+    }
+
+    /* Mobile horizontal TOC */
+    @media (max-width: 1099px) and (min-width: 600px) {
+      .toc {
+        position: sticky;
+        top: 64px;
+        z-index: 50;
+        margin: 0 -1.5rem 3rem;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        background: var(--bg-nav);
+        backdrop-filter: blur(16px);
+      }
+
+      .toc ol {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .toc ol::-webkit-scrollbar { display: none; }
+      .toc li { white-space: nowrap; flex-shrink: 0; }
+    }
+
+    /* ── CHAPEAU ── */
+    .chapeau {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      scroll-margin-top: 80px;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.85rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .section-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .section h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.8rem;
+    }
+
+    .section p {
+      margin-bottom: 1.2rem;
+    }
+
+    .section ul {
+      margin: 0.8rem 0 1.5rem 1.2rem;
+      list-style: none;
+    }
+
+    .section ul li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gradient);
+    }
+
+    strong { font-weight: 600; }
+
+    /* ── ENCADRE ── */
+    .encadre {
+      margin: 2rem 0;
+      padding: 1.5rem 1.8rem;
+      background: var(--surface);
+      border-left: 3px solid;
+      border-image: var(--gradient) 1;
+      border-radius: 0 10px 10px 0;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    }
+
+    .encadre-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-start);
+      margin-bottom: 0.6rem;
+    }
+
+    .encadre p {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* ── SHOCK BOX ── */
+    .shock-box {
+      background: #1A1A1A;
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .shock-box .shock-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      line-height: 1;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .shock-box p {
+      color: #ccc;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06));
+      border-radius: 12px;
+      padding: 1.5rem 1.6rem;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .highlight-box strong { color: var(--text); }
+
+    /* ── PATHWAY ── */
+    .pathway {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 1.5rem 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
+    }
+
+    .pathway .node {
+      background: #f5f0eb;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pathway .arrow {
+      color: var(--accent-start);
+      font-size: 0.9rem;
+    }
+
+    /* ── TABLEAU ── */
+    .table-wrapper {
+      margin: 2rem 0;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: linear-gradient(135deg, rgba(232,147,74,0.08), rgba(155,110,198,0.08));
+    }
+
+    th {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.9rem 1.2rem;
+      border-top: 1px solid var(--border-light);
+      vertical-align: top;
+    }
+
+    tr:hover td { background: rgba(232,147,74,0.03); }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-top {
+      background: linear-gradient(135deg, rgba(232,147,74,0.15), rgba(155,110,198,0.15));
+      color: var(--accent-start);
+    }
+
+    .badge-good {
+      background: rgba(60,180,100,0.1);
+      color: #3cb464;
+    }
+
+    .badge-mid {
+      background: rgba(200,170,60,0.1);
+      color: #b0960a;
+    }
+
+    /* ── REFERENCE ── */
+    .ref {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 4rem 0;
+      padding: 3rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient-h);
+    }
+
+    .cta-banner h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .cta-banner .cta-table-wrapper {
+      margin: 0 auto 2rem;
+      max-width: 580px;
+      text-align: left;
+    }
+
+    .cta-art {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .cta-art .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .cta-art .orb-1 {
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at 35% 35%, #E8934A, #d47a30);
+      top: 20px; left: 35px;
+      opacity: 0.85;
+    }
+
+    .cta-art .orb-2 {
+      width: 60px; height: 60px;
+      background: radial-gradient(circle at 35% 35%, #9B6EC6, #7d54a8);
+      top: 50px; left: 60px;
+      opacity: 0.7;
+      animation-delay: -2s;
+    }
+
+    .cta-art .orb-3 {
+      width: 40px; height: 40px;
+      background: radial-gradient(circle at 35% 35%, #E8C04A, #d4a830);
+      top: 10px; left: 70px;
+      opacity: 0.6;
+      animation-delay: -4s;
+    }
+
+    .cta-art .ring {
+      position: absolute;
+      width: 120px; height: 120px;
+      top: 15px; left: 15px;
+      border: 1.5px solid rgba(155,110,198,0.2);
+      border-radius: 50%;
+      animation: spin 20s linear infinite;
+    }
+
+    .cta-art .ring::after {
+      content: '';
+      position: absolute;
+      top: -3px; left: 50%;
+      width: 6px; height: 6px;
+      background: var(--accent-start);
+      border-radius: 50%;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .cta-text {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--gradient);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,147,74,0.25);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,147,74,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 4rem;
+      padding: 3rem 2.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.65rem; }
+      .article-header { padding-top: 96px; }
+      .article-header h1 { font-size: 2rem; }
+      .section h2 { font-size: 1.5rem; }
+      .encadre { padding: 1.2rem 1.4rem; }
+      .cta-banner { padding: 2rem 1.5rem; }
+      .toc { position: static; margin: 2rem 0; }
+      .toc ol {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 0.5rem;
+      }
+      .toc ol::-webkit-scrollbar { display: none; }
+      .toc li { white-space: nowrap; flex-shrink: 0; }
+      .toc li a { font-size: 0.78rem; }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="page-accueil.html" class="nav-logo">LES ZINTREPRENEURS</a>
+    <ul class="nav-links">
+      <li>
+        <button class="nav-search" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+      </li>
+      <li><a href="aura.html">AURA</a></li>
+      <li><a href="page-accueil.html">Accueil</a></li>
+    </ul>
+  </nav>
+
+  <!-- ARTICLE -->
+  <article class="article-wrapper">
+
+    <!-- HEADER -->
+    <header class="article-header">
+      <p class="article-tag">Ingenierie &middot; AURA &middot; Sommeil</p>
+      <h1>Comment concevoir le simulateur d'aube parfait</h1>
+      <p class="article-subtitle">Sept axes d'amelioration pour passer du gadget a l'instrument chronobiologique</p>
+      <p class="article-meta">Temps de lecture : <span id="reading-time">14</span> min &middot; Mars 2026</p>
+      <hr class="gradient-line"/>
+    </header>
+
+    <!-- TOC -->
+    <div class="toc-wrapper">
+      <nav class="toc" id="toc" aria-label="Sommaire">
+        <p class="toc-title">Sommaire</p>
+        <ol>
+          <li><a href="#s1">Profil spectral inverse</a></li>
+          <li><a href="#s2">Intensite melanopique</a></li>
+          <li><a href="#s3">Rampe logarithmique, pas lineaire</a></li>
+          <li><a href="#s4">Flashs circadiens pendant le sommeil</a></li>
+          <li><a href="#s5">Detection du stade de sommeil</a></li>
+          <li><a href="#s6">Couplage sonore en N3</a></li>
+          <li><a href="#s7">Ce qu'il ne faut PAS faire</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- CHAPEAU -->
+    <div class="chapeau section" id="chapeau">
+      Les simulateurs d'aube commerciaux fonctionnent — la science le confirme. Mais ils restent des instruments rudimentaires : mauvais spectre, intensite insuffisante, rampe naive, aucune adaptation au dormeur. En croisant la chronobiologie, la photonique et l'intelligence artificielle, il est possible de concevoir un appareil d'une autre categorie. Voici les sept axes d'ingenierie qu'un simulateur de nouvelle generation doit maitriser.
+    </div>
+
+    <!-- SECTION 1 : PROFIL SPECTRAL INVERSE -->
+    <section class="section" id="s1">
+      <span class="section-number">Section 01</span>
+      <h2>Profil spectral inverse : le bon spectre au bon moment</h2>
+
+      <p>C'est le paradoxe fondamental des simulateurs d'aube actuels : ils emettent le <strong>mauvais spectre</strong>. Comme le documente notre <a href="etude-simulateurs-aube.html" class="aura-link">analyse des simulateurs existants</a>, la quasi-totalite des appareils commerciaux utilisent des LEDs blanc chaud a 2700 K — un spectre pauvre en courtes longueurs d'onde, identique a celui qu'on recommande... le soir, pour ne pas perturber la melatonine.</p>
+
+      <p>Or, le signal circadien matinal a besoin de l'exact inverse. Les cellules ganglionnaires intrinsequement photosensibles (ipRGC) de la retine, qui pilotent l'horloge biologique via le noyau suprachiasmatique, sont maximalement sensibles a <strong>480 nm</strong> — le bleu-cyan. C'est la <a href="etude-spectre-lumineux.html" class="aura-link">melanopsine</a>, leur photopigment, qui dicte cette sensibilite spectrale.</p>
+
+      <div class="pathway">
+        <span class="node">Lumiere 480 nm</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Melanopsine (ipRGC)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Noyau suprachiasmatique</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Suppression melatonine</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Eveil circadien</span>
+      </div>
+
+      <p>Une lumiere enrichie en bleu est donc <strong>massivement plus efficace</strong> pour declencher la reponse circadienne matinale. A quel point ? L'etude de Revell et al. (2012) a quantifie cette difference de maniere spectaculaire.</p>
+
+      <div class="shock-box">
+        <span class="shock-number">185 lux a 467 nm = 10 000 lux blanc</span>
+        <p>Pour le dephasage circadien, 185 lux de lumiere bleue a 467 nm produisent le meme effet qu'une exposition a 10 000 lux de lumiere blanche polychromatique.</p>
+      </div>
+
+      <p>Ce ratio de <strong>54:1</strong> illustre l'absurdite de mesurer l'efficacite d'un simulateur uniquement en lux photopiques. Un appareil a 300 lux en blanc chaud 2700 K delivre un signal circadien comparable a... 6 lux en bleu optimal. Autrement dit, presque rien.</p>
+
+      <p>Le spectre ideal d'un simulateur d'aube devrait donc <strong>inverser</strong> la logique des appareils actuels : demarrer par une lumiere ambre tres chaude (1800 K) pour ne pas perturber le sommeil residuel, puis monter progressivement vers un spectre froid enrichi en bleu (6500 K et au-dela) a l'heure du reveil. Cette transition spectrale doit etre aussi soigneusement calibree que la montee en intensite.</p>
+
+      <h3>L'aube naturelle commence par le bleu</h3>
+
+      <p>Dans la nature, le <strong>crepuscule civil</strong> — la periode ou le soleil se trouve entre 6 et 0 degres sous l'horizon — est domine par les courtes longueurs d'onde. La diffusion de Rayleigh dans l'atmosphere donne au ciel pre-auroral sa teinte bleue-cyan caracteristique. Ce n'est qu'avec l'apparition du disque solaire a l'horizon que les longueurs d'onde longues (orange, rouge) prennent le dessus. Les simulateurs actuels reproduisent la derniere phase mais ignorent completement la premiere — celle qui est biologiquement la plus importante.</p>
+
+      <p class="ref">Revell VL, et al. "Short-wavelength sensitivity of the human circadian system to phase-advancing light." J Biol Rhythms. 2012;27(3):222-9.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA utilise un systeme multi-LED a spectre variable : demarrage a 1800 K (ambre profond, zero emission bleue), transition progressive vers 6500 K+ a l'heure du reveil. Le spectre suit la logique circadienne, pas l'esthetique.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2 : INTENSITE MELANOPIQUE -->
+    <section class="section" id="s2">
+      <span class="section-number">Section 02</span>
+      <h2>Intensite melanopique : oublier les lux, viser les melanopic EDI</h2>
+
+      <p>Le lux photopique — l'unite que tous les fabricants affichent — mesure la luminosite telle que percue par les cones de la retine, avec un pic de sensibilite a 555 nm (vert-jaune). C'est parfait pour evaluer l'eclairage d'un bureau. C'est <strong>inadequat</strong> pour evaluer l'efficacite circadienne d'un appareil.</p>
+
+      <p>Le systeme circadien repond a la melanopsine, dont le pic de sensibilite est a <strong>480 nm</strong>. La Commission Internationale de l'Eclairage (CIE) a formalise cette distinction en 2018 avec le standard S 026, qui definit le <strong>melanopic EDI</strong> (Equivalent Daylight Illuminance) — une metrique qui pondere l'eclairement selon la sensibilite spectrale de la melanopsine.</p>
+
+      <div class="highlight-box">
+        <strong>Pourquoi c'est important :</strong> une lampe a 200 lux photopiques en blanc chaud (2700 K) peut ne delivrer que 80 melanopic EDI. La meme intensite en blanc froid (6500 K) delivre environ 220 melanopic EDI. Le ratio melanopique depend donc fondamentalement du spectre — et les fabricants de simulateurs n'affichent jamais cette metrique.
+      </div>
+
+      <p>Quel est le seuil d'efficacite ? Les donnees convergent vers un minimum de <strong>250 melanopic EDI</strong> pour obtenir une reponse circadienne robuste — suppression significative de la melatonine et avance de phase mesurable. La plupart des simulateurs commerciaux, mesures a 50 cm en conditions reelles, delivrent entre 50 et 100 lux photopiques au niveau de l'oreiller — ce qui correspond a seulement 20 a 45 melanopic EDI avec leur spectre blanc chaud.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Appareil</th>
+              <th>Lux photopiques</th>
+              <th>Melanopic EDI (estime)</th>
+              <th>Verdict circadien</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Simulateur typique (2700 K)</strong></td>
+              <td>200 lux</td>
+              <td>~80 mEDI</td>
+              <td><span class="badge badge-mid">Insuffisant</span></td>
+            </tr>
+            <tr>
+              <td><strong>Simulateur haut de gamme (4000 K)</strong></td>
+              <td>300 lux</td>
+              <td>~160 mEDI</td>
+              <td><span class="badge badge-mid">Limite</span></td>
+            </tr>
+            <tr>
+              <td><strong>Luminotherapie classique (6500 K)</strong></td>
+              <td>10 000 lux</td>
+              <td>~8 500 mEDI</td>
+              <td><span class="badge badge-good">Optimal</span></td>
+            </tr>
+            <tr>
+              <td><strong>AURA au reveil (6500 K, 50 cm)</strong></td>
+              <td>~400 lux</td>
+              <td>&ge;250 mEDI</td>
+              <td><span class="badge badge-top">Calibre</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Le defi d'ingenierie est double : maintenir une intensite melanopique suffisante <strong>a distance d'utilisation reelle</strong> (50 cm, table de nuit), et ne commencer l'emission de courtes longueurs d'onde qu'au bon moment de la rampe — pas trop tot, pour ne pas fragmenter le sommeil.</p>
+
+      <p class="ref">CIE S 026/E:2018. "CIE System for Metrology of Optical Radiation for ipRGC-Influenced Responses to Light." — Brown TM, et al. "Recommendations for daytime, evening, and nighttime indoor light exposure." PLoS Biol. 2022.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA est calibre pour delivrer &ge;250 melanopic EDI a 50 cm au moment du reveil. La metrique cible est le mEDI, pas le lux photopique — une premiere pour un simulateur d'aube.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : RAMPE LOGARITHMIQUE -->
+    <section class="section" id="s3">
+      <span class="section-number">Section 03</span>
+      <h2>Rampe logarithmique, pas lineaire</h2>
+
+      <p>La perception humaine de la luminosite suit la <strong>loi de Weber-Fechner</strong> : la sensation percue est proportionnelle au logarithme de l'intensite du stimulus. Concretement, passer de 1 a 10 lux produit une sensation de changement comparable a passer de 10 a 100 lux, puis de 100 a 1000 lux.</p>
+
+      <p>Or, la majorite des simulateurs d'aube utilisent une <strong>rampe lineaire</strong> — l'intensite augmente de maniere uniforme dans le temps. Le resultat subjectif est previsible et problematique.</p>
+
+      <div class="pathway">
+        <span class="node">Rampe lineaire</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">20 min imperceptibles</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Saut brutal final</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Micro-reveil subi</span>
+      </div>
+
+      <div class="pathway">
+        <span class="node">Rampe sigmoide</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Montee perceptive uniforme</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Transition douce</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Eveil naturel</span>
+      </div>
+
+      <p>La solution est une <strong>rampe logarithmique ou sigmoidale</strong> sur 30 minutes. La progression logarithmique garantit que chaque minute apporte un increment de luminosite perceptivement equivalent. La sigmoide ajoute un raffinement : une phase d'acceleration au milieu et un plateau doux a la fin, imitant plus fidelement la dynamique du lever solaire reel.</p>
+
+      <p><strong>Gimenez et al. (2010)</strong> ont demontre qu'une simulation d'aube a rampe progressive ameliorait significativement la <strong>reponse cortisolaire au reveil</strong> (CAR — Cortisol Awakening Response). Cette poussee de cortisol dans les 30 minutes suivant le reveil est un marqueur cle de l'activation de l'axe hypothalamo-hypophyso-surrenalien. Elle correle directement avec la vigilance, l'energie et la capacite de concentration dans les heures qui suivent.</p>
+
+      <div class="highlight-box">
+        <strong>L'echelle du changement :</strong> le protocole de reference de Terman (2006) specifiait une progression de 0.001 lux a 250 lux sur 30 minutes — soit <strong>cinq ordres de grandeur</strong>. Reproduire cette dynamique avec une rampe lineaire est mathematiquement absurde : le dormeur passerait 29 minutes a moins de 1 lux, puis recevrait 249 lux dans la derniere minute.
+      </div>
+
+      <p class="ref">Gimenez MC, et al. "Effects of artificial dawn and morning blue light on daytime cognitive performance, well-being, cortisol and melatonin levels." Chronobiol Int. 2010;27(8):1605-19.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA utilise une rampe sigmoide proprietaire calibree sur les courbes d'adaptation des photorecepteurs retiniens — pas une simple progression lineaire ou meme logarithmique brute.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 4 : FLASHS CIRCADIENS -->
+    <section class="section" id="s4">
+      <span class="section-number">Section 04</span>
+      <h2>Flashs circadiens pendant le sommeil</h2>
+
+      <p>C'est probablement la decouverte la plus contre-intuitive de la chronobiologie recente. En 2016, <strong>Najjar et Zeitzer</strong>, publiant dans le <em>Journal of Biological Rhythms</em>, ont demontre que des flashs lumineux de <strong>2 millisecondes</strong> delivres a intervalles de 10 secondes pendant le sommeil produisaient des dephasages circadiens de <strong>1 a 2 heures</strong>.</p>
+
+      <div class="shock-box">
+        <span class="shock-number">2 ms toutes les 10 secondes</span>
+        <p>Des flashs de 2 millisecondes espaces de 10 secondes suffisent a deplacer l'horloge biologique de 1 a 2 heures — pendant le sommeil, sans reveil conscient.</p>
+      </div>
+
+      <p>Ce resultat defie l'intuition parce qu'il implique que le systeme circadien n'a pas besoin d'une exposition lumineuse soutenue pour repondre. L'explication reside dans la <strong>cinetique lente de la melanopsine</strong>. Contrairement aux opsines des cones et des batonnets, la melanopsine a un temps d'integration extremement long — elle accumule le signal photonique sur plusieurs secondes, voire minutes. Des flashs brefs mais repetes sont donc "additionnes" par les ipRGC comme s'il s'agissait d'une exposition continue.</p>
+
+      <h3>Impact sur l'architecture du sommeil</h3>
+
+      <p>Point crucial : ces flashs <strong>ne perturbent pas significativement l'architecture du sommeil</strong>. Les analyses polysomnographiques de Najjar et Zeitzer montrent que le temps total de sommeil, la latence d'endormissement et la distribution des stades restent comparables au groupe controle. Le dormeur ne se souvient generalement pas des flashs au reveil.</p>
+
+      <p>Cette technique pourrait etre combinee avec la simulation d'aube traditionnelle pour un <strong>double effet</strong> : les flashs circadiens preparent le dephasage pendant la nuit, puis la rampe lumineuse matinale consolide le signal et facilite la transition veille-sommeil.</p>
+
+      <ul>
+        <li><strong>Duree du flash</strong> : 2 ms (imperceptible consciemment)</li>
+        <li><strong>Intervalle</strong> : 10 secondes</li>
+        <li><strong>Fenetre d'application</strong> : dernier cycle de sommeil (90 min avant reveil prevu)</li>
+        <li><strong>Dephasage obtenu</strong> : 1 a 2 heures d'avance de phase</li>
+        <li><strong>Perturbation du sommeil</strong> : non significative</li>
+      </ul>
+
+      <p class="ref">Najjar RP, Zeitzer JM. "Temporal integration of light flashes by the human circadian system." J Clin Invest. 2016;126(3):938-47.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA propose un mode optionnel "flashs circadiens" activable pendant le dernier cycle de sommeil. Les flashs sont calibres selon le protocole Najjar-Zeitzer : 2 ms, intervalle 10 s, spectre optimise pour la melanopsine.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5 : DETECTION DU STADE DE SOMMEIL -->
+    <section class="section" id="s5">
+      <span class="section-number">Section 05</span>
+      <h2>Detection du stade de sommeil : se reveiller au bon moment</h2>
+
+      <p>Un simulateur d'aube, aussi parfait soit-il sur le plan spectral et temporel, echoue s'il reveille le dormeur au mauvais moment. Le <strong>stade de sommeil au moment du reveil</strong> est le facteur determinant de l'<a href="etude-detection-sommeil.html" class="aura-link">inertie du sommeil</a> — cette sensation de brouillard cognitif qui peut persister de 30 minutes a plus d'une heure.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Stade de sommeil</th>
+              <th>Inertie au reveil</th>
+              <th>Duree du brouillard</th>
+              <th>Ideal pour le reveil ?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>N1</strong> (endormissement)</td>
+              <td>Minimale</td>
+              <td>&lt;5 min</td>
+              <td><span class="badge badge-good">Bon</span></td>
+            </tr>
+            <tr>
+              <td><strong>N2</strong> (sommeil leger)</td>
+              <td>Legere</td>
+              <td>5-10 min</td>
+              <td><span class="badge badge-top">Optimal</span></td>
+            </tr>
+            <tr>
+              <td><strong>N3</strong> (sommeil profond)</td>
+              <td>Severe</td>
+              <td>30-60 min</td>
+              <td><span class="badge badge-mid">A eviter</span></td>
+            </tr>
+            <tr>
+              <td><strong>REM</strong> (sommeil paradoxal)</td>
+              <td>Moderee</td>
+              <td>10-20 min</td>
+              <td><span class="badge badge-good">Acceptable</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Tassi et Muzet (2000)</strong>, dans une revue exhaustive publiee dans <em>Sleep Medicine Reviews</em>, ont documente les mecanismes de l'inertie du sommeil. Leurs conclusions sont sans ambiguite : un reveil en N3 (sommeil profond, ondes delta) produit une <strong>alteration cognitive mesurable</strong> — reduction de la memoire de travail, ralentissement du temps de reaction, augmentation des erreurs — qui peut persister jusqu'a 60 minutes. A l'inverse, un reveil en N2 (sommeil leger, fuseaux du sommeil) permet une transition rapide vers un etat de vigilance complete.</p>
+
+      <h3>Comment detecter le stade sans polysomnographie ?</h3>
+
+      <p>La polysomnographie (EEG, EMG, EOG) reste le gold standard, mais elle est evidemment impraticable au quotidien. Deux biomarqueurs sont exploitables par un appareil de chevet :</p>
+
+      <ul>
+        <li><strong>Actigraphie (micro-mouvements)</strong> : le sommeil profond N3 se caracterise par une immobilite quasi totale. Les phases N2 et REM presentent des micro-mouvements detectables par un capteur piezoelectrique ou un radar a ondes millimetriques.</li>
+        <li><strong>Analyse respiratoire</strong> : le rythme et l'amplitude de la respiration varient selon le stade. En N3, la respiration est lente et reguliere. En REM, elle devient irreguliere. En N2, elle presente un profil intermediaire. Un capteur radar peut mesurer ces variations sans contact.</li>
+      </ul>
+
+      <p>Les algorithmes de classification par apprentissage automatique atteignent desormais des <strong>precisions de 80 a 85 %</strong> pour la distinction N3 vs non-N3 en utilisant uniquement ces deux signaux — suffisant pour eviter les reveils en sommeil profond.</p>
+
+      <p class="ref">Tassi P, Muzet A. "Sleep inertia." Sleep Med Rev. 2000;4(4):341-53.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>L'IA embarquee d'AURA analyse en continu les micro-mouvements et le rythme respiratoire du dormeur via un capteur radar sans contact. Le reveil est declenche dans une fenetre de 20 minutes autour de l'heure cible, en privilegiant une phase N2.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6 : COUPLAGE SONORE -->
+    <section class="section" id="s6">
+      <span class="section-number">Section 06</span>
+      <h2>Couplage sonore : sons roses synchronises en N3</h2>
+
+      <p>Si le simulateur d'aube cible le reveil, un instrument chronobiologique complet doit aussi <strong><a href="etude-modulation-sommeil.html" class="aura-link">optimiser le sommeil lui-meme</a></strong> — et plus specifiquement le sommeil profond N3, ou se concentrent les fonctions de restauration cellulaire, de consolidation de la memoire declarative et de regulation immunitaire.</p>
+
+      <p>En 2013, <strong>Ngo et al.</strong> ont publie dans <em>Neuron</em> une decouverte majeure : des impulsions de <a href="etude-sons-roses-stage-gated.html" class="aura-link">bruit rose</a> (pink noise) <strong>synchronisees en boucle fermee</strong> avec les oscillations lentes du sommeil profond augmentent significativement l'activite a ondes lentes.</p>
+
+      <div class="shock-box">
+        <span class="shock-number">+25 % d'activite a ondes lentes</span>
+        <p>La stimulation auditive en boucle fermee, synchronisee sur la phase montante des oscillations lentes, augmente l'activite delta de 25 % et ameliore la consolidation mnesique.</p>
+      </div>
+
+      <p>Le mecanisme est elegant : les oscillations lentes du N3 (0.5-1 Hz) alternent entre une phase "up-state" (excitation neuronale) et une phase "down-state" (silence). En delivrant une breve impulsion sonore (50 ms de bruit rose a ~50 dB) <strong>exactement pendant l'up-state</strong>, le stimulus renforce l'oscillation en cours au lieu de la perturber.</p>
+
+      <div class="pathway">
+        <span class="node">Detection onde lente</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Identification up-state</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Impulsion rose 50 ms</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Renforcement delta</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">+25 % ondes lentes</span>
+      </div>
+
+      <h3>Replications et effets cognitifs</h3>
+
+      <p>L'equipe de <strong>Phyllis Zee a Northwestern University</strong> a replique ces resultats et mesure un impact direct sur la cognition : les sujets ayant recu la stimulation auditive en boucle fermee montraient une <strong>amelioration significative de la memoire declarative</strong> le lendemain — mesuree par des tests de rappel de paires de mots.</p>
+
+      <p>Le bruit rose est prefere au bruit blanc pour sa distribution spectrale en 1/f, plus naturelle et moins susceptible de provoquer un micro-reveil. Son spectre correspond a celui de nombreux sons naturels — vent, cascade, battements cardiaques — ce qui explique sa tolerance remarquable pendant le sommeil.</p>
+
+      <h3>Le defi technique : la boucle fermee</h3>
+
+      <p>La condition sine qua non est le <strong>verrouillage de phase</strong>. Une stimulation aleatoire, non synchronisee, peut au contraire <strong>fragmenter le sommeil profond</strong>. L'appareil doit detecter les oscillations lentes en temps reel — idealement par EEG, mais une estimation par analyse respiratoire et actigraphie est possible avec une precision reduite mais fonctionnelle.</p>
+
+      <p class="ref">Ngo HV, et al. "Auditory closed-loop stimulation of the sleep slow oscillation enhances memory." Neuron. 2013;78(3):545-53. — Papalambros NA, et al. "Acoustic enhancement of sleep slow oscillations and concomitant memory improvement in older adults." Front Hum Neurosci. 2017;11:109.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA emet des micro-impulsions de bruit rose calibrees pendant les phases N3 detectees. L'algorithme estime l'up-state des oscillations lentes a partir du profil respiratoire pour synchroniser la stimulation.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 7 : CE QU'IL NE FAUT PAS FAIRE -->
+    <section class="section" id="s7">
+      <span class="section-number">Section 07</span>
+      <h2>Ce qu'il ne faut PAS faire</h2>
+
+      <p>L'ingenierie d'un simulateur de nouvelle generation ne se definit pas uniquement par ce qu'il fait — mais aussi, de maniere critique, par ce qu'il <strong>refuse de faire</strong>. Quatre erreurs, omnipresentes dans les appareils existants, degradent activement la qualite du sommeil.</p>
+
+      <h3>1. Aucune emission lumineuse pendant la nuit</h3>
+
+      <p><strong>Cho et al. (2016)</strong> ont demontre que meme <strong>5 lux d'exposition nocturne</strong> — l'equivalent d'une veilleuse ou d'un ecran de reveil — suffisent a augmenter les reveils nocturnes et a degrader la continuite du sommeil. La plupart des reveils connectes affichent l'heure en permanence via un ecran LED, injectant en continu un stimulus lumineux dans l'environnement du dormeur.</p>
+
+      <div class="highlight-box">
+        <strong>Le test des 5 lux :</strong> placez un luxmetre a l'emplacement de votre oreiller, toutes sources eteintes sauf votre reveil. Si la mesure depasse 5 lux, votre appareil de chevet sabote votre sommeil. La plupart des reveils numeriques emettent entre 8 et 30 lux — largement au-dessus du seuil de perturbation documente.
+      </div>
+
+      <h3>2. Pas de sonnerie brutale</h3>
+
+      <p>L'alarme sonore traditionnelle — buzzer, bip repetitif, sonnerie stridente — est l'antithese de ce qu'un reveil devrait faire. Un signal sonore brutal declenche une <strong>reponse de sursaut</strong> (startle response) qui active le systeme nerveux sympathique : liberation d'adrenaline, acceleration cardiaque, vasoconstriction. Si ce sursaut survient en N3, l'inertie du sommeil qui en resulte est <strong>maximale</strong> et peut persister plus d'une heure.</p>
+
+      <h3>3. Pas de lumiere bleue en mode soiree</h3>
+
+      <p>Un appareil qui propose un mode "coucher du soleil" doit imperativement exclure les longueurs d'onde inferieures a 520 nm. De nombreux simulateurs qui proposent un crepuscule le soir utilisent neanmoins des LEDs blanches ou des combinaisons RGB dont la composante bleue reste active — annulant une partie du benefice de la routine vesperale et retardant la secretion de melatonine.</p>
+
+      <h3>4. La rampe DOIT etre progressive</h3>
+
+      <p>Un simulateur qui passe de 0 a 100 % en moins de 10 minutes n'est pas un simulateur d'aube — c'est un plafonnier avec un minuteur. La recherche est unanime : la duree optimale de la rampe est de <strong>20 a 30 minutes minimum</strong>, avec une progression perceptivement uniforme. Tout appareil qui propose une "aube" de 5 ou 10 minutes echoue a reproduire le signal circadien qu'il pretend simuler.</p>
+
+      <ul>
+        <li><strong>Zero LED pendant le sommeil</strong> — pas d'ecran, pas de temoin lumineux, pas de veilleuse</li>
+        <li><strong>Zero sonnerie</strong> — le reveil est lumineux, puis sonore en dernier recours, toujours progressif</li>
+        <li><strong>Zero bleu le soir</strong> — mode crepuscule exclusivement au-dessus de 520 nm</li>
+        <li><strong>Zero aube express</strong> — minimum 20 minutes de rampe progressive</li>
+      </ul>
+
+      <p class="ref">Cho CH, et al. "Effects of artificial light at night on human health: A literature review of observational and experimental studies applied to exposure assessment." Chronobiol Int. 2016;33(6):602-12.</p>
+
+      <div class="encadre">
+        <p class="encadre-label">Approche AURA</p>
+        <p>AURA est invisible la nuit : zero emission lumineuse, aucun ecran. Le reveil est exclusivement lumineux et progressif. Le mode soiree n'emet que de l'ambre (&gt;590 nm). La rampe minimale est de 20 minutes.</p>
+      </div>
+    </section>
+
+    <!-- CTA BANNER WITH COMPARISON TABLE -->
+    <div class="cta-banner section" id="cta">
+      <h3>AURA integre ces sept axes</h3>
+
+      <div class="cta-table-wrapper">
+        <div class="table-wrapper" style="margin: 0;">
+          <table>
+            <thead>
+              <tr>
+                <th>Axe</th>
+                <th>Approche AURA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Profil spectral</strong></td>
+                <td>Transition 1800 K &rarr; 6500 K, enrichissement bleu progressif au reveil</td>
+              </tr>
+              <tr>
+                <td><strong>Intensite melanopique</strong></td>
+                <td>&ge;250 melanopic EDI a 50 cm au moment du reveil</td>
+              </tr>
+              <tr>
+                <td><strong>Rampe lumineuse</strong></td>
+                <td>Sigmoide proprietaire sur 30 min, calée sur l'adaptation retinienne</td>
+              </tr>
+              <tr>
+                <td><strong>Flashs circadiens</strong></td>
+                <td>Mode optionnel, 2 ms / 10 s pendant le dernier cycle de sommeil</td>
+              </tr>
+              <tr>
+                <td><strong>Detection de stade</strong></td>
+                <td>Radar sans contact, IA temps reel, reveil cible en phase N2</td>
+              </tr>
+              <tr>
+                <td><strong>Couplage sonore</strong></td>
+                <td>Bruit rose synchronise en N3 pour renforcer le sommeil profond</td>
+              </tr>
+              <tr>
+                <td><strong>Discipline nocturne</strong></td>
+                <td>Zero emission la nuit, zero sonnerie, zero bleu le soir</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cta-art">
+        <div class="ring"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+
+      <p class="cta-text">AURA n'est pas un simulateur d'aube de plus. C'est un instrument chronobiologique concu pour optimiser le sommeil complet — de l'endormissement au reveil.</p>
+      <a href="aura.html" class="cta-btn">Decouvrir AURA &rarr;</a>
+    </div>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">LES ZINTREPRENEURS</div>
+    <p class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</p>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Reading time calculation
+    const text = document.querySelector('.article-wrapper').innerText;
+    const wordCount = text.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 220);
+    const rtEl = document.getElementById('reading-time');
+    if (rtEl) rtEl.textContent = readingTime;
+
+    // IntersectionObserver for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+    // TOC active state tracking
+    const tocLinks = document.querySelectorAll('.toc a');
+    const sections = document.querySelectorAll('section.section[id]');
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '-80px 0px -60% 0px'
+    });
+
+    sections.forEach(s => tocObserver.observe(s));
+
+    // Smooth scroll for TOC links
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

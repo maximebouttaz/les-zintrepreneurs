@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reveil intelligent et recuperation sportive — Les Zintrepreneurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: #FAFAF8; color: #333; overflow-x: hidden; font-size: 1.05rem; line-height: 1.9; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 2.5rem; background: rgba(250,250,248,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid #e5e5e5; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: #1A1A1A; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; transition: color 0.2s; }
+    .nav-links a:hover { color: #1A1A1A; }
+    .article-wrapper { display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+    .article-content { max-width: 720px; width: 100%; padding-top: 100px; padding-bottom: 4rem; }
+    .article-tag { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999; margin-bottom: 1.2rem; }
+    .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.01em; }
+    .article-subtitle { font-size: 1.1rem; color: #6B6B6B; font-style: italic; margin-bottom: 1rem; font-weight: 400; }
+    .article-meta { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+    .gradient-line { width: 100px; height: 2px; background: linear-gradient(90deg, #E8934A, #9B6EC6); border: none; margin-bottom: 2.5rem; }
+    .chapeau { font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: #1A1A1A; margin-bottom: 3rem; }
+    .article-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    .article-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #1A1A1A; margin-bottom: 1rem; letter-spacing: 0.02em; line-height: 1.1; }
+    .article-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: #1A1A1A; margin-top: 1.5rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+    .article-section p { margin-bottom: 1.2rem; }
+    .key-box { background: #f5f0eb; border-left: 3px solid; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-radius: 0 8px 8px 0; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; }
+    .key-box strong { color: #1A1A1A; }
+    .key-box .key-number { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; display: block; }
+    .highlight-box { background: linear-gradient(135deg, rgba(232,147,74,0.06), rgba(155,110,198,0.06)); border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #1A1A1A; }
+    .highlight-box strong { color: #1A1A1A; }
+    .shock-box { background: #1A1A1A; color: #fff; border-radius: 12px; padding: 1.5rem 1.6rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+    .shock-box .shock-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; background: linear-gradient(135deg, #E8934A, #9B6EC6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.4rem; display: block; }
+    .shock-box p { color: #ccc; margin: 0; }
+    .styled-list { list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+    .styled-list li { position: relative; padding: 0.5rem 0 0.5rem 1.4rem; border-bottom: 1px solid #f0f0f0; }
+    .styled-list li:last-child { border-bottom: none; }
+    .styled-list li::before { content: ''; position: absolute; left: 0; top: 1rem; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); }
+    .pathway { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 1.2rem 0; font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.02em; color: #6B6B6B; }
+    .pathway .node { background: #f5f0eb; padding: 0.35rem 0.65rem; border-radius: 6px; color: #1A1A1A; font-weight: 700; white-space: nowrap; }
+    .pathway .arrow { color: #E8934A; font-size: 0.9rem; }
+    .table-wrapper { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 400px; }
+    .data-table th { background: #f5f0eb; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1A1A1A; padding: 0.8rem; text-align: left; font-weight: 700; }
+    .data-table th:first-child { border-radius: 8px 0 0 0; }
+    .data-table th:last-child { border-radius: 0 8px 0 0; }
+    .data-table td { padding: 0.8rem; border-bottom: 1px solid #e5e5e5; color: #333; }
+    .data-table tbody tr:nth-child(even) td { background: #faf8f5; }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .accent-text { color: #E8934A; font-weight: 700; }
+    .accent-purple { color: #9B6EC6; font-weight: 700; }
+    .aura-link { color: #9B6EC6; text-decoration: none; border-bottom: 1px solid rgba(155,110,198,0.3); transition: border-color 0.2s; }
+    .aura-link:hover { border-color: #9B6EC6; }
+    .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #E8934A; margin-bottom: 0.4rem; }
+    .cta-banner { background: #f5f0eb; border-radius: 16px; padding: 2.5rem; text-align: center; margin: 3rem 0; }
+    .cta-banner .mini-aura { width: 150px; height: 150px; margin: 0 auto 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+    .mini-aura .aura-halo { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(232,147,74,0.15) 0%, transparent 70%); animation: auraPulse 4s ease-in-out infinite; }
+    .mini-aura .aura-ring { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(232,147,74,0.25); animation: auraRotate 12s linear infinite; }
+    .mini-aura .aura-disk { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,147,74,0.2), rgba(155,110,198,0.2)); animation: auraPulse 4s ease-in-out infinite reverse; }
+    .mini-aura .aura-center { position: absolute; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #E8934A, #9B6EC6); box-shadow: 0 0 30px rgba(232,147,74,0.3); }
+    @keyframes auraPulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes auraRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .cta-banner h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1A1A1A; margin-bottom: 0.5rem; }
+    .cta-banner p { font-size: 0.9rem; color: #6B6B6B; margin-bottom: 0.3rem; line-height: 1.6; }
+    .cta-banner .cta-sub { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+    .cta-btn { display: inline-block; background: linear-gradient(135deg, #E8934A, #9B6EC6); color: #fff; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s, transform 0.15s; }
+    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .toc-sidebar { position: sticky; top: 80px; width: 220px; min-width: 220px; align-self: flex-start; margin-right: 3rem; padding-top: 100px; }
+    .toc-sidebar .toc-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #bbb; margin-bottom: 0.8rem; }
+    .toc-sidebar ul { list-style: none; padding: 0; }
+    .toc-sidebar li { margin-bottom: 0.4rem; }
+    .toc-sidebar a { display: block; font-size: 0.75rem; color: #999; text-decoration: none; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 2px solid transparent; transition: all 0.2s; line-height: 1.4; }
+    .toc-sidebar a:hover { color: #1A1A1A; }
+    .toc-sidebar a.active { color: #1A1A1A; border-image: linear-gradient(180deg, #E8934A, #9B6EC6) 1; border-left-width: 2px; border-left-style: solid; font-weight: 500; }
+    .toc-mobile { display: none; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; padding: 0.8rem 0; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e5e5; }
+    .toc-mobile a { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: #999; text-decoration: none; padding: 0.3rem 0.8rem; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .toc-mobile a:hover { color: #1A1A1A; }
+    .toc-mobile a.active { color: #1A1A1A; border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1; }
+    footer { background: #f0ede8; border-top: 1px solid #e5e5e5; padding: 3rem 5rem; text-align: center; }
+    footer p { font-size: 0.85rem; color: #6B6B6B; line-height: 1.7; margin-bottom: 0.4rem; }
+    footer p strong { color: #1A1A1A; font-weight: 600; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; margin-bottom: 1rem; }
+    .footer-links a { color: #6B6B6B; text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #1A1A1A; }
+    .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: #999; }
+    .animate-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1024px) { .toc-sidebar { display: none; } .toc-mobile { display: block; } }
+    @media (max-width: 768px) { nav { padding: 0 1.5rem; } .nav-links { display: none; } .article-wrapper { padding: 0 1.2rem; } .article-content { padding-top: 80px; } footer { padding: 2.5rem 1.5rem; } .cta-banner { padding: 2rem 1.5rem; } }
+    @media (max-width: 480px) { .article-content { padding-top: 75px; } .data-table { font-size: 0.8rem; } .data-table th, .data-table td { padding: 0.6rem 0.5rem; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">LES ZINTREPRENEURS</a>
+  <ul class="nav-links">
+    <li><a href="recherche.html">Recherche</a></li>
+    <li><a href="aura.html">AURA</a></li>
+    <li><a href="index.html">Accueil</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrapper">
+
+  <!-- TOC SIDEBAR -->
+  <aside class="toc-sidebar">
+    <div class="toc-label">Sommaire</div>
+    <ul>
+      <li><a href="#section-1" data-section="section-1">Inertie du sommeil</a></li>
+      <li><a href="#section-2" data-section="section-2">Reponse cortisolique</a></li>
+      <li><a href="#section-3" data-section="section-3">Cognition et performance</a></li>
+      <li><a href="#section-4" data-section="section-4">Sommeil profond et REM</a></li>
+      <li><a href="#section-5" data-section="section-5">Besoins des sportifs</a></li>
+      <li><a href="#section-6" data-section="section-6">Comparaison interventions</a></li>
+      <li><a href="#section-7" data-section="section-7">Conclusion</a></li>
+    </ul>
+  </aside>
+
+  <main class="article-content">
+
+    <!-- TOC MOBILE -->
+    <div class="toc-mobile">
+      <a href="#section-1" data-section="section-1">Inertie</a>
+      <a href="#section-2" data-section="section-2">Cortisol</a>
+      <a href="#section-3" data-section="section-3">Cognition</a>
+      <a href="#section-4" data-section="section-4">Sommeil profond</a>
+      <a href="#section-5" data-section="section-5">Sportifs</a>
+      <a href="#section-6" data-section="section-6">Comparaison</a>
+      <a href="#section-7" data-section="section-7">Conclusion</a>
+    </div>
+
+    <!-- HEADER -->
+    <div class="article-tag">Sport &middot; Recuperation &middot; Sommeil</div>
+    <h1 class="article-title">Reveil intelligent et recuperation sportive</h1>
+    <p class="article-subtitle">Simulation d'aube, inertie du sommeil et performance : ce que dit la science</p>
+    <div class="article-meta">Lecture <span id="reading-time">...</span> min &middot; Mars 2026</div>
+    <hr class="gradient-line" />
+
+    <!-- CHAPEAU -->
+    <p class="chapeau">
+      La simulation d'aube (250 lux, 30 min) ameliore le temps de reaction de 58 ms, la performance cognitive de 4 % et l'efficience attentionnelle de 46 % apres deux semaines. Le gain combine plausible se situe entre <strong class="accent-text">1 et 5 %</strong> de performance matinale &mdash; comparable aux vetements de compression, avec une facilite d'implementation nettement superieure. Chez les sportifs, 26 a 50 % souffrent de mauvaise qualite de sommeil : le potentiel d'amelioration est considerable.
+    </p>
+
+    <!-- SECTION 1 -->
+    <section class="article-section animate-in" id="section-1">
+      <div class="section-label">Partie 01</div>
+      <h2>L'inertie du sommeil &mdash; pire qu'une nuit blanche</h2>
+
+      <p>Chaque athlete connait cette sensation : l'alarme sonne, le corps est lourd, l'esprit embrume. Ce brouillard matinal porte un nom scientifique &mdash; <strong>l'inertie du sommeil</strong> &mdash; et ses effets sur la performance sont bien plus devastateurs que ce que la plupart des sportifs imaginent.</p>
+
+      <p>L'etude de reference de <strong>Wertz et al.</strong> publiee dans <em>JAMA</em> en 2006 a produit un resultat stupefiant : la performance cognitive dans les premieres minutes suivant le reveil est <strong>pire</strong> qu'apres 26 heures consecutives de privation de sommeil. Plus mauvaise, donc, qu'une nuit blanche complete.</p>
+
+      <div class="shock-box">
+        <span class="shock-number">26 heures</span>
+        <p>La performance cognitive au reveil est pire qu'apres 26 heures sans dormir. L'inertie du sommeil est le premier ennemi de vos matins.</p>
+      </div>
+
+      <p>D'un point de vue neurophysiologique, le phenomene s'explique par la lenteur de la reperfusion cerebrale : le debit sanguin cerebral met environ <strong class="accent-text">30 minutes</strong> pour atteindre ses niveaux diurnes apres le reveil. Pendant cette fenetre, les regions prefrontales &mdash; siege de la prise de decision, de la coordination et du temps de reaction &mdash; fonctionnent en mode degrade.</p>
+
+      <h3>La hierarchie de severite</h3>
+      <p>Tous les reveils ne se valent pas. La severite de l'inertie depend du stade de sommeil dans lequel on est tire :</p>
+
+      <ul class="styled-list">
+        <li><strong class="accent-text">Sommeil N3 (profond)</strong> &mdash; Inertie maximale. Alteration cognitive durant 30 a 60 minutes. Le debit cognitif chute de ~15 %, les lapses attentionnels doublent.</li>
+        <li><strong class="accent-purple">Sommeil REM</strong> &mdash; Inertie moderee a severe. Desorientation temporaire et confusion possible.</li>
+        <li><strong>Sommeil N2 (leger)</strong> &mdash; Inertie moderee. Recuperation en 15 a 30 minutes.</li>
+        <li><strong>Sommeil N1 (transitoire)</strong> &mdash; Inertie minimale. Reveil le plus facile.</li>
+      </ul>
+
+      <p>Les travaux de <strong>Jewett et al. (1999)</strong> ont quantifie les constantes de temps de recuperation : tau = 40 minutes pour la vigilance, tau = 70 minutes pour la cognition. La recuperation complete peut prendre <strong>2 a 4 heures</strong>. Pour un athlete qui s'entraine a 6 h du matin, cela signifie qu'il peut commencer sa seance dans un etat cognitif sub-optimal &mdash; avec des implications directes sur la qualite de l'entrainement, la technique et le risque de blessure.</p>
+
+      <h3>La nuance circadienne</h3>
+      <p>Les recherches de <strong>Scheer et al. (2008)</strong> ont apporte une nuance cruciale : la phase circadienne module l'inertie du sommeil <strong>davantage</strong> que le stade de sommeil lui-meme. L'inertie maximale survient lorsque le reveil coincide avec la nuit biologique, c'est-a-dire le nadir de temperature corporelle, generalement situe entre 23 h et 3 h.</p>
+
+      <div class="highlight-box">
+        <strong>Implication pratique :</strong> Pour un reveil matinal normal (entre 5 h et 8 h), le stade de sommeil compte <strong>moins</strong> que la maniere dont on est reveille. C'est precisement la que la simulation d'aube entre en jeu : en preparant le cerveau progressivement, elle reduit la severite de l'inertie independamment du stade de sommeil.
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="article-section animate-in" id="section-2">
+      <div class="section-label">Partie 02</div>
+      <h2>La reponse cortisolique &mdash; le levier hormonal</h2>
+
+      <p>Le cortisol est souvent diabolise comme "l'hormone du stress". En realite, sa dynamique matinale &mdash; la <strong>Cortisol Awakening Response (CAR)</strong> &mdash; est un mecanisme fondamental de l'eveil et de la performance. Comprendre la CAR, c'est comprendre pourquoi certains matins on se sent pret a tout, et d'autres, completement a plat.</p>
+
+      <p>La CAR se manifeste par une elevation de <strong class="accent-text">38 a 75 %</strong> du taux de cortisol plasmatique dans les 30 a 45 minutes suivant le reveil. En valeurs absolues, on passe d'environ 15 nmol/L au reveil a un pic de ~23 nmol/L. Cette montee hormonale remplit des fonctions vitales : synchronisation des horloges peripheriques, mobilisation energetique, preparation du systeme immunitaire et modulation de la vigilance.</p>
+
+      <h3>La simulation d'aube amplifie la CAR</h3>
+
+      <p>L'etude de <strong>Thorn et al. (2004, n=12)</strong> a demontre qu'une simulation d'aube de 250 lux augmente la production de cortisol matinal de <strong>+12,8 %</strong>. Les travaux de <strong>Scheer &amp; Buijs (1999, n=14)</strong> ont montre qu'une exposition a 800 lux post-reveil amplifie la CAR de <strong>+35 %</strong>. Quant a <strong>Gabel et al. (2013, n=17)</strong>, ils ont etabli que la lumiere d'aube polychromatique (spectre complet simulant le lever du soleil) est superieure a la lumiere bleue monochromatique pour stimuler cette reponse.</p>
+
+      <div class="pathway">
+        <span class="node">Simulation d'aube</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Retine (ipRGC)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">SCN</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Axe HPA</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Cortisol</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">Eveil + Immunite</span>
+      </div>
+
+      <div class="key-box">
+        <span class="key-number">+12,8 %</span>
+        <strong>Augmentation de la production de cortisol matinal avec simulation d'aube.</strong> Le cortisol au reveil synchronise vos horloges peripheriques et module la reponse immunitaire &mdash; deux fonctions essentielles pour la recuperation sportive.
+      </div>
+
+      <h3>La CAR comme marqueur de surentrainement</h3>
+      <p>Pour les athletes, la CAR n'est pas qu'un detail physiologique &mdash; c'est un indicateur de sante et de performance. <strong>Anderson &amp; Wideman (2017)</strong> et <strong>Chida &amp; Steptoe (2009)</strong> ont demontre qu'une CAR emoussee (insuffisamment prononcee) est un <strong>marqueur precoce de surentrainement</strong>. Le corps ne parvient plus a produire la montee hormonale necessaire a un eveil de qualite.</p>
+
+      <p>Plus revelateur encore : chez des rameurs elites, <strong>Lovell (2019)</strong> a montre que l'amplitude de la CAR <strong>predit les performances en competition</strong>. Les athletes avec la CAR la plus robuste performent mieux lors des epreuves matinales. Amplifier naturellement cette reponse hormonale par la simulation d'aube represente donc un levier de performance concret et mesurable.</p>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="article-section animate-in" id="section-3">
+      <div class="section-label">Partie 03</div>
+      <h2>Simulation d'aube &mdash; preuves sur la cognition et la performance</h2>
+
+      <p>Au-dela de la theorie hormonale, que disent les essais cliniques sur les effets reels de la simulation d'aube ? La litterature scientifique offre des resultats remarquablement convergents.</p>
+
+      <h3>L'etude pivot : Thompson et al. (2014)</h3>
+      <p>L'etude la plus pertinente pour les athletes est celle de <strong>Thompson et al. (2014)</strong>, un essai croise randomise mene sur 8 cyclistes entraines. Les resultats sont eloquents :</p>
+
+      <ul class="styled-list">
+        <li><strong>Temps de reaction :</strong> <span class="accent-text">-58 ms</span> (0,81 s vs 0,86 s, p&lt;0,0005)</li>
+        <li><strong>Performance cognitive :</strong> <span class="accent-text">+3,9 %</span> (p=0,03)</li>
+        <li><strong>Qualite subjective du sommeil :</strong> <span class="accent-purple">+1,16 point</span> (p=0,01)</li>
+        <li><strong>Contre-la-montre cycliste :</strong> <span class="accent-text">+4,7 %</span> (21,4 s plus rapide, p=0,07)</li>
+      </ul>
+
+      <div class="key-box">
+        <span class="key-number">-58 ms</span>
+        <strong>Amelioration du temps de reaction avec simulation d'aube.</strong> Pour un sprinter au depart, un gardien de but face a un penalty ou un pilote en course, 58 millisecondes peuvent faire la difference entre la victoire et la defaite.
+      </div>
+
+      <h3>Restriction de sommeil et populations vulnerables</h3>
+      <p><strong>Gabel et al. (2015, n=17)</strong> ont etudie l'effet de la simulation d'aube en conditions de restriction de sommeil (6 h/nuit) &mdash; une situation courante chez les athletes en phase d'entrainement intensif. Resultat : amelioration significative de l'attention, du suivi moteur et de la memoire de travail. Constatation cruciale : <strong>les individus les moins performants au depart sont ceux qui beneficient le plus de l'intervention</strong>. La simulation d'aube agit comme un filet de securite pour les matins difficiles.</p>
+
+      <p><strong>Tonetti et al. (2015, n=56 adolescents)</strong> ont mesure une amelioration de l'efficience attentionnelle de <strong class="accent-text">+46 %</strong> apres seulement deux semaines d'utilisation. Quant a <strong>Gimenez et al. (2010, n=23)</strong>, ils ont montre que meme 50 lux suffisent a produire un effet, bien que les participants preferent nettement une intensite de 265 lux.</p>
+
+      <h3>Parametres optimaux</h3>
+      <p>La synthese des etudes converge vers des parametres precis : une montee progressive de <strong>0 a 250 lux sur 30 minutes</strong>, avec un spectre lumineux evoluant de <strong class="accent-text">1 090 K</strong> (rouge ambree, debut) a <strong class="accent-text">2 750 K</strong> (blanc chaud, fin), reproduisant fidelement la dynamique spectrale de l'aube naturelle.</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Etude</th>
+              <th>n</th>
+              <th>Intervention</th>
+              <th>Resultat principal</th>
+              <th>Taille d'effet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Thompson 2014</strong></td>
+              <td>8</td>
+              <td>Simulation d'aube vs. reveil standard</td>
+              <td>Temps de reaction -58 ms, CLM +4,7 %</td>
+              <td>d=0,5-0,7</td>
+            </tr>
+            <tr>
+              <td><strong>Gabel 2013</strong></td>
+              <td>17</td>
+              <td>Lumiere polychromatique vs. monochromatique</td>
+              <td>CAR augmentee, eveil ameliore</td>
+              <td>d=0,3-0,5</td>
+            </tr>
+            <tr>
+              <td><strong>Gabel 2015</strong></td>
+              <td>17</td>
+              <td>Simulation d'aube en restriction sommeil</td>
+              <td>Attention et memoire de travail ameliorees</td>
+              <td>d=0,4-0,6</td>
+            </tr>
+            <tr>
+              <td><strong>Tonetti 2015</strong></td>
+              <td>56</td>
+              <td>Simulation d'aube 2 semaines</td>
+              <td>Efficience attentionnelle +46 %</td>
+              <td>d=0,5-0,7</td>
+            </tr>
+            <tr>
+              <td><strong>Gimenez 2010</strong></td>
+              <td>23</td>
+              <td>Simulation d'aube 50 vs. 265 lux</td>
+              <td>Effet present des 50 lux, prefere a 265 lux</td>
+              <td>d=0,3-0,5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="article-section animate-in" id="section-4">
+      <div class="section-label">Partie 04</div>
+      <h2>Sommeil profond, REM et recuperation &mdash; les mecanismes</h2>
+
+      <p>Pour comprendre pourquoi la qualite du reveil impacte la recuperation, il faut d'abord comprendre ce qui se passe pendant la nuit. Le sommeil n'est pas un etat passif &mdash; c'est une usine de reparation biologique qui fonctionne en deux chaines de production distinctes.</p>
+
+      <h3>Sommeil N3 : l'atelier de reparation physique</h3>
+      <p>Le sommeil profond (stade N3) est le berceau de la recuperation structurelle. <strong>Van Cauter (1996)</strong> a montre que <strong class="accent-text">70 % de l'hormone de croissance (GH)</strong> secretee sur 24 heures est liberee pendant le sommeil, principalement durant les phases N3. Les pics de GH nocturnes atteignent <strong>28,2 &micro;g/L</strong>. Perturbation critique : une fragmentation du sommeil profond reduit la secretion de GH de <strong>44 %</strong>.</p>
+
+      <p>La testosterone suit une logique similaire. L'etude de <strong>Leproult &amp; Van Cauter (2011)</strong>, publiee dans <em>JAMA</em>, a produit un resultat qui a fait le tour du monde du sport :</p>
+
+      <div class="shock-box">
+        <span class="shock-number">-15 %</span>
+        <p>Reduction de testosterone apres une semaine de sommeil insuffisant (5 h/nuit). L'equivalent de 10 a 15 ans de vieillissement hormonal.</p>
+      </div>
+
+      <p>Pour un athlete, cela signifie que la dette de sommeil ne se contente pas de fatiguer &mdash; elle sabote directement les mecanismes de reparation musculaire, de synthese proteique et d'adaptation a l'entrainement. Les travaux de <strong>Res et al. (2012)</strong> montrent que la caseine pre-sommeil augmente la synthese proteique de <strong>+22 %</strong>, et <strong>Snijders et al. (2019)</strong> ont mesure un gain de <strong>+37 %</strong> lorsque l'exercice et les proteines sont combines. Mais ces benefices ne se materialisent que si la qualite du sommeil profond est preservee.</p>
+
+      <h3>Sommeil REM : le laboratoire d'apprentissage moteur</h3>
+      <p>Le sommeil paradoxal (REM) joue un role tout aussi critique, mais sur un autre registre. <strong>Walker et al. (2002)</strong>, dans une etude publiee dans <em>Neuron</em>, ont demontre une amelioration de <strong class="accent-text">+20 %</strong> de la vitesse motrice apres une nuit complete de sommeil. C'est pendant le REM que le cerveau consolide les gestes techniques &mdash; le service au tennis, la transition en triathlon, l'enchainement en gymnastique, le placement du pied en escalade.</p>
+
+      <p>A l'inverse, la privation de sommeil detruit la performance de maniere systematique. La meta-analyse de <strong>Craven et al. (2022)</strong>, portant sur 69 publications et 959 participants, quantifie la degradation a <strong class="accent-text">-7,56 %</strong> de performance globale, avec une perte de <strong>-0,4 %</strong> par heure d'eveil supplementaire.</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Domaine</th>
+              <th>Impact (d de Cohen)</th>
+              <th>Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Exercice intermittent</strong></td>
+              <td><span class="accent-text">d = -1,57</span></td>
+              <td>Tres grand effet negatif</td>
+            </tr>
+            <tr>
+              <td><strong>Controle moteur</strong></td>
+              <td><span class="accent-text">d = -1,06</span></td>
+              <td>Grand effet negatif</td>
+            </tr>
+            <tr>
+              <td><strong>Vitesse</strong></td>
+              <td><span class="accent-purple">d = -0,67</span></td>
+              <td>Effet modere a grand</td>
+            </tr>
+            <tr>
+              <td><strong>Endurance</strong></td>
+              <td><span class="accent-purple">d = -0,54</span></td>
+              <td>Effet modere</td>
+            </tr>
+            <tr>
+              <td><strong>Puissance</strong></td>
+              <td>d = -0,39</td>
+              <td>Effet modere</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="key-box">
+        <span class="key-number">Sleep extension</span>
+        <strong>Mah et al. (2011, basketteurs Stanford) :</strong> sprint <span class="accent-text">-4,3 %</span>, lancers francs <span class="accent-text">+9 %</span>, tirs 3 points <span class="accent-text">+9,2 %</span>. Le sommeil supplementaire reste l'intervention la plus puissante jamais mesuree sur la performance sportive.
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="article-section animate-in" id="section-5">
+      <div class="section-label">Partie 05</div>
+      <h2>Les sportifs &mdash; un segment avec des besoins non satisfaits</h2>
+
+      <p>Si le sommeil est si fondamental pour la performance, on pourrait penser que les athletes en font une priorite absolue. La realite est tout autre. Les donnees epidemiologiques revelent un paradoxe frappant : les sportifs dorment <strong>moins bien</strong> que la population generale, tout en ayant des besoins plus importants.</p>
+
+      <p><strong>Gupta et al. (2017)</strong> ont synthetise les etudes disponibles : entre <strong class="accent-text">26 et 50 %</strong> des athletes rapportent une mauvaise qualite de sommeil. Chez les athletes elites britanniques, <strong>45 %</strong> obtiennent un score PSQI superieur a 5 (seuil de mauvaise qualite). Les nageurs olympiques ne dorment en moyenne que <strong class="accent-text">6 h 12</strong> par nuit &mdash; bien en dessous des 8 a 10 heures recommandees pour les athletes de haut niveau.</p>
+
+      <h3>Les perturbateurs specifiques</h3>
+      <ul class="styled-list">
+        <li><strong>Dette de sommeil chronique</strong> &mdash; Accumulation progressive d'un deficit qui degrade les performances de maniere insidieuse, souvent sans que l'athlete en ait conscience.</li>
+        <li><strong>Entrainements matinaux precoces</strong> &mdash; Amputation moyenne de <span class="accent-text">1,8 heure</span> de sommeil par rapport aux jours de repos. Les nageurs et les rameurs sont les plus touches.</li>
+        <li><strong>Voyages et decalage horaire</strong> &mdash; Desynchronisation circadienne qui peut prendre 1 jour par fuseau horaire traverse pour se resorber.</li>
+        <li><strong>Stress pre-competition</strong> &mdash; <span class="accent-text">64 %</span> des athletes australiens et <span class="accent-text">66 %</span> des athletes allemands rapportent des insomnies avant les competitions majeures.</li>
+        <li><strong>Recuperation insuffisante</strong> &mdash; Les protocoles de recuperation actuels (bains glaces, compression, massage) ne traitent pas la cause fondamentale : la qualite du sommeil et du reveil.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>Donnee critique :</strong> Chaque heure de sommeil supplementaire reduit le risque de blessure de <strong>43 %</strong> (Milewski et al., 2014). Le sommeil n'est pas un luxe pour l'athlete &mdash; c'est un <strong>outil de performance et de prevention des blessures</strong>.
+      </div>
+
+      <h3>Le marche et le vide produit</h3>
+      <p>Le marche de la sleep tech est estime entre <strong class="accent-text">24,9 et 29,3 milliards $</strong> en 2025. Le segment sports recovery represente a lui seul <strong>3,1 milliards $</strong>. Pourtant, un constat s'impose : <strong>aucun produit sur le marche ne combine simulation d'aube scientifiquement calibree, tracking du sommeil et metriques de recuperation</strong> dans la tranche de prix 150-500 $. Les athletes doivent aujourd'hui assembler un patchwork d'appareils &mdash; simulateur d'aube d'un cote, montre connectee de l'autre, application de coaching ailleurs &mdash; sans integration ni coherence.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="article-section animate-in" id="section-6">
+      <div class="section-label">Partie 06</div>
+      <h2>Quantifier le benefice &mdash; comparaison avec d'autres interventions</h2>
+
+      <p>Les athletes et les entraineurs raisonnent en termes de <strong>retour sur investissement</strong>. Chaque nouvelle intervention doit etre comparee aux alternatives existantes. Comment la simulation d'aube se positionne-t-elle face aux strategies de recuperation etablies ?</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Intervention</th>
+              <th>Taille d'effet</th>
+              <th>Facilite</th>
+              <th>Preuves</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sleep extension</strong></td>
+              <td>d = 0,5-1,5</td>
+              <td>Faible</td>
+              <td>Moderees</td>
+            </tr>
+            <tr>
+              <td><strong>Massage</strong></td>
+              <td>g = 1,3-2,3 (DOMS)</td>
+              <td>Moderee</td>
+              <td>Bonnes</td>
+            </tr>
+            <tr>
+              <td><strong>Immersion eau froide</strong></td>
+              <td>SMD = 0,2-0,9</td>
+              <td>Moderee</td>
+              <td>Bonnes</td>
+            </tr>
+            <tr>
+              <td><strong class="accent-text">Simulation d'aube</strong></td>
+              <td><strong class="accent-text">d = 0,3-0,7</strong></td>
+              <td><strong class="accent-text">Elevee (auto.)</strong></td>
+              <td>Moderees</td>
+            </tr>
+            <tr>
+              <td><strong>Vetements compression</strong></td>
+              <td>g = 0,2-0,5</td>
+              <td>Elevee</td>
+              <td>Bonnes</td>
+            </tr>
+            <tr>
+              <td><strong>Smart alarm (stade optimal)</strong></td>
+              <td>d = 0,1-0,3</td>
+              <td>Tres elevee</td>
+              <td>Faibles</td>
+            </tr>
+            <tr>
+              <td><strong>Recuperation active</strong></td>
+              <td>g = 0,4-0,8</td>
+              <td>Elevee</td>
+              <td>Moderees</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Trois constats emergent de cette comparaison. Premierement, la simulation d'aube offre une taille d'effet <strong>comparable aux vetements de compression</strong> (d = 0,3-0,7 vs g = 0,2-0,5), une intervention largement adoptee dans le sport professionnel. Deuxiemement, elle presente un avantage decisif en termes de <strong>facilite d'implementation</strong> : l'intervention est entierement automatique, ne demande aucun effort de la part de l'athlete et ne consomme aucun temps supplementaire. Troisiemement, les effets apparaissent <strong>des la premiere nuit</strong> et se maintiennent sur 2 semaines ou plus.</p>
+
+      <p>Estimation conservatrice : le gain se situe entre <strong class="accent-text">1 et 3 %</strong> de performance matinale dans des conditions normales, et peut atteindre <strong class="accent-text">3 a 5 %</strong> chez les chronotypes tardifs en restriction de sommeil &mdash; une population surrepresentee chez les athletes en phase d'entrainement intensif.</p>
+
+      <div class="highlight-box">
+        <strong>L'argument massue :</strong> La simulation d'aube est l'une des rares interventions de recuperation qui ne demande <strong>aucun effort</strong>. Pas de bain glace a preparer, pas de massage a planifier, pas de temps supplementaire a trouver. Vous dormez, <a href="aura.html" class="aura-link">AURA</a> fait le reste.
+      </div>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section class="article-section animate-in" id="section-7">
+      <div class="section-label">Partie 07</div>
+      <h2>Conclusion &mdash; la simulation d'aube comme outil de recuperation active</h2>
+
+      <p>L'analyse de la litterature scientifique revele une asymetrie importante entre preuve et promesse dans le domaine des reveils intelligents. La <strong>simulation d'aube</strong> repose sur des donnees solides (d = 0,3-0,7) couvrant les mecanismes hormonaux, cognitifs et de performance. Le <strong>smart alarm</strong> base sur la detection du stade de sommeil, en revanche, reste fragile scientifiquement (d = 0,1-0,3) avec des validations cliniques insuffisantes. Le message doit s'ancrer fermement sur la simulation d'aube.</p>
+
+      <h3>Segments prioritaires</h3>
+      <p>Les <strong>sports d'endurance</strong> constituent le segment d'adoption prioritaire : dette de sommeil chronique liee aux entrainements matinaux, culture des <em>marginal gains</em> (1 % d'amelioration sur 100 parametres), sensibilite au temps de reaction et a la cognition en course. Cyclistes, triathletes, coureurs, nageurs &mdash; ces athletes optimisent deja leur alimentation, leur materiel et leur programme d'entrainement au pourcentage pres. La qualite du reveil est la derniere frontiere non exploitee.</p>
+
+      <p>Les <strong>sports collectifs</strong> representent un second segment naturel : competitions en soiree perturbant le rythme circadien, risque de blessure lie a la fatigue accumulee, calendrier dense avec voyages frequents. Le football, le basketball, le rugby et le handball sont des terrains d'application immediats.</p>
+
+      <div class="key-box">
+        <span class="key-number">1-5 %</span>
+        <strong>Gain de performance matinale estime avec un reveil simulateur d'aube.</strong> Comparable aux vetements de compression, superieur en facilite d'implementation. Pour un athlete, chaque pour cent compte &mdash; et ce pour cent ne demande aucun effort supplementaire.
+      </div>
+
+      <p>La science est claire : le sommeil est le fondement de la performance sportive. La simulation d'aube est l'outil le plus elegant, le plus accessible et le mieux documente pour transformer la qualite du reveil. Dans un monde ou les athletes cherchent le moindre avantage competitif, ignorer cette intervention n'est plus une option &mdash; c'est un handicap.</p>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner animate-in">
+      <div class="mini-aura">
+        <div class="aura-halo"></div>
+        <div class="aura-ring"></div>
+        <div class="aura-disk"></div>
+        <div class="aura-center"></div>
+      </div>
+      <h3>AURA : votre coach de recuperation nocturne</h3>
+      <p>Simulation d'aube calibree. Reveil au moment optimal. Sons roses en sommeil profond.</p>
+      <p class="cta-sub">A partir de 149 EUR &middot; Le sommeil est votre meilleur entrainement</p>
+      <a href="aura.html" class="cta-btn">Pre-commander AURA &rarr;</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Les Zintrepreneurs</strong> &middot; Recherche &amp; Innovation</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="aura.html">AURA</a>
+    <a href="#" target="_blank">Instagram</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</div>
+</footer>
+
+<script>
+  // ---- READING TIME ----
+  (function() {
+    const text = document.querySelector('.article-content').innerText;
+    const words = text.trim().split(/\s+/).length;
+    const minutes = Math.ceil(words / 200);
+    const el = document.getElementById('reading-time');
+    if (el) el.textContent = minutes;
+  })();
+
+  // ---- INTERSECTION OBSERVER — TOC HIGHLIGHT ----
+  (function() {
+    const sections = document.querySelectorAll('.article-section[id]');
+    const tocLinks = document.querySelectorAll('[data-section]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('data-section') === id);
+          });
+        }
+      });
+    }, {
+      rootMargin: '-80px 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => observer.observe(section));
+  })();
+
+  // ---- SMOOTH SCROLL ----
+  document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById(this.getAttribute('data-section'));
+      if (target) {
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---- SCROLL ANIMATIONS ----
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        animObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.animate-in').forEach(el => animObserver.observe(el));
+</script>
+</body>
+</html>
