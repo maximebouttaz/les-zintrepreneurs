@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AURA — Le reveil IA qui respecte votre sommeil</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: #FAFAF8;
-      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #F8F9FA;
+      color: #111111;
       overflow-x: hidden;
     }
 
@@ -26,17 +26,18 @@
       justify-content: space-between;
       height: 64px;
       padding: 0 2.5rem;
-      background: rgba(250,250,248,0.85);
+      background: rgba(248,249,250,0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid #E2E8F0;
     }
 
     .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.1em;
-      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      color: #111;
       text-decoration: none;
     }
 
@@ -47,28 +48,27 @@
     }
 
     .nav-links a {
-      color: #6B6B6B;
+      color: #64748B;
       text-decoration: none;
       font-size: 0.82rem;
-      letter-spacing: 0.06em;
+      font-weight: 500;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: #1A1A1A; }
+    .nav-links a:hover { color: #111; }
 
     .nav-cta {
-      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      background: linear-gradient(135deg, #E8934A, #D97706);
       color: #fff;
       padding: 0.5rem 1.3rem;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.82rem;
-      letter-spacing: 0.03em;
-      transition: opacity 0.2s, transform 0.15s;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
     }
 
-    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,147,74,0.25); }
 
     /* HERO */
     .hero {
@@ -135,34 +135,35 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      background: linear-gradient(135deg, #E8934A, #D97706);
       color: #fff;
       padding: 0.85rem 2rem;
-      border-radius: 8px;
+      border-radius: 12px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.92rem;
-      letter-spacing: 0.03em;
       transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
       border: none;
       cursor: pointer;
       display: inline-block;
+      box-shadow: 0 4px 12px rgba(232,147,74,0.3);
     }
 
-    .btn-primary:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232,147,74,0.2); }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232,147,74,0.35); }
 
     .btn-ghost {
-      color: #6B6B6B;
+      color: #64748B;
       padding: 0.85rem 1.5rem;
-      border-radius: 8px;
+      border-radius: 12px;
       text-decoration: none;
       font-size: 0.9rem;
-      border: 1px solid #ccc;
+      font-weight: 600;
+      border: 1px solid #E2E8F0;
       transition: all 0.2s;
       display: inline-block;
     }
 
-    .btn-ghost:hover { color: #1A1A1A; border-color: #999; }
+    .btn-ghost:hover { color: #111; border-color: #CBD5E1; }
 
     .hero-price {
       font-family: 'Space Mono', monospace;
@@ -239,29 +240,32 @@
     }
 
     .section-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: #E8934A;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #D97706;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      font-weight: 500;
       margin-bottom: 1rem;
     }
 
     .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 3.8rem);
-      line-height: 1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
       margin-bottom: 1.5rem;
-      color: #1A1A1A;
+      color: #111;
     }
 
     .section-intro {
       font-size: 0.95rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.8;
       max-width: 700px;
       margin-bottom: 3rem;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     /* SCIENCE — HYPNOGRAMME */
@@ -599,6 +603,89 @@
     .aura-art-large .aura-disk {
       width: 270px;
       height: 270px;
+    }
+
+    /* RECHERCHE */
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .research-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .research-card:hover {
+      border-color: #d0d0d0;
+      transform: translateY(-2px);
+    }
+
+    .research-card .rc-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8934A;
+      margin-bottom: 0.6rem;
+    }
+
+    .research-card .rc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: #1A1A1A;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .research-card .rc-desc {
+      font-size: 0.82rem;
+      color: #6B6B6B;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .research-card .rc-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #999;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .research-card .rc-arrow {
+      color: #9B6EC6;
+      font-weight: 600;
+    }
+
+    .research-cta {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+
+    .research-cta a {
+      color: #9B6EC6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(155,110,198,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .research-cta a:hover { border-color: #9B6EC6; }
+
+    @media (max-width: 768px) {
+      .research-grid { grid-template-columns: 1fr; }
     }
 
     /* PRECOMMANDE */
@@ -1047,7 +1134,7 @@
       max-width: 1200px;
       margin: 0 auto;
       height: 1px;
-      background: #e5e5e5;
+      background: #E2E8F0;
     }
 
     /* RESPONSIVE */
@@ -1093,6 +1180,7 @@
   <ul class="nav-links">
     <li><a href="#science">La science</a></li>
     <li><a href="#features">Fonctionnalites</a></li>
+    <li><a href="#recherche">Recherche</a></li>
     <li><a href="#precommande">Pre-commander</a></li>
   </ul>
   <a href="#precommande" class="nav-cta">Soutenir le projet</a>
@@ -1100,10 +1188,10 @@
 
 <!-- HERO -->
 <section class="hero" style="max-width:100%; padding-left:2rem; padding-right:2rem;">
-  <div class="hero-badge">NOUVEAU — PREMIER PROJET</div>
-  <h1>Reveillez la meilleure<br>version de vous-meme.</h1>
-  <p class="hero-subtitle"><strong>AURA.</strong> Le premier reveil a intelligence artificielle qui respecte votre sommeil.</p>
-  <p class="hero-desc">AURA analyse vos cycles de sommeil en temps reel et declenche une aube progressive au moment precis ou votre corps est pret a se reveiller.</p>
+  <div class="hero-badge">CONCU POUR LES JEUNES ATHLETES</div>
+  <h1>Arrete de te reveiller<br>claque.</h1>
+  <p class="hero-subtitle"><strong>AURA.</strong> Le reveil IA qui repare ton sommeil pendant que tu dors.</p>
+  <p class="hero-desc">Tu dors 6h au lieu de 9h, tu te reveilles fatigue, tu accumules les blessures. AURA protege ton sommeil profond, reduit ton cortisol et declenche une aube progressive quand ton corps est pret.</p>
   <div class="hero-actions">
     <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
     <a href="#science" class="btn-ghost">Decouvrir</a>
@@ -1123,8 +1211,8 @@
 <!-- SCIENCE -->
 <section id="science">
   <div class="section-tag animate-in">// LA SCIENCE</div>
-  <div class="section-title animate-in">Votre sommeil est un langage.<br>AURA le parle.</div>
-  <p class="section-intro animate-in">Chaque nuit, votre cerveau traverse des cycles precis. Chacun a un role. Etre reveille au mauvais moment genere cette sensation de brouillard. AURA identifie le moment juste.</p>
+  <div class="section-title animate-in">Ton sommeil te repare.<br>Encore faut-il le proteger.</div>
+  <p class="section-intro animate-in">Un jeune athlete produit <strong>3 a 6 fois plus de GH</strong> qu'un adulte de 40 ans pendant le sommeil profond. Cette hormone repare tes tendons, ligaments et tissu conjonctif. Mais avec seulement <strong>6,3h de sommeil</strong> en moyenne et un deficit de 2 a 4h, cette fenetre de reparation est tronquee. Resultat : <strong>&times;1,7 risque de blessure</strong> quand tu dors moins de 8h (Milewski 2014).</p>
 
   <!-- HYPNOGRAMME -->
   <div class="hypno-container animate-in">
@@ -1167,28 +1255,28 @@
     <div class="phase-card animate-in">
       <div class="phase-label">N1</div>
       <h4>L'endormissement</h4>
-      <p>La frontiere entre l'eveil et le sommeil. Vos muscles se relachent.</p>
+      <p>La frontiere entre l'eveil et le sommeil. Tes muscles se relachent, le cerveau bascule.</p>
     </div>
     <div class="phase-card animate-in">
       <div class="phase-label">N2</div>
       <h4>Le sommeil leger</h4>
-      <p>La fenetre ideale pour un reveil sans resistance. AURA la detecte.</p>
+      <p>La fenetre ideale pour un reveil sans resistance. AURA la detecte pour te reveiller au bon moment.</p>
     </div>
     <div class="phase-card highlight animate-in">
-      <div class="phase-label">N3</div>
-      <h4>Le sommeil profond</h4>
-      <p>La phase de reconstruction. C'est ici qu'AURA intervient.</p>
+      <div class="phase-label">N3 — SOMMEIL PROFOND</div>
+      <h4>Reparation physique</h4>
+      <p>GH au pic, cortisol au nadir : tes tendons, ligaments et tissu conjonctif se reparent. Le collagene est synthetise &times;3,9 (Doessing 2010). C'est ici qu'AURA intervient.</p>
     </div>
     <div class="phase-card animate-in">
       <div class="phase-label">REM</div>
-      <h4>Le sommeil paradoxal</h4>
-      <p>Le territoire des reves et de la creativite.</p>
+      <h4>Regulation nerveuse</h4>
+      <p>Cortisol normalise, systeme nerveux reequilibre. Sans REM suffisant : fatigue nerveuse et surentrainement.</p>
     </div>
   </div>
 
   <!-- SONS ROSES -->
   <div class="sons-roses animate-in">
-    Pendant la phase N3, AURA diffuse des sons roses — des frequences basses, calibrees, a peine perceptibles. La recherche en neurosciences a demontre que ces stimulations augmentent l'amplitude du sommeil profond de 25%. Vous ne les entendez pas. Votre cerveau, si.
+    Pendant la phase N3, AURA diffuse des sons roses synchronises avec tes ondes lentes cerebrales. La recherche montre que cette stimulation <strong>reduit le cortisol</strong> (milieu anti-catabolique), <strong>augmente la variabilite cardiaque</strong> (recuperation autonomique) et <strong>renforce la fonction immunitaire</strong> (Besedovsky 2017, Grimaldi 2019). Tu ne les entends pas. Ton corps, si. <em>Note : les sons roses n'augmentent pas directement la GH — leur benefice passe par la reduction du cortisol et l'amelioration du milieu neuroendocrinien.</em>
   </div>
 
   <div class="section-cta animate-in">
@@ -1201,7 +1289,7 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="section-tag animate-in">// FONCTIONNALITES</div>
-  <div class="section-title animate-in">Quatre technologies.<br>Un seul objectif : le reveil parfait.</div>
+  <div class="section-title animate-in">Quatre technologies.<br>Un seul objectif : te reveiller repose.</div>
 
   <div class="features-grid">
     <div class="feature-card animate-in">
@@ -1214,7 +1302,7 @@
         </div>
       </div>
       <h4>L'aube, reinventee.</h4>
-      <p>Une lumiere progressive qui simule un lever de soleil naturel, calibree sur votre rythme circadien. Du rouge profond au blanc chaud, en 30 minutes.</p>
+      <p>Une lumiere progressive qui simule un lever de soleil naturel. Reduit l'inertie de sommeil et synchronise ton reveil avec ton chronotype — crucial quand tu dois etre a l'entrainement a 6h.</p>
     </div>
 
     <div class="feature-card animate-in">
@@ -1225,8 +1313,8 @@
           <div class="wave"></div>
         </div>
       </div>
-      <h4>Une IA qui apprend vos nuits.</h4>
-      <p>AURA analyse vos micro-mouvements et votre rythme cardiaque pour cartographier vos cycles. Chaque nuit, l'algorithme s'affine.</p>
+      <h4>Une IA qui apprend tes nuits.</h4>
+      <p>AURA analyse tes micro-mouvements et ton rythme cardiaque pour cartographier tes cycles. Elle te reveille en sommeil leger — jamais en plein N3.</p>
     </div>
 
     <div class="feature-card animate-in">
@@ -1237,16 +1325,16 @@
           <div class="arc"></div>
         </div>
       </div>
-      <h4>Le son que votre cerveau attendait.</h4>
-      <p>Des sons roses diffuses pendant le sommeil profond pour amplifier sa qualite. Inaudibles pour vous, decisifs pour votre recuperation.</p>
+      <h4>Sons roses : cortisol en baisse, immunite en hausse.</h4>
+      <p>Des sons roses synchronises avec tes ondes lentes pendant le N3. Effet prouve : cortisol reduit, HRV augmentee, fonction immunitaire renforcee (Besedovsky 2017, Grimaldi 2019).</p>
     </div>
 
     <div class="feature-card animate-in">
       <div class="feature-icon">
         <div class="icon-phone"></div>
       </div>
-      <h4>Vos nuits, eclairees.</h4>
-      <p>L'application AURA vous offre un tableau de bord complet : score de sommeil, tendances, recommandations personnalisees.</p>
+      <h4>Tes nuits, eclairees.</h4>
+      <p>L'application AURA te montre ton architecture de sommeil, ton deficit, tes tendances — et te recommande l'heure de coucher optimale pour ta prochaine session.</p>
     </div>
   </div>
 
@@ -1270,6 +1358,49 @@
       <div class="aura-disk"></div>
       <div class="aura-center"></div>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RECHERCHE -->
+<section id="recherche">
+  <div class="section-tag animate-in">// LA RECHERCHE</div>
+  <div class="section-title animate-in">Chaque claim est source.<br>Chaque limite est documentee.</div>
+  <p class="section-intro animate-in">AURA est fonde sur la recherche en neurosciences du sommeil. On ne te vend pas du reve — on te montre exactement ce que la science dit, ce qu'elle ne dit pas encore, et ce qu'on teste.</p>
+
+  <div class="research-grid">
+    <a href="etude-modulation-sommeil.html" class="research-card animate-in">
+      <div class="rc-tag">Essentiel</div>
+      <div class="rc-title">Sommeil et recuperation du jeune athlete : la technologie peut-elle aider ?</div>
+      <div class="rc-desc">Le probleme, les mecanismes de reparation, les 3 priorites du sportif, et les 6 technologies evaluees. L'article central.</div>
+      <div class="rc-meta"><span>20 min</span><span class="rc-arrow">Lire &rarr;</span></div>
+    </a>
+
+    <a href="etude-recuperation-physique.html" class="research-card animate-in">
+      <div class="rc-tag">Deep dive</div>
+      <div class="rc-title">Sommeil profond et recuperation sportive : la chaine causale decryptee</div>
+      <div class="rc-desc">GH, cortisol, collagene, glymphatique : ce qui est prouve, ce qui est speculatif, pourquoi les 15-25 ans ont une fenetre unique.</div>
+      <div class="rc-meta"><span>16 min</span><span class="rc-arrow">Lire &rarr;</span></div>
+    </a>
+
+    <a href="etude-sons-roses-stage-gated.html" class="research-card animate-in">
+      <div class="rc-tag">Deep dive</div>
+      <div class="rc-title">Sons roses pendant le sommeil profond : faut-il un EEG ?</div>
+      <div class="rc-desc">Stage-gated vs phase-locked : les trois approches de stimulation auditive et pourquoi AURA n'a pas besoin d'un bandeau.</div>
+      <div class="rc-meta"><span>14 min</span><span class="rc-arrow">Lire &rarr;</span></div>
+    </a>
+
+    <a href="etude-cycles-sommeil.html" class="research-card animate-in">
+      <div class="rc-tag">Essentiel</div>
+      <div class="rc-title">Se reveiller en forme : la science des cycles du sommeil</div>
+      <div class="rc-desc">Comment fonctionnent les quatre stades et pourquoi le moment du reveil est plus important que la duree totale.</div>
+      <div class="rc-meta"><span>12 min</span><span class="rc-arrow">Lire &rarr;</span></div>
+    </a>
+  </div>
+
+  <div class="research-cta animate-in">
+    <a href="recherche.html">Voir toute la recherche &rarr;</a>
   </div>
 </section>
 
@@ -1357,9 +1488,10 @@
 <!-- FOOTER -->
 <footer>
   <p><strong>AURA</strong> est un projet porte par Les Zintrepreneurs.</p>
-  <p>Deux cousins, une obsession : vous offrir le meilleur reveil de votre vie.</p>
+  <p>Deux cousins, une obsession : t'offrir le meilleur reveil de ta vie.</p>
   <div class="footer-links">
-    <a href="#" target="_blank">Instagram</a>
+    <a href="recherche.html">Recherche</a>
+    <a href="index.html">Accueil</a>
     <a href="mailto:contact@leszintrepreneurs.com">Email</a>
   </div>
   <div class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</div>
