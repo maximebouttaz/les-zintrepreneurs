@@ -263,6 +263,59 @@
       font-weight: 400;
     }
 
+    /* STAT CARDS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(232,147,74,0.4);
+      transform: translateY(-2px);
+    }
+
+    .stat-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #111 40%, #E8934A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .stat-unit {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.5rem;
+    }
+
+    .stat-source {
+      font-size: 0.72rem;
+      color: #94A3B8;
+      margin-top: 0.3rem;
+    }
+
     /* SCIENCE — HYPNOGRAMME */
     .hypno-container {
       margin: 3rem auto;
@@ -283,9 +336,9 @@
     }
 
     .hypno-labels span {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
-      color: #999;
+      color: #94A3B8;
     }
 
     .hypno-chart {
@@ -300,15 +353,15 @@
     .hypno-bar {
       width: 12px;
       border-radius: 4px 4px 0 0;
-      background: #e0ddd8;
+      background: #E2E8F0;
       transition: height 0.8s ease;
       position: relative;
       flex-shrink: 0;
     }
 
     .hypno-bar.deep {
-      background: linear-gradient(to top, #E8934A, #9B6EC6);
-      box-shadow: 0 -4px 12px rgba(232,147,74,0.15);
+      background: linear-gradient(to top, #E8934A, #D97706);
+      box-shadow: 0 -4px 12px rgba(232,147,74,0.2);
     }
 
     .hypno-bar .bar-label {
@@ -316,11 +369,11 @@
       top: -28px;
       left: 50%;
       transform: translateX(-50%);
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.58rem;
-      color: #E8934A;
+      color: #D97706;
       background: #fff;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #E2E8F0;
       border-radius: 4px;
       padding: 2px 6px;
       white-space: nowrap;
@@ -331,9 +384,9 @@
       top: -34px;
       left: 50%;
       transform: translateX(-50%);
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
-      color: #9B6EC6;
+      color: #E8934A;
       white-space: nowrap;
       display: flex;
       flex-direction: column;
@@ -344,7 +397,7 @@
     .wake-label .arrow {
       width: 1px;
       height: 10px;
-      background: #9B6EC6;
+      background: #E8934A;
     }
 
     /* PHASES CARDS */
@@ -357,37 +410,40 @@
 
     .phase-card {
       background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
       padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .phase-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(232,147,74,0.3);
     }
 
     .phase-card.highlight {
-      border-left: 3px solid transparent;
-      border-image: linear-gradient(to bottom, #E8934A, #9B6EC6) 1;
-      border-image-slice: 1;
-      border-left-width: 3px;
-      border-left-style: solid;
+      border-left: 3px solid #E8934A;
+      background: rgba(232,147,74,0.02);
     }
 
     .phase-card h4 {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.4rem;
-      color: #1A1A1A;
+      color: #111;
     }
 
     .phase-card p {
       font-size: 0.85rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.6;
     }
 
     .phase-card .phase-label {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
-      color: #999;
+      color: #94A3B8;
       letter-spacing: 0.08em;
       margin-bottom: 0.6rem;
       text-transform: uppercase;
@@ -395,15 +451,17 @@
 
     /* SONS ROSES */
     .sons-roses {
-      background: #f5f0eb;
-      border-radius: 12px;
+      background: #fff;
+      border-radius: 16px;
       padding: 2rem;
       max-width: 700px;
       margin: 3rem auto;
-      border-left: 3px solid #E8934A;
       font-size: 0.92rem;
-      color: #4a4a4a;
+      color: #64748B;
       line-height: 1.8;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #E8934A;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
     .section-cta {
@@ -412,10 +470,10 @@
     }
 
     .section-cta a {
-      color: #E8934A;
+      color: #D97706;
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: opacity 0.2s;
     }
 
@@ -1145,6 +1203,7 @@
       section { padding: 4rem 1.5rem; }
       .hero { padding: 6rem 1.5rem 3rem; }
       .hero h1 { font-size: clamp(3rem, 10vw, 4.5rem); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .phases-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
@@ -1229,6 +1288,30 @@
   <div class="section-tag animate-in">// LA SCIENCE</div>
   <div class="section-title animate-in">Ton sommeil te repare.<br>Encore faut-il le proteger.</div>
   <p class="section-intro animate-in">Un jeune athlete produit <strong>3 a 6 fois plus de GH</strong> qu'un adulte de 40 ans pendant le sommeil profond. Cette hormone repare tes tendons, ligaments et tissu conjonctif. Mais avec seulement <strong>6,3h de sommeil</strong> en moyenne et un deficit de 2 a 4h, cette fenetre de reparation est tronquee. Resultat : <strong>&times;1,7 risque de blessure</strong> quand tu dors moins de 8h (Milewski 2014).</p>
+
+  <!-- STAT CARDS -->
+  <div class="stats-grid animate-in">
+    <div class="stat-card">
+      <div class="stat-value">3-6<span class="stat-unit">x</span></div>
+      <div class="stat-label">Production GH vs adulte 40 ans</div>
+      <div class="stat-source">pendant le sommeil profond</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">1.7<span class="stat-unit">x</span></div>
+      <div class="stat-label">Risque de blessure</div>
+      <div class="stat-source">avec moins de 8h (Milewski 2014)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">6.3<span class="stat-unit">h</span></div>
+      <div class="stat-label">Sommeil reel moyen</div>
+      <div class="stat-source">vs 9h recommandees</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">+40<span class="stat-unit">%</span></div>
+      <div class="stat-label">Performance avec sommeil optimise</div>
+      <div class="stat-source">recuperation physique</div>
+    </div>
+  </div>
 
   <!-- HYPNOGRAMME -->
   <div class="hypno-container animate-in">
