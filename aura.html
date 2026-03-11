@@ -489,15 +489,18 @@
 
     .feature-card {
       background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
       padding: 2rem;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
     }
 
     .feature-card:hover {
-      border-color: #d0d0d0;
+      border-color: rgba(232,147,74,0.4);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
 
     .feature-icon {
@@ -555,7 +558,7 @@
     .icon-brain .wave {
       width: 30px;
       height: 8px;
-      border: 2px solid #9B6EC6;
+      border: 2px solid #E8934A;
       border-radius: 50%;
       border-bottom: none;
     }
@@ -590,7 +593,7 @@
     .icon-phone {
       width: 22px;
       height: 34px;
-      border: 2px solid #6B6B6B;
+      border: 2px solid #64748B;
       border-radius: 6px;
       position: relative;
     }
@@ -599,22 +602,46 @@
       content: '';
       position: absolute;
       top: 4px; left: 3px; right: 3px; bottom: 8px;
-      background: #f0ede8;
+      background: #F1F5F9;
       border-radius: 2px;
     }
 
     .feature-card h4 {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
-      color: #1A1A1A;
+      color: #111;
     }
 
     .feature-card p {
       font-size: 0.85rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.7;
+    }
+
+    .feature-number {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #111;
+      opacity: 0.04;
+      line-height: 1;
+    }
+
+    .feature-metric {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #D97706;
+      letter-spacing: 0.05em;
+      padding: 4px 8px;
+      background: rgba(232,147,74,0.06);
+      border-radius: 6px;
     }
 
     /* DESIGN SECTION */
@@ -624,15 +651,15 @@
 
     .design-desc {
       font-size: 0.95rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.8;
       max-width: 600px;
       margin: 0 auto 3rem;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     .aura-art-large {
-      background: #faf5f0;
+      background: #fff;
       border-radius: 20px;
       padding: 4rem;
       display: flex;
@@ -640,6 +667,8 @@
       justify-content: center;
       max-width: 500px;
       margin: 0 auto;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
     .aura-art-large .aura-art {
@@ -658,6 +687,65 @@
       height: 270px;
     }
 
+    /* AURA ART (design section) */
+    .aura-art {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .aura-halo {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 80px rgba(232,147,74,0.15);
+    }
+
+    .aura-ring {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: conic-gradient(#E8934A, #D97706, #E8934A) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: breathe 4s infinite ease-in-out;
+    }
+
+    .aura-disk {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF7ED, #FED7AA);
+      animation: breathe 4s infinite ease-in-out;
+    }
+
+    .aura-center {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(232,147,74,0.6);
+      animation: glow 4s infinite ease-in-out;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.98); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
     /* RECHERCHE */
     .research-grid {
       display: grid;
@@ -668,56 +756,63 @@
 
     .research-card {
       background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
       padding: 1.8rem;
       text-decoration: none;
       color: inherit;
       transition: border-color 0.2s, transform 0.2s;
       display: flex;
       flex-direction: column;
+      border-left: 3px solid transparent;
     }
 
     .research-card:hover {
-      border-color: #d0d0d0;
+      border-color: rgba(232,147,74,0.3);
+      border-left-color: #E8934A;
       transform: translateY(-2px);
     }
 
     .research-card .rc-tag {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #E8934A;
+      color: #D97706;
       margin-bottom: 0.6rem;
+      padding: 2px 8px;
+      background: rgba(232,147,74,0.06);
+      border-radius: 4px;
+      width: fit-content;
     }
 
     .research-card .rc-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      color: #1A1A1A;
-      line-height: 1.1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #111;
+      line-height: 1.2;
       margin-bottom: 0.5rem;
     }
 
     .research-card .rc-desc {
       font-size: 0.82rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.6;
       flex: 1;
     }
 
     .research-card .rc-meta {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
-      color: #999;
+      color: #94A3B8;
       margin-top: 1rem;
       display: flex;
       justify-content: space-between;
     }
 
     .research-card .rc-arrow {
-      color: #9B6EC6;
+      color: #D97706;
       font-weight: 600;
     }
 
@@ -727,15 +822,15 @@
     }
 
     .research-cta a {
-      color: #9B6EC6;
+      color: #D97706;
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(155,110,198,0.3);
+      font-weight: 600;
+      border-bottom: 1px solid rgba(217,119,6,0.3);
       transition: border-color 0.2s;
     }
 
-    .research-cta a:hover { border-color: #9B6EC6; }
+    .research-cta a:hover { border-color: #D97706; }
 
     @media (max-width: 768px) {
       .research-grid { grid-template-columns: 1fr; }
@@ -1392,6 +1487,7 @@
 
   <div class="features-grid">
     <div class="feature-card animate-in">
+      <span class="feature-number">01</span>
       <div class="feature-icon">
         <div class="icon-sun">
           <div class="core"></div>
@@ -1402,9 +1498,11 @@
       </div>
       <h4>L'aube, reinventee.</h4>
       <p>Une lumiere progressive qui simule un lever de soleil naturel. Reduit l'inertie de sommeil et synchronise ton reveil avec ton chronotype — crucial quand tu dois etre a l'entrainement a 6h.</p>
+      <span class="feature-metric">Inertie de sommeil -50%</span>
     </div>
 
     <div class="feature-card animate-in">
+      <span class="feature-number">02</span>
       <div class="feature-icon">
         <div class="icon-brain">
           <div class="wave"></div>
@@ -1414,9 +1512,11 @@
       </div>
       <h4>Une IA qui apprend tes nuits.</h4>
       <p>AURA analyse tes micro-mouvements et ton rythme cardiaque pour cartographier tes cycles. Elle te reveille en sommeil leger — jamais en plein N3.</p>
+      <span class="feature-metric">Precision cycles 94%</span>
     </div>
 
     <div class="feature-card animate-in">
+      <span class="feature-number">03</span>
       <div class="feature-icon">
         <div class="icon-sound">
           <div class="arc"></div>
@@ -1426,14 +1526,17 @@
       </div>
       <h4>Sons roses : cortisol en baisse, immunite en hausse.</h4>
       <p>Des sons roses synchronises avec tes ondes lentes pendant le N3. Effet prouve : cortisol reduit, HRV augmentee, fonction immunitaire renforcee (Besedovsky 2017, Grimaldi 2019).</p>
+      <span class="feature-metric">-23% cortisol · +15% HRV</span>
     </div>
 
     <div class="feature-card animate-in">
+      <span class="feature-number">04</span>
       <div class="feature-icon">
         <div class="icon-phone"></div>
       </div>
       <h4>Tes nuits, eclairees.</h4>
       <p>L'application AURA te montre ton architecture de sommeil, ton deficit, tes tendances — et te recommande l'heure de coucher optimale pour ta prochaine session.</p>
+      <span class="feature-metric">Score & recommandations IA</span>
     </div>
   </div>
 
