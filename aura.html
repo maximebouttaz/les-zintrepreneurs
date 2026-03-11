@@ -839,11 +839,11 @@
     /* PRECOMMANDE */
     .precommande-desc {
       font-size: 0.95rem;
-      color: #6B6B6B;
+      color: #64748B;
       line-height: 1.7;
       max-width: 600px;
       margin-bottom: 2.5rem;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     .progress-container {
@@ -853,7 +853,7 @@
 
     .progress-bar {
       height: 8px;
-      background: #e5e5e5;
+      background: #E2E8F0;
       border-radius: 100px;
       overflow: hidden;
       margin-bottom: 0.6rem;
@@ -861,7 +861,7 @@
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #E8934A, #9B6EC6);
+      background: linear-gradient(90deg, #E8934A, #D97706);
       border-radius: 100px;
       width: 0%;
       transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -876,15 +876,16 @@
     }
 
     .progress-meta .raised {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: #111;
     }
 
     .progress-meta .goal {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: #999;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #94A3B8;
       align-self: flex-end;
     }
 
@@ -898,22 +899,26 @@
 
     .precommande-stat {
       background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
       padding: 1rem 1.2rem;
     }
 
     .precommande-stat .val {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
       font-size: 1.8rem;
-      color: #1A1A1A;
+      color: #111;
       line-height: 1;
     }
 
     .precommande-stat .label {
-      font-size: 0.72rem;
-      color: #6B6B6B;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #94A3B8;
       margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     /* TIER CARDS */
@@ -926,30 +931,33 @@
 
     .tier-card {
       background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
       padding: 2rem;
       display: flex;
       flex-direction: column;
       position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
 
     .tier-card.featured {
-      border-top: 3px solid transparent;
-      border-image: linear-gradient(90deg, #E8934A, #9B6EC6) 1;
-      border-image-slice: 1;
-      border-top-width: 3px;
-      border-top-style: solid;
+      border: 2px solid #E8934A;
+      box-shadow: 0 4px 16px rgba(232,147,74,0.12);
     }
 
     .tier-badge {
       display: inline-block;
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 0.25rem 0.6rem;
-      border-radius: 100px;
+      border-radius: 6px;
       margin-bottom: 1rem;
       width: fit-content;
     }
@@ -961,30 +969,32 @@
     }
 
     .tier-badge.green {
-      color: #2d8a56;
-      border: 1px solid rgba(45,138,86,0.3);
-      background: rgba(45,138,86,0.05);
+      color: #fff;
+      background: linear-gradient(135deg, #E8934A, #D97706);
+      border: none;
     }
 
     .tier-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      color: #1A1A1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #111;
       margin-bottom: 0.2rem;
     }
 
     .tier-price {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
       font-size: 2.4rem;
-      color: #1A1A1A;
+      color: #111;
       margin-bottom: 1.2rem;
     }
 
     .tier-price span {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.85rem;
       font-weight: 400;
-      color: #6B6B6B;
+      color: #64748B;
     }
 
     .tier-list {
@@ -995,9 +1005,9 @@
 
     .tier-list li {
       font-size: 0.82rem;
-      color: #6B6B6B;
+      color: #64748B;
       padding: 0.4rem 0;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid #F1F5F9;
       padding-left: 1.2rem;
       position: relative;
     }
@@ -1011,50 +1021,50 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #d5d5d5;
+      background: #E8934A;
     }
 
     .tier-list li:last-child { border-bottom: none; }
 
     .tier-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: #999;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #94A3B8;
       margin-bottom: 1rem;
     }
 
     .tier-cta {
       width: 100%;
-      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      background: linear-gradient(135deg, #E8934A, #D97706);
       color: #fff;
       padding: 0.8rem;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
-      font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .tier-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .tier-cta:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,147,74,0.3); }
 
     /* FOOTER */
     footer {
-      background: #f0ede8;
-      border-top: 1px solid #e5e5e5;
+      background: #111;
+      border-top: 1px solid #E2E8F0;
       padding: 3rem 5rem;
       text-align: center;
     }
 
     footer p {
       font-size: 0.85rem;
-      color: #6B6B6B;
+      color: #94A3B8;
       line-height: 1.7;
       margin-bottom: 0.4rem;
     }
 
-    footer p strong { color: #1A1A1A; font-weight: 600; }
+    footer p strong { color: #fff; font-weight: 700; }
 
     .footer-links {
       display: flex;
@@ -1065,18 +1075,18 @@
     }
 
     .footer-links a {
-      color: #6B6B6B;
+      color: #94A3B8;
       text-decoration: none;
       font-size: 0.82rem;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: #1A1A1A; }
+    .footer-links a:hover { color: #E8934A; }
 
     .footer-copy {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
-      color: #999;
+      color: #64748B;
     }
 
     /* MODAL */
@@ -1127,10 +1137,11 @@
     .modal-close:hover { background: #e5e5e5; color: #1A1A1A; }
 
     .modal h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
       margin-bottom: 0.3rem;
-      color: #1A1A1A;
+      color: #111;
     }
 
     .modal .modal-sub {
@@ -1140,8 +1151,8 @@
     }
 
     .modal .modal-tier-info {
-      background: #faf5f0;
-      border-radius: 10px;
+      background: rgba(232,147,74,0.04);
+      border-radius: 12px;
       padding: 1rem 1.2rem;
       margin-bottom: 1.5rem;
       display: flex;
@@ -1156,7 +1167,8 @@
     }
 
     .modal .modal-tier-info .tier-amount {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
       font-size: 1.4rem;
       color: #E8934A;
     }
@@ -1183,21 +1195,21 @@
 
     .amount-option:hover,
     .amount-option.selected {
-      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      background: linear-gradient(135deg, #E8934A, #D97706);
       color: #fff;
       border-color: transparent;
     }
 
     .custom-amount {
       width: 100%;
-      background: #f5f5f3;
-      border: 1px solid #e5e5e5;
+      background: #F8F9FA;
+      border: 1px solid #E2E8F0;
       color: #1A1A1A;
       padding: 0.8rem 1rem;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.9rem;
       margin-bottom: 1.2rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -1219,19 +1231,20 @@
 
     .form-field label {
       font-size: 0.72rem;
-      color: #999;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     .form-field input {
-      background: #f5f5f3;
-      border: 1px solid #e5e5e5;
+      background: #F8F9FA;
+      border: 1px solid #E2E8F0;
       color: #1A1A1A;
       padding: 0.75rem 0.9rem;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.9rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       outline: none;
       transition: border-color 0.2s;
       width: 100%;
@@ -1244,22 +1257,22 @@
       align-items: center;
       gap: 0.5rem;
       font-size: 0.72rem;
-      color: #999;
+      color: #94A3B8;
       margin-bottom: 1.2rem;
     }
 
     .pay-btn {
       width: 100%;
-      background: linear-gradient(135deg, #E8934A, #9B6EC6);
+      background: linear-gradient(135deg, #E8934A, #D97706);
       color: #fff;
       padding: 1rem;
-      border-radius: 8px;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 1rem;
       border: none;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
-      font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     .pay-btn:hover { opacity: 0.92; transform: translateY(-1px); }
