@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AURA — Le reveil IA qui respecte votre sommeil</title>
+  <title>AURA — Le simulateur d'aube concu pour les athletes</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -182,6 +182,82 @@
 
     .btn-ghost:hover { color: #111; border-color: #CBD5E1; }
 
+    /* ACTE 1 — LE PROBLEME */
+    .problem-section {
+      background: #111;
+      color: #fff;
+      max-width: none;
+      padding: 6rem 2rem;
+    }
+
+    .problem-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .problem-section .section-tag {
+      color: #E8934A;
+    }
+
+    .problem-narration {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: #94A3B8;
+      max-width: 650px;
+      margin-bottom: 3.5rem;
+      font-weight: 400;
+    }
+
+    .problem-narration strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .problem-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .problem-stat {
+      text-align: center;
+    }
+
+    .problem-stat .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .problem-stat .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+    }
+
+    .problem-stat .source {
+      font-size: 0.65rem;
+      color: #64748B;
+      margin-top: 0.2rem;
+    }
+
+    .problem-transition {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #222;
+    }
+
     /* SECTIONS COMMON */
     section {
       padding: 6rem 5rem;
@@ -218,388 +294,97 @@
       font-weight: 400;
     }
 
-    /* STAT CARDS */
-    .stats-grid {
+    /* ACTE 2B — LE PRODUIT */
+    .product-hero-img {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+
+    .diff-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
-    .stat-card {
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .stat-card:hover {
-      border-color: rgba(232,147,74,0.4);
-      transform: translateY(-2px);
-    }
-
-    .stat-value {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      font-size: 2.4rem;
-      background: linear-gradient(135deg, #111 40%, #E8934A);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-    }
-
-    .stat-unit {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .stat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: #64748B;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 0.5rem;
-    }
-
-    .stat-source {
-      font-size: 0.72rem;
-      color: #94A3B8;
-      margin-top: 0.3rem;
-    }
-
-    /* SCIENCE — HYPNOGRAMME */
-    .hypno-container {
-      margin: 3rem auto;
-      max-width: 800px;
-      position: relative;
-    }
-
-    .hypno-labels {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 30px;
-      width: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 8px 0;
-    }
-
-    .hypno-labels span {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: #94A3B8;
-    }
-
-    .hypno-chart {
-      display: flex;
-      gap: 4px;
-      height: 200px;
-      align-items: flex-end;
-      margin-left: 65px;
-      position: relative;
-    }
-
-    .hypno-bar {
-      width: 12px;
-      border-radius: 4px 4px 0 0;
-      background: #E2E8F0;
-      transition: height 0.8s ease;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .hypno-bar.deep {
-      background: linear-gradient(to top, #E8934A, #D97706);
-      box-shadow: 0 -4px 12px rgba(232,147,74,0.2);
-    }
-
-    .hypno-bar .bar-label {
-      position: absolute;
-      top: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      color: #D97706;
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-radius: 4px;
-      padding: 2px 6px;
-      white-space: nowrap;
-    }
-
-    .hypno-bar .wake-label {
-      position: absolute;
-      top: -34px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: #E8934A;
-      white-space: nowrap;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-
-    .wake-label .arrow {
-      width: 1px;
-      height: 10px;
-      background: #E8934A;
-    }
-
-    /* PHASES CARDS */
-    .phases-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-top: 3rem;
-    }
-
-    .phase-card {
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .phase-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(232,147,74,0.3);
-    }
-
-    .phase-card.highlight {
-      border-left: 3px solid #E8934A;
-      background: rgba(232,147,74,0.02);
-    }
-
-    .phase-card h4 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-      color: #111;
-    }
-
-    .phase-card p {
-      font-size: 0.85rem;
-      color: #64748B;
-      line-height: 1.6;
-    }
-
-    .phase-card .phase-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: #94A3B8;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.6rem;
-      text-transform: uppercase;
-    }
-
-    /* SONS ROSES */
-    .sons-roses {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 700px;
-      margin: 3rem auto;
-      font-size: 0.92rem;
-      color: #64748B;
-      line-height: 1.8;
-      border: 1px solid #E2E8F0;
-      border-left: 3px solid #E8934A;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-
-    .section-cta {
-      text-align: center;
-      margin-top: 3rem;
-    }
-
-    .section-cta a {
-      color: #D97706;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: opacity 0.2s;
-    }
-
-    .section-cta a:hover { opacity: 0.7; }
-
-    /* FEATURES */
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .feature-card {
+    .diff-card {
       background: #fff;
       border: 1px solid #E2E8F0;
       border-radius: 16px;
       padding: 2rem;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .feature-card:hover {
+    .diff-card:hover {
       border-color: rgba(232,147,74,0.4);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
 
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 1.2rem;
-      position: relative;
+    .diff-card .diff-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #D97706;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
     }
 
-    /* Icon: Soleil */
-    .icon-sun {
-      position: relative;
-      width: 40px;
-      height: 40px;
-    }
-
-    .icon-sun .core {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #E8934A, #f0b060);
-    }
-
-    .icon-sun .ray {
-      position: absolute;
-      width: 2px;
-      height: 6px;
-      background: #E8934A;
-      top: 2px;
-      left: 50%;
-      transform-origin: center 18px;
-      border-radius: 1px;
-    }
-
-    .icon-sun .ray:nth-child(2) { transform: translateX(-50%) rotate(0deg); }
-    .icon-sun .ray:nth-child(3) { transform: translateX(-50%) rotate(45deg); }
-    .icon-sun .ray:nth-child(4) { transform: translateX(-50%) rotate(90deg); }
-    .icon-sun .ray:nth-child(5) { transform: translateX(-50%) rotate(135deg); }
-    .icon-sun .ray:nth-child(6) { transform: translateX(-50%) rotate(180deg); }
-    .icon-sun .ray:nth-child(7) { transform: translateX(-50%) rotate(225deg); }
-    .icon-sun .ray:nth-child(8) { transform: translateX(-50%) rotate(270deg); }
-    .icon-sun .ray:nth-child(9) { transform: translateX(-50%) rotate(315deg); }
-
-    /* Icon: Brain */
-    .icon-brain {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      justify-content: center;
-      height: 40px;
-    }
-
-    .icon-brain .wave {
-      width: 30px;
-      height: 8px;
-      border: 2px solid #E8934A;
-      border-radius: 50%;
-      border-bottom: none;
-    }
-
-    .icon-brain .wave:nth-child(2) { width: 24px; margin-left: 3px; }
-    .icon-brain .wave:nth-child(3) { width: 18px; margin-left: 6px; }
-
-    /* Icon: Sound */
-    .icon-sound {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .icon-sound .arc {
-      position: absolute;
-      border: 2px solid #E8934A;
-      border-radius: 50%;
-      border-left: none;
-      border-top: none;
-      border-bottom: none;
-    }
-
-    .icon-sound .arc:nth-child(1) { width: 14px; height: 14px; }
-    .icon-sound .arc:nth-child(2) { width: 24px; height: 24px; opacity: 0.6; }
-    .icon-sound .arc:nth-child(3) { width: 34px; height: 34px; opacity: 0.3; }
-
-    /* Icon: Phone */
-    .icon-phone {
-      width: 22px;
-      height: 34px;
-      border: 2px solid #64748B;
-      border-radius: 6px;
-      position: relative;
-    }
-
-    .icon-phone::after {
-      content: '';
-      position: absolute;
-      top: 4px; left: 3px; right: 3px; bottom: 8px;
-      background: #F1F5F9;
-      border-radius: 2px;
-    }
-
-    .feature-card h4 {
+    .diff-card h4 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: 1.1rem;
-      margin-bottom: 0.5rem;
       color: #111;
+      margin-bottom: 0.5rem;
     }
 
-    .feature-card p {
+    .diff-card p {
       font-size: 0.85rem;
       color: #64748B;
       line-height: 1.7;
     }
 
-    .feature-number {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 3rem;
-      font-weight: 700;
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .result-card .result-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
       color: #111;
-      opacity: 0.04;
       line-height: 1;
     }
 
-    .feature-metric {
-      display: inline-block;
-      margin-top: 0.8rem;
+    .result-card .result-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #D97706;
-      letter-spacing: 0.05em;
-      padding: 4px 8px;
-      background: rgba(232,147,74,0.06);
-      border-radius: 6px;
+      font-size: 0.62rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.4rem;
+      line-height: 1.3;
     }
 
-    /* DESIGN SECTION */
+    .result-card .result-source {
+      font-size: 0.6rem;
+      color: #CBD5E1;
+      margin-top: 0.2rem;
+    }
+
+    /* ACTE 2C — DESIGN */
     .design-section {
       text-align: center;
     }
@@ -608,187 +393,71 @@
       font-size: 0.95rem;
       color: #64748B;
       line-height: 1.8;
-      max-width: 600px;
+      max-width: 550px;
       margin: 0 auto 3rem;
       font-weight: 400;
     }
 
-    .aura-art-large {
-      background: #fff;
-      border-radius: 20px;
-      padding: 4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 500px;
+    .design-img {
+      width: 100%;
+      max-width: 550px;
       margin: 0 auto;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
 
-    .aura-art-large .aura-art {
-      width: 350px;
-      height: 350px;
-      margin: 0;
+    /* ACTE 3 — VISION */
+    .vision-section {
+      background: #FAFAFA;
     }
 
-    .aura-art-large .aura-ring {
-      width: 320px;
-      height: 320px;
-    }
-
-    .aura-art-large .aura-disk {
-      width: 270px;
-      height: 270px;
-    }
-
-    /* AURA ART (design section) */
-    .aura-art {
-      position: relative;
-      width: 280px;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .aura-halo {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      box-shadow: 0 0 80px rgba(232,147,74,0.15);
-    }
-
-    .aura-ring {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      background: conic-gradient(#E8934A, #D97706, #E8934A) border-box;
-      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: breathe 4s infinite ease-in-out;
-    }
-
-    .aura-disk {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #FFF7ED, #FED7AA);
-      animation: breathe 4s infinite ease-in-out;
-    }
-
-    .aura-center {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 20px rgba(232,147,74,0.6);
-      animation: glow 4s infinite ease-in-out;
-    }
-
-    @keyframes breathe {
-      0%, 100% { transform: scale(0.98); }
-      50% { transform: scale(1.02); }
-    }
-
-    @keyframes glow {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    /* RECHERCHE */
-    .research-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .research-card {
-      background: #fff;
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 1.8rem;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      border-left: 3px solid transparent;
-    }
-
-    .research-card:hover {
-      border-color: rgba(232,147,74,0.3);
-      border-left-color: #E8934A;
-      transform: translateY(-2px);
-    }
-
-    .research-card .rc-tag {
+    .vision-transition {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.75rem;
+      color: #D97706;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #D97706;
-      margin-bottom: 0.6rem;
-      padding: 2px 8px;
-      background: rgba(232,147,74,0.06);
-      border-radius: 4px;
-      width: fit-content;
+      margin-bottom: 1rem;
     }
 
-    .research-card .rc-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #111;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-    }
-
-    .research-card .rc-desc {
-      font-size: 0.82rem;
-      color: #64748B;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .research-card .rc-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: #94A3B8;
-      margin-top: 1rem;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .research-card .rc-arrow {
-      color: #D97706;
-      font-weight: 600;
-    }
-
-    .research-cta {
-      text-align: center;
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
       margin-top: 2.5rem;
     }
 
-    .research-cta a {
-      color: #D97706;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(217,119,6,0.3);
-      transition: border-color 0.2s;
+    .vision-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .research-cta a:hover { border-color: #D97706; }
+    .vision-card:hover {
+      border-color: rgba(232,147,74,0.3);
+      transform: translateY(-2px);
+    }
 
-    @media (max-width: 768px) {
-      .research-grid { grid-template-columns: 1fr; }
+    .vision-card .vision-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .vision-card h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .vision-card p {
+      font-size: 0.85rem;
+      color: #64748B;
+      line-height: 1.7;
     }
 
     /* PRECOMMANDE */
@@ -1256,7 +925,9 @@
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .tiers-grid { grid-template-columns: 1fr; max-width: 420px; }
-      .features-grid { grid-template-columns: 1fr 1fr; }
+      .diff-grid { grid-template-columns: 1fr 1fr; }
+      .problem-stats { grid-template-columns: repeat(2, 1fr); }
+      .vision-grid { grid-template-columns: 1fr 1fr; }
       section { padding: 5rem 3rem; }
       .hero { gap: 2rem; padding: 7rem 2rem 3rem; }
     }
@@ -1271,18 +942,12 @@
       .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
       .hero-actions { justify-content: center; flex-direction: column; }
       .hero-visual { max-width: 100%; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .phases-grid { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: 1fr; }
+      .problem-stats { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .problem-section { padding: 4rem 1.5rem; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+      .vision-grid { grid-template-columns: 1fr; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
-      .aura-art { width: 220px; height: 220px; }
-      .aura-ring { width: 200px !important; height: 200px !important; }
-      .aura-disk { width: 170px !important; height: 170px !important; }
-      .aura-art-large { padding: 2.5rem; }
-      .aura-art-large .aura-art { width: 260px; height: 260px; }
-      .aura-art-large .aura-ring { width: 240px !important; height: 240px !important; }
-      .aura-art-large .aura-disk { width: 200px !important; height: 200px !important; }
-      .hypno-chart { overflow-x: auto; }
       footer { padding: 2.5rem 1.5rem; }
       .modal-form-row { grid-template-columns: 1fr; }
       .precommande-stats { max-width: 100%; }
@@ -1324,233 +989,145 @@
   </div>
 </section>
 
+<!-- ACTE 1 — LE PROBLEME -->
+<section class="problem-section" id="probleme">
+  <div class="problem-inner">
+    <div class="section-tag animate-in">// LE PROBLEME</div>
+    <div class="section-title animate-in" style="color:#fff;">Ton reveil te coute<br>plus que tu ne le penses.</div>
+    <p class="problem-narration animate-in">
+      Ton alarme sonne. <strong>Ton corps est encore en sommeil profond.</strong> Cortisol au minimum. Reflexes ralentis. Mauvaise humeur. La journee commence deja en deficit — et tu ne t'en rends meme plus compte.
+    </p>
+
+    <div class="problem-stats">
+      <div class="problem-stat animate-in">
+        <div class="value">6h42</div>
+        <div class="label">Sommeil moyen en France</div>
+        <div class="source">vs 7-9h recommandees</div>
+      </div>
+      <div class="problem-stat animate-in">
+        <div class="value">1.7x</div>
+        <div class="label">Risque de blessure</div>
+        <div class="source">sous 8h — Milewski 2014</div>
+      </div>
+      <div class="problem-stat animate-in">
+        <div class="value">-7.5%</div>
+        <div class="label">Performance globale</div>
+        <div class="source">Craven 2022, N=959</div>
+      </div>
+      <div class="problem-stat animate-in">
+        <div class="value">72%</div>
+        <div class="label">Athletes pas leve-tot naturels</div>
+        <div class="source">Lastella 2015</div>
+      </div>
+    </div>
+
+    <div class="problem-transition animate-in">
+      Il existe une meilleure facon de se reveiller.
+    </div>
+  </div>
+</section>
+
 <div class="divider"></div>
 
-<!-- SCIENCE -->
+<!-- ACTE 2A — LA SCIENCE -->
 <section id="science">
   <div class="section-tag animate-in">// LA SCIENCE</div>
-  <div class="section-title animate-in">Ton sommeil te repare.<br>Encore faut-il le proteger.</div>
-  <p class="section-intro animate-in">Un jeune athlete produit <strong>3 a 6 fois plus de GH</strong> qu'un adulte de 40 ans pendant le sommeil profond. Cette hormone repare tes tendons, ligaments et tissu conjonctif. Mais avec seulement <strong>6,3h de sommeil</strong> en moyenne et un deficit de 2 a 4h, cette fenetre de reparation est tronquee. Resultat : <strong>&times;1,7 risque de blessure</strong> quand tu dors moins de 8h (Milewski 2014).</p>
+  <div class="section-title animate-in">La lumiere est le signal<br>le plus puissant de ton corps.</div>
+  <p class="section-intro animate-in">
+    Chaque matin, la lumiere du soleil declenche une cascade hormonale precise : le cortisol monte, la melatonine chute, ton corps passe en mode eveil. Etre reveille en plein sommeil profond — par une alarme sonore — court-circuite ce processus. Resultat : inertie de sommeil, brouillard mental, perte de reflexes pendant 30 a 60 minutes.
+  </p>
+  <p class="section-intro animate-in" style="margin-bottom:0;">
+    <strong style="color:#111;">AURA reproduit une aube naturelle</strong> pour preparer ton corps au reveil. Pas de choc. Pas de resistance. Ton cortisol monte progressivement, tes cycles se terminent naturellement.
+  </p>
+</section>
 
-  <!-- STAT CARDS -->
-  <div class="stats-grid animate-in">
-    <div class="stat-card">
-      <div class="stat-value">3-6<span class="stat-unit">x</span></div>
-      <div class="stat-label">Production GH vs adulte 40 ans</div>
-      <div class="stat-source">pendant le sommeil profond</div>
+<div class="divider"></div>
+
+<!-- ACTE 2B — LE PRODUIT -->
+<section id="produit">
+  <div class="section-tag animate-in">// LE PRODUIT</div>
+  <div class="section-title animate-in">AURA. La reference<br>du reveil par la lumiere.</div>
+
+  <img src="images/Gemini_Generated_Image_zhw5olzhw5olzhw5.png" alt="AURA simulateur d'aube" class="product-hero-img animate-in" />
+
+  <div class="diff-grid">
+    <div class="diff-card animate-in">
+      <div class="diff-number">01</div>
+      <h4>250 lux melanopiques</h4>
+      <p>La luminosite necessaire pour activer ton horloge biologique. Assez puissant pour declencher la reponse cortisolaire naturelle — meme en plein hiver.</p>
     </div>
-    <div class="stat-card">
-      <div class="stat-value">1.7<span class="stat-unit">x</span></div>
-      <div class="stat-label">Risque de blessure</div>
-      <div class="stat-source">avec moins de 8h (Milewski 2014)</div>
+    <div class="diff-card animate-in">
+      <div class="diff-number">02</div>
+      <h4>Spectre complet</h4>
+      <p>Progression rouge, orange, blanc, lumiere du jour — exactement comme une vraie aube. Chaque longueur d'onde arrive au bon moment pour ton corps.</p>
     </div>
-    <div class="stat-card">
-      <div class="stat-value">6.3<span class="stat-unit">h</span></div>
-      <div class="stat-label">Sommeil reel moyen</div>
-      <div class="stat-source">vs 9h recommandees</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">+40<span class="stat-unit">%</span></div>
-      <div class="stat-label">Performance avec sommeil optimise</div>
-      <div class="stat-source">recuperation physique</div>
+    <div class="diff-card animate-in">
+      <div class="diff-number">03</div>
+      <h4>Montee logarithmique</h4>
+      <p>60 a 90 minutes de montee progressive. Ton corps se prepare naturellement, ton cortisol monte au bon rythme. Pas d'interrupteur. Pas de choc.</p>
     </div>
   </div>
 
-  <!-- HYPNOGRAMME -->
-  <div class="hypno-container animate-in">
-    <div class="hypno-labels">
-      <span>Eveil</span>
-      <span>Leger</span>
-      <span>Profond</span>
+  <div class="results-grid animate-in">
+    <div class="result-card">
+      <div class="result-value">-58ms</div>
+      <div class="result-label">Temps de reaction</div>
+      <div class="result-source">Thompson 2014</div>
     </div>
-    <div class="hypno-chart" id="hypno-chart">
-      <!-- Cycle 1 -->
-      <div class="hypno-bar" style="height:20%"></div>
-      <div class="hypno-bar" style="height:40%"></div>
-      <div class="hypno-bar" style="height:60%"></div>
-      <div class="hypno-bar deep" style="height:90%"><span class="bar-label">Sons roses</span></div>
-      <!-- Cycle 2 -->
-      <div class="hypno-bar" style="height:20%"></div>
-      <div class="hypno-bar" style="height:40%"></div>
-      <div class="hypno-bar" style="height:60%"></div>
-      <div class="hypno-bar deep" style="height:85%"></div>
-      <!-- Cycle 3 -->
-      <div class="hypno-bar" style="height:15%"></div>
-      <div class="hypno-bar" style="height:45%"></div>
-      <div class="hypno-bar" style="height:55%"></div>
-      <div class="hypno-bar deep" style="height:92%"></div>
-      <!-- Cycle 4 -->
-      <div class="hypno-bar" style="height:20%"></div>
-      <div class="hypno-bar" style="height:35%"></div>
-      <div class="hypno-bar" style="height:65%"></div>
-      <div class="hypno-bar deep" style="height:80%"></div>
-      <!-- Cycle 5 — reveil -->
-      <div class="hypno-bar" style="height:25%"></div>
-      <div class="hypno-bar" style="height:40%"></div>
-      <div class="hypno-bar" style="height:50%"></div>
-      <div class="hypno-bar" style="height:20%"><span class="wake-label"><span style="font-weight:600">Reveil optimal</span><span class="arrow"></span></span></div>
+    <div class="result-card">
+      <div class="result-value">+12.8%</div>
+      <div class="result-label">Cortisol au reveil</div>
+      <div class="result-source">Thorn 2004</div>
     </div>
-  </div>
-
-  <!-- PHASES -->
-  <div class="phases-grid">
-    <div class="phase-card animate-in">
-      <div class="phase-label">N1</div>
-      <h4>L'endormissement</h4>
-      <p>La frontiere entre l'eveil et le sommeil. Tes muscles se relachent, le cerveau bascule.</p>
+    <div class="result-card">
+      <div class="result-value">+1.16</div>
+      <div class="result-label">Qualite de sommeil</div>
+      <div class="result-source">Thompson 2014</div>
     </div>
-    <div class="phase-card animate-in">
-      <div class="phase-label">N2</div>
-      <h4>Le sommeil leger</h4>
-      <p>La fenetre ideale pour un reveil sans resistance. AURA la detecte pour te reveiller au bon moment.</p>
+    <div class="result-card">
+      <div class="result-value">-50%</div>
+      <div class="result-label">Inertie de sommeil</div>
+      <div class="result-source">Van de Werken 2010</div>
     </div>
-    <div class="phase-card highlight animate-in">
-      <div class="phase-label">N3 — SOMMEIL PROFOND</div>
-      <h4>Reparation physique</h4>
-      <p>GH au pic, cortisol au nadir : tes tendons, ligaments et tissu conjonctif se reparent. Le collagene est synthetise &times;3,9 (Doessing 2010). C'est ici qu'AURA intervient.</p>
-    </div>
-    <div class="phase-card animate-in">
-      <div class="phase-label">REM</div>
-      <h4>Regulation nerveuse</h4>
-      <p>Cortisol normalise, systeme nerveux reequilibre. Sans REM suffisant : fatigue nerveuse et surentrainement.</p>
-    </div>
-  </div>
-
-  <!-- SONS ROSES -->
-  <div class="sons-roses animate-in">
-    Pendant la phase N3, AURA diffuse des sons roses synchronises avec tes ondes lentes cerebrales. La recherche montre que cette stimulation <strong>reduit le cortisol</strong> (milieu anti-catabolique), <strong>augmente la variabilite cardiaque</strong> (recuperation autonomique) et <strong>renforce la fonction immunitaire</strong> (Besedovsky 2017, Grimaldi 2019). Tu ne les entends pas. Ton corps, si. <em>Note : les sons roses n'augmentent pas directement la GH — leur benefice passe par la reduction du cortisol et l'amelioration du milieu neuroendocrinien.</em>
-  </div>
-
-  <div class="section-cta animate-in">
-    <a href="#features">Decouvrir les fonctionnalites &darr;</a>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- FEATURES -->
-<section id="features">
-  <div class="section-tag animate-in">// FONCTIONNALITES</div>
-  <div class="section-title animate-in">Quatre technologies.<br>Un seul objectif : te reveiller repose.</div>
-
-  <div class="features-grid">
-    <div class="feature-card animate-in">
-      <span class="feature-number">01</span>
-      <div class="feature-icon">
-        <div class="icon-sun">
-          <div class="core"></div>
-          <div class="ray"></div><div class="ray"></div><div class="ray"></div>
-          <div class="ray"></div><div class="ray"></div><div class="ray"></div>
-          <div class="ray"></div><div class="ray"></div>
-        </div>
-      </div>
-      <h4>L'aube, reinventee.</h4>
-      <p>Une lumiere progressive qui simule un lever de soleil naturel. Reduit l'inertie de sommeil et synchronise ton reveil avec ton chronotype — crucial quand tu dois etre a l'entrainement a 6h.</p>
-      <span class="feature-metric">Inertie de sommeil -50%</span>
-    </div>
-
-    <div class="feature-card animate-in">
-      <span class="feature-number">02</span>
-      <div class="feature-icon">
-        <div class="icon-brain">
-          <div class="wave"></div>
-          <div class="wave"></div>
-          <div class="wave"></div>
-        </div>
-      </div>
-      <h4>Une IA qui apprend tes nuits.</h4>
-      <p>AURA analyse tes micro-mouvements et ton rythme cardiaque pour cartographier tes cycles. Elle te reveille en sommeil leger — jamais en plein N3.</p>
-      <span class="feature-metric">Precision cycles 94%</span>
-    </div>
-
-    <div class="feature-card animate-in">
-      <span class="feature-number">03</span>
-      <div class="feature-icon">
-        <div class="icon-sound">
-          <div class="arc"></div>
-          <div class="arc"></div>
-          <div class="arc"></div>
-        </div>
-      </div>
-      <h4>Sons roses : cortisol en baisse, immunite en hausse.</h4>
-      <p>Des sons roses synchronises avec tes ondes lentes pendant le N3. Effet prouve : cortisol reduit, HRV augmentee, fonction immunitaire renforcee (Besedovsky 2017, Grimaldi 2019).</p>
-      <span class="feature-metric">-23% cortisol · +15% HRV</span>
-    </div>
-
-    <div class="feature-card animate-in">
-      <span class="feature-number">04</span>
-      <div class="feature-icon">
-        <div class="icon-phone"></div>
-      </div>
-      <h4>Tes nuits, eclairees.</h4>
-      <p>L'application AURA te montre ton architecture de sommeil, ton deficit, tes tendances — et te recommande l'heure de coucher optimale pour ta prochaine session.</p>
-      <span class="feature-metric">Score & recommandations IA</span>
-    </div>
-  </div>
-
-  <div class="section-cta animate-in" style="margin-top:3rem;">
-    <a href="#precommande">Choisir mon offre &darr;</a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- DESIGN -->
+<!-- ACTE 2C — DESIGN -->
 <section class="design-section">
   <div class="section-tag animate-in">// DESIGN</div>
   <div class="section-title animate-in">Un objet qui sait se taire.</div>
-  <p class="design-desc animate-in">AURA a ete dessine pour disparaitre dans votre chambre — et sublimer votre table de nuit. Lignes epurees, eclairage ambiant modulable.</p>
-
-  <div class="aura-art-large animate-in">
-    <div class="aura-art">
-      <div class="aura-halo"></div>
-      <div class="aura-ring"></div>
-      <div class="aura-disk"></div>
-      <div class="aura-center"></div>
-    </div>
-  </div>
+  <p class="design-desc animate-in">Concu pour disparaitre dans ta chambre et sublimer ta table de nuit. Lignes epurees, surface douce, eclairage ambiant modulable. Pas de LED agressives. Juste une presence calme.</p>
+  <img src="images/98397bc9-823e-4a56-ba78-6d5a1820acdc.JPG" alt="AURA design produit" class="design-img animate-in" />
 </section>
 
 <div class="divider"></div>
 
-<!-- RECHERCHE -->
-<section id="recherche">
-  <div class="section-tag animate-in">// LA RECHERCHE</div>
-  <div class="section-title animate-in">Chaque claim est source.<br>Chaque limite est documentee.</div>
-  <p class="section-intro animate-in">AURA est fonde sur la recherche en neurosciences du sommeil. On ne te vend pas du reve — on te montre exactement ce que la science dit, ce qu'elle ne dit pas encore, et ce qu'on teste.</p>
+<!-- ACTE 3 — LA VISION -->
+<section class="vision-section" id="vision">
+  <div class="vision-transition animate-in">Et ce n'est que le debut.</div>
+  <div class="section-title animate-in">Un reveil qui apprend de toi.</div>
+  <p class="section-intro animate-in">
+    AURA V1 transforme ton reveil. La suite ira encore plus loin : un reveil qui comprend ton sommeil en temps reel et s'adapte a toi, nuit apres nuit.
+  </p>
 
-  <div class="research-grid">
-    <a href="etude-modulation-sommeil.html" class="research-card animate-in">
-      <div class="rc-tag">Essentiel</div>
-      <div class="rc-title">Sommeil et recuperation du jeune athlete : la technologie peut-elle aider ?</div>
-      <div class="rc-desc">Le probleme, les mecanismes de reparation, les 3 priorites du sportif, et les 6 technologies evaluees. L'article central.</div>
-      <div class="rc-meta"><span>20 min</span><span class="rc-arrow">Lire &rarr;</span></div>
-    </a>
-
-    <a href="etude-recuperation-physique.html" class="research-card animate-in">
-      <div class="rc-tag">Deep dive</div>
-      <div class="rc-title">Sommeil profond et recuperation sportive : la chaine causale decryptee</div>
-      <div class="rc-desc">GH, cortisol, collagene, glymphatique : ce qui est prouve, ce qui est speculatif, pourquoi les 15-25 ans ont une fenetre unique.</div>
-      <div class="rc-meta"><span>16 min</span><span class="rc-arrow">Lire &rarr;</span></div>
-    </a>
-
-    <a href="etude-sons-roses-stage-gated.html" class="research-card animate-in">
-      <div class="rc-tag">Deep dive</div>
-      <div class="rc-title">Sons roses pendant le sommeil profond : faut-il un EEG ?</div>
-      <div class="rc-desc">Stage-gated vs phase-locked : les trois approches de stimulation auditive et pourquoi AURA n'a pas besoin d'un bandeau.</div>
-      <div class="rc-meta"><span>14 min</span><span class="rc-arrow">Lire &rarr;</span></div>
-    </a>
-
-    <a href="etude-cycles-sommeil.html" class="research-card animate-in">
-      <div class="rc-tag">Essentiel</div>
-      <div class="rc-title">Se reveiller en forme : la science des cycles du sommeil</div>
-      <div class="rc-desc">Comment fonctionnent les quatre stades et pourquoi le moment du reveil est plus important que la duree totale.</div>
-      <div class="rc-meta"><span>12 min</span><span class="rc-arrow">Lire &rarr;</span></div>
-    </a>
-  </div>
-
-  <div class="research-cta animate-in">
-    <a href="recherche.html">Voir toute la recherche &rarr;</a>
+  <div class="vision-grid">
+    <div class="vision-card animate-in">
+      <div class="vision-icon">&#9790;</div>
+      <h4>Le bon moment, chaque matin</h4>
+      <p>Se reveiller au moment ideal de ton cycle de sommeil. Plus jamais en plein sommeil profond.</p>
+    </div>
+    <div class="vision-card animate-in">
+      <div class="vision-icon">&#10227;</div>
+      <h4>Un reveil qui evolue avec toi</h4>
+      <p>Chaque nuit, AURA apprend ton rythme et affine son intervention. Plus tu l'utilises, plus il est precis.</p>
+    </div>
+    <div class="vision-card animate-in">
+      <div class="vision-icon">&#9889;</div>
+      <h4>Optimiser ta recuperation</h4>
+      <p>Ameliorer la qualite de ton sommeil pendant que tu dors. Pas seulement un meilleur reveil — un meilleur sommeil.</p>
+    </div>
   </div>
 </section>
 
@@ -1559,8 +1136,8 @@
 <!-- PRECOMMANDE -->
 <section id="precommande">
   <div class="section-tag animate-in">// PRE-COMMANDE</div>
-  <div class="section-title animate-in">Les premiers leves seront<br>les mieux servis.</div>
-  <p class="precommande-desc animate-in">Soutenez le projet et faites partie des premiers a vivre le reveil tel qu'il devrait etre.</p>
+  <div class="section-title animate-in">Fais partie des premiers<br>a changer ta facon de te reveiller.</div>
+  <p class="precommande-desc animate-in">AURA est ne de l'idee de deux cousins convaincus qu'on peut mieux dormir grace a la technologie — sans la subir. Soutiens le projet et fais partie des premiers a vivre le reveil tel qu'il devrait etre.</p>
 
   <div class="progress-container animate-in">
     <div class="progress-bar">
@@ -1589,15 +1166,15 @@
   <!-- TIERS -->
   <div class="tiers-grid">
     <!-- Early Bird -->
-    <div class="tier-card featured animate-in">
-      <div class="tier-badge accent">LIMITE A 100 UNITES</div>
+    <div class="tier-card animate-in">
+      <div class="tier-badge accent">LIMITE — <span id="early-bird-remaining">72</span> RESTANTS</div>
       <div class="tier-name">Early Bird</div>
-      <div class="tier-price">149 EUR</div>
+      <div class="tier-price">149 <span>EUR</span></div>
       <ul class="tier-list">
         <li>1 reveil AURA</li>
         <li>Application premium 1 an</li>
         <li>Livraison France incluse</li>
-        <li>Votre nom parmi les premiers soutiens</li>
+        <li>Ton nom parmi les premiers soutiens</li>
       </ul>
       <div class="tier-date">Livraison estimee : septembre 2026</div>
       <button class="tier-cta" onclick="openModal('Early Bird', 149)">J'en profite — 149 EUR</button>
@@ -1606,7 +1183,7 @@
     <!-- Standard -->
     <div class="tier-card animate-in">
       <div class="tier-name" style="margin-top:0.5rem;">Standard</div>
-      <div class="tier-price">179 EUR</div>
+      <div class="tier-price">179 <span>EUR</span></div>
       <ul class="tier-list">
         <li>1 reveil AURA</li>
         <li>Application premium 1 an</li>
@@ -1621,13 +1198,13 @@
     <div class="tier-card featured animate-in">
       <div class="tier-badge green">POPULAIRE</div>
       <div class="tier-name">Premium</div>
-      <div class="tier-price">199 EUR</div>
+      <div class="tier-price">199 <span>EUR</span></div>
       <ul class="tier-list">
         <li>1 reveil AURA</li>
         <li>Application premium a vie</li>
         <li>Livraison France + EU incluse</li>
         <li>3 coloris au choix</li>
-        <li>Acces beta IA avancee</li>
+        <li>Acces beta fonctionnalites V2</li>
       </ul>
       <div class="tier-date">Livraison estimee : octobre 2026</div>
       <button class="tier-cta" onclick="openModal('Premium', 199)">Pre-commander — 199 EUR</button>
@@ -1642,7 +1219,7 @@
   <div class="footer-links">
     <a href="recherche.html">Recherche</a>
     <a href="index.html">Accueil</a>
-    <a href="mailto:contact@leszintrepreneurs.com">Email</a>
+    <a href="mailto:contact@leszintrepreneurs.com">Contact</a>
   </div>
   <div class="footer-copy">&copy; 2026 Les Zintrepreneurs. Tous droits reserves.</div>
 </footer>
@@ -1691,6 +1268,7 @@
   const goal = 30000;
   let contributors = 28;
   let selectedAmount = null;
+  let earlyBirdRemaining = 72;
 
   // ---- INIT ----
   function init() {
@@ -1786,6 +1364,11 @@
     closeModal();
     totalRaised += amount;
     contributors += 1;
+    if (selectedAmount === 149) {
+      earlyBirdRemaining = Math.max(0, earlyBirdRemaining - 1);
+      const el = document.getElementById('early-bird-remaining');
+      if (el) el.textContent = earlyBirdRemaining;
+    }
     animateCounter('total-amount', totalRaised - amount, totalRaised, 'EUR', 800);
     animateCounter('nb-contributors', contributors - 1, contributors, '', 600);
     const pct = Math.min((totalRaised / goal) * 100, 100);
