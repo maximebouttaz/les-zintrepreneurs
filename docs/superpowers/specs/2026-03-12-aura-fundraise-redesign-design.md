@@ -35,6 +35,24 @@ Refondre la page produit AURA en format "pitch deck scrollable" en 3 actes pour 
 - Optimisation de la récupération pendant le sommeil
 - Pas de mention de bracelet, capteurs, ou specs techniques
 
+## Delta avec l'existant
+
+La page actuelle (`aura.html`) a la structure suivante :
+- Nav → Hero (hypnogramme SVG animé) → Science (stats + hypnogramme + phases + sons roses) → Features (4 cards dont IA/V2) → Design → Recherche → Pré-commande → Footer
+
+**Ce qui change :**
+
+| Section existante | Action | Nouvelle section |
+|---|---|---|
+| Hero (hypnogramme SVG) | **Remplacé** | Hero avec photo produit |
+| Science (stats, phases, sons roses) | **Réécrit et déplacé** | Acte 1 (problème, stats) + Acte 2A (science du réveil) |
+| Features (4 cards incl. IA/sons roses) | **Remplacé** | Acte 2B (3 cards V1 uniquement). Le contenu IA/V2 est retiré des features et déplacé vers l'Acte 3 (Vision), reformulé en bénéfices sans specs techniques. |
+| Design | **Gardé et adapté** | Acte 2C (même concept, palette épurée) |
+| Recherche | **Supprimé de la page** | Les pages d'études restent accessibles via leurs URLs directes, mais la section n'apparaît plus sur la page produit — elle distrait du parcours de conversion. |
+| Pré-commande | **Gardé et adapté** | Dénouement (mêmes paliers, ajout compteur urgence) |
+| Modal pré-commande | **Gardé** | Le modal existant (openModal avec formulaire nom/email/phone) reste en place. Les CTAs des paliers ouvrent le modal comme actuellement. Style du modal mis à jour pour correspondre à la palette épurée. |
+| Footer | **Adapté** | Même structure, palette épurée |
+
 ## Design System
 
 ### Évolution du système existant
@@ -57,26 +75,26 @@ Refondre la page produit AURA en format "pitch deck scrollable" en 3 actes pour 
 - Sticky, fond blur
 - Logo "LES ZINTREPRENEURS"
 - Links : La science, Le produit, Vision, Pré-commander
-- CTA : "Soutenir le projet" (bouton primary orange)
+- CTA : "Pré-commander" (bouton primary orange)
 
 ### HERO
 - Headline fort, tutoiement premium (ex: "Tu mérites mieux qu'un réveil brutal.")
 - Sous-titre : "AURA. Le simulateur d'aube conçu pour les athlètes."
-- Photo produit (cube givré) en grand — à droite ou en fond
+- Photo produit (cube givré) en grand — à droite ou en fond. Remplace l'hypnogramme SVG animé actuel.
 - CTAs : "Pré-commander AURA" (primary) + "Découvrir la science" (ghost)
 - Prix : "À partir de 149 EUR · Livraison Sept. 2026"
 - Badge : JetBrains Mono, identité premium/sport
 
 ### ACTE 1 — LE PROBLÈME
-**Objectif** : créer l'identification émotionnelle avec le pain point.
+**Objectif** : créer l'identification émotionnelle avec le pain point. Section entièrement nouvelle.
 
 - **Fond sombre** (#111 ou très foncé) pour marquer la rupture visuelle
 - **Narration immersive** : "Ton alarme sonne. Ton corps est encore en sommeil profond. Cortisol au minimum. Réflexes ralentis. La journée commence déjà en déficit."
 - **Stats clés en gros** (JetBrains Mono pour les chiffres) :
   - `6h42` — sommeil moyen en France
   - `1.7x` — risque de blessure sous 8h de sommeil (Milewski 2014)
-  - `-7.5%` — baisse de performance avec mauvais sommeil (Craven 2022)
-  - `72%` — des athlètes d'élite ne sont pas des lève-tôt naturels
+  - `-7.5%` — baisse de performance avec mauvais sommeil (Craven 2022, meta-analyse 69 études N=959)
+  - `72%` — des athlètes d'élite ne sont pas des lève-tôt naturels (Lastella 2015, Sargent 2014 : 28% matinaux, 65% intermédiaires, 6% vespéraux)
 - **Transition narrative** : "Il existe une meilleure façon de se réveiller."
 - Les stats apparaissent au scroll (animation fade-in)
 
@@ -92,7 +110,7 @@ Refondre la page produit AURA en format "pitch deck scrollable" en 3 actes pour 
 #### 2B — Le produit (1-2 écrans, section principale)
 - Section tag : "// LE PRODUIT"
 - **Grande photo produit centrée** (le cube givré allumé)
-- **3 différenciateurs en cards** :
+- **3 différenciateurs en cards** (V1 uniquement, pas de contenu IA/V2) :
   - **250 lux melanopiques** — la luminosité nécessaire pour activer ton horloge biologique
   - **Spectre complet** — progression rouge → orange → blanc → lumière du jour, comme une vraie aube
   - **Montée logarithmique** — 60-90 min de montée progressive, ton corps se prépare naturellement
@@ -132,7 +150,8 @@ Refondre la page produit AURA en format "pitch deck scrollable" en 3 actes pour 
   - **Early Bird | 149 EUR** — badge "LIMITÉ", 1 AURA, App 1 an, livraison France, nom dans les premiers soutiens. Livraison sept. 2026
   - **Standard | 179 EUR** — 1 AURA, App 1 an, livraison France, choix couleur. Livraison oct. 2026
   - **Premium | 199 EUR** — badge "POPULAIRE", border orange, scale(1.02). 1 AURA, App à vie, livraison France+Europe, choix couleur (3 options), accès beta V2. Livraison oct. 2026
-- **Urgence** : compteur places restantes Early Bird
+- **Urgence** : compteur places restantes Early Bird (nouveau — nécessite une variable JS pour le nombre restant)
+- **Modal** : les CTAs des paliers ouvrent le modal existant (openModal). Le modal est restyled pour la palette épurée (orange en accent uniquement).
 
 ### FOOTER
 - Fond dark (#111)
