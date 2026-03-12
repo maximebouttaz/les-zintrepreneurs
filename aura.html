@@ -74,73 +74,17 @@
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
       padding: 7rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .hero-bg-svg {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.12;
-      pointer-events: none;
-    }
-
-    .hero-bg-svg .grid-line {
-      stroke: #E8934A;
-      stroke-width: 0.5;
-      stroke-dasharray: 4 8;
-    }
-
-    .hero-bg-svg .hypno-curve {
-      fill: none;
-      stroke: url(#hero-grad);
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 3000;
-      stroke-dashoffset: 3000;
-      animation: drawHypno 3s ease-out forwards;
-    }
-
-    .hero-bg-svg .hypno-fill {
-      fill: url(#hero-fill);
-      opacity: 0;
-      animation: fadeInFill 3s ease-out forwards;
-    }
-
-    @keyframes drawHypno {
-      to { stroke-dashoffset: 0; }
-    }
-
-    @keyframes fadeInFill {
-      to { opacity: 0.3; }
-    }
-
-    .hero-y-labels {
-      position: absolute;
-      left: 2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: #D97706;
-      opacity: 0.25;
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-    }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
+      flex: 1;
+      max-width: 520px;
     }
 
     .hero-badge {
@@ -161,11 +105,11 @@
     .hero h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      font-size: clamp(3rem, 6vw, 4.5rem);
-      line-height: 1.05;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      line-height: 1.08;
       letter-spacing: -1.5px;
       color: #111;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     .hero-subtitle {
@@ -194,6 +138,17 @@
       font-size: 0.72rem;
       color: #94A3B8;
       margin-top: 0.5rem;
+    }
+
+    .hero-visual {
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     }
 
     .btn-primary {
@@ -1303,20 +1258,23 @@
       .tiers-grid { grid-template-columns: 1fr; max-width: 420px; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       section { padding: 5rem 3rem; }
+      .hero { gap: 2rem; padding: 7rem 2rem 3rem; }
     }
 
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       section { padding: 4rem 1.5rem; }
-      .hero { padding: 6rem 1.5rem 3rem; }
+      .hero { flex-direction: column; text-align: center; gap: 2rem; padding: 6rem 1.5rem 3rem; }
+      .hero-content { max-width: 100%; }
+      .hero-subtitle { max-width: 100%; }
       .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
-      .hero-y-labels { display: none; }
+      .hero-actions { justify-content: center; flex-direction: column; }
+      .hero-visual { max-width: 100%; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .phases-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
-      .hero-actions { flex-direction: column; }
       .aura-art { width: 220px; height: 220px; }
       .aura-ring { width: 200px !important; height: 200px !important; }
       .aura-disk { width: 170px !important; height: 170px !important; }
@@ -1350,43 +1308,19 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="max-width:1200px; padding-left:2rem; padding-right:2rem;">
-  <!-- Hypnogramme SVG background -->
-  <svg class="hero-bg-svg" viewBox="0 0 800 400" preserveAspectRatio="none">
-    <line class="grid-line" x1="0" y1="80" x2="800" y2="80"/>
-    <line class="grid-line" x1="0" y1="160" x2="800" y2="160"/>
-    <line class="grid-line" x1="0" y1="240" x2="800" y2="240"/>
-    <line class="grid-line" x1="0" y1="320" x2="800" y2="320"/>
-    <path class="hypno-curve" d="M0,80 L60,80 L65,160 L140,160 L145,240 L200,240 L205,320 L280,320 L285,240 L320,240 L325,160 L360,160 L365,80 L400,80 L405,160 L460,160 L465,320 L540,320 L545,240 L580,240 L585,160 L620,160 L625,80 L680,80 L685,160 L720,160 L725,80 L800,80"/>
-    <path class="hypno-fill" d="M0,80 L60,80 L65,160 L140,160 L145,240 L200,240 L205,320 L280,320 L285,240 L320,240 L325,160 L360,160 L365,80 L400,80 L405,160 L460,160 L465,320 L540,320 L545,240 L580,240 L585,160 L620,160 L625,80 L680,80 L685,160 L720,160 L725,80 L800,80 L800,400 L0,400 Z"/>
-    <defs>
-      <linearGradient id="hero-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#E8934A"/>
-        <stop offset="100%" stop-color="#D97706"/>
-      </linearGradient>
-      <linearGradient id="hero-fill" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#E8934A" stop-opacity="0.15"/>
-        <stop offset="100%" stop-color="#E8934A" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <div class="hero-y-labels">
-    <span>EVEIL</span>
-    <span>REM</span>
-    <span>N2</span>
-    <span>N3</span>
-  </div>
-
+<section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">CONCU POUR LES JEUNES ATHLETES</div>
-    <h1>Arrete de te<br>reveiller claque.</h1>
-    <p class="hero-subtitle"><strong>AURA.</strong> Le reveil IA qui repare ton sommeil pendant que tu dors.</p>
+    <div class="hero-badge">SIMULATEUR D'AUBE PREMIUM</div>
+    <h1>Tu merites mieux<br>qu'un reveil brutal.</h1>
+    <p class="hero-subtitle"><strong>AURA.</strong> Le simulateur d'aube concu pour les athletes.</p>
     <div class="hero-actions">
       <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
-      <a href="#science" class="btn-ghost">Decouvrir</a>
+      <a href="#science" class="btn-ghost">Decouvrir la science</a>
     </div>
     <p class="hero-price">A partir de 149 EUR · Livraison Sept. 2026</p>
+  </div>
+  <div class="hero-visual">
+    <img src="images/98397bc9-823e-4a56-ba78-6d5a1820acdc.JPG" alt="AURA — simulateur d'aube sur table de nuit" />
   </div>
 </section>
 
