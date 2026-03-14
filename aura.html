@@ -1521,35 +1521,62 @@
       }
     ];
 
-    const frames = new Array(FRAME_COUNT);
-    let currentFrame = 0;
+    // ImageBitmap array — GPU-ready, drawImage quasi-instantane
+    const bitmaps = new Array(FRAME_COUNT).fill(null);
+    let loadedCount = 0;
+    let targetFrame = 0;
+    let renderedFrame = -1;
     let currentPhaseIndex = -1;
+    let rafPending = false;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      if (frames[currentFrame] && frames[currentFrame].complete) drawFrame(currentFrame);
+      renderedFrame = -1; // force redraw
+      scheduleRender();
     }
 
+    // Charge et decode toutes les frames en ImageBitmap (GPU-ready)
     function loadFrames() {
       for (let i = 0; i < FRAME_COUNT; i++) {
         const img = new Image();
         const num = String(i + 1).padStart(4, '0');
         img.src = 'images/frames/frame_' + num + '.jpg';
-        frames[i] = img;
+        img.onload = (function(idx, el) {
+          return function() {
+            createImageBitmap(el).then(function(bmp) {
+              bitmaps[idx] = bmp;
+              loadedCount++;
+              if (idx === 0) { scheduleRender(); updateCopy(0); }
+            });
+          };
+        })(i, img);
       }
     }
 
     function drawFrame(index) {
-      const img = frames[index];
-      if (!img || !img.complete || !img.naturalWidth) return;
-      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
-      const w = img.naturalWidth * scale;
-      const h = img.naturalHeight * scale;
+      const bmp = bitmaps[index];
+      if (!bmp) return;
+      const scale = Math.max(canvas.width / bmp.width, canvas.height / bmp.height);
+      const w = bmp.width * scale;
+      const h = bmp.height * scale;
       const x = (canvas.width - w) / 2;
       const y = (canvas.height - h) / 2;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, x, y, w, h);
+      ctx.drawImage(bmp, x, y, w, h);
+    }
+
+    // rAF : ne dessine qu'une fois par frame navigateur
+    function scheduleRender() {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(function() {
+        rafPending = false;
+        if (targetFrame !== renderedFrame && bitmaps[targetFrame]) {
+          drawFrame(targetFrame);
+          renderedFrame = targetFrame;
+        }
+      });
     }
 
     function updateCopy(phaseIndex) {
@@ -1577,11 +1604,8 @@
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
 
-      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
-      if (frameIndex !== currentFrame) {
-        currentFrame = frameIndex;
-        drawFrame(currentFrame);
-      }
+      targetFrame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      scheduleRender();
 
       const fill = document.getElementById('tech-progress-fill');
       if (fill) fill.style.width = (progress * 100) + '%';
@@ -1590,22 +1614,10 @@
       updateCopy(phaseIndex);
     }
 
-    function initCopy() {
-      updateCopy(0);
-      drawFrame(0);
-    }
-
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', onScroll, { passive: true });
     resizeCanvas();
     loadFrames();
-
-    var waitForFirst = setInterval(function() {
-      if (frames[0] && frames[0].complete && frames[0].naturalWidth) {
-        clearInterval(waitForFirst);
-        initCopy();
-      }
-    }, 50);
   })();
 
   // ---- START ----
