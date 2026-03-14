@@ -460,6 +460,102 @@
       line-height: 1.7;
     }
 
+    /* TECHNOLOGIE — SCROLL SCRUBBING */
+    .tech-section {
+      position: relative;
+      height: 400vh;
+    }
+
+    .tech-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0A0A0A;
+    }
+
+    .tech-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tech-overlay {
+      position: relative;
+      z-index: 2;
+      max-width: 480px;
+      padding: 2rem;
+      pointer-events: none;
+      align-self: flex-end;
+      margin-bottom: 4rem;
+      margin-left: auto;
+      margin-right: 5%;
+    }
+
+    .tech-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #E8934A;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .tech-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .tech-label.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tech-desc {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    }
+
+    .tech-desc.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tech-progress {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    .tech-progress-fill {
+      height: 100%;
+      background: #E8934A;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
     /* PRECOMMANDE */
     .precommande-desc {
       font-size: 0.95rem;
@@ -947,6 +1043,8 @@
       .diff-grid { grid-template-columns: 1fr; }
       .results-grid { grid-template-columns: repeat(2, 1fr); }
       .vision-grid { grid-template-columns: 1fr; }
+      .tech-section { height: 300vh; }
+      .tech-overlay { margin-right: auto; margin-left: auto; text-align: center; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
       footer { padding: 2.5rem 1.5rem; }
       .modal-form-row { grid-template-columns: 1fr; }
@@ -1127,6 +1225,23 @@
       <div class="vision-icon">&#9889;</div>
       <h4>Optimiser ta recuperation</h4>
       <p>Ameliorer la qualite de ton sommeil pendant que tu dors. Pas seulement un meilleur reveil — un meilleur sommeil.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIE — SCROLL SCRUBBING -->
+<section class="tech-section" id="technologie">
+  <div class="tech-sticky">
+    <canvas class="tech-canvas" id="tech-canvas"></canvas>
+
+    <div class="tech-overlay">
+      <div class="tech-tag">// TECHNOLOGIE</div>
+      <div class="tech-label" id="tech-label"></div>
+      <p class="tech-desc" id="tech-desc"></p>
+    </div>
+
+    <div class="tech-progress">
+      <div class="tech-progress-fill" id="tech-progress-fill"></div>
     </div>
   </div>
 </section>
@@ -1383,6 +1498,115 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // ---- TECH SCROLL SCRUBBING ----
+  (function() {
+    const FRAME_COUNT = 80;
+    const canvas = document.getElementById('tech-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const copyPhases = [
+      {
+        label: 'Concu pour durer.<br>Engineere pour performer.',
+        desc: 'Chaque composant d\'AURA a ete selectionne pour sa precision spectrale. Un moteur LED full-spectrum, un diffuseur optique sur mesure, une montee logarithmique implementee en firmware.'
+      },
+      {
+        label: 'Un spectre,<br>pas une couleur.',
+        desc: 'Du rouge profond (620nm) a la lumiere du jour (6500K) : AURA reproduit chaque etape de l\'aube solaire avec une fidelite spectrale que les simulateurs classiques ne peuvent pas atteindre.'
+      },
+      {
+        label: '250 lux melanopiques.<br>Rien de moins.',
+        desc: 'Le seuil clinique pour activer les cellules ipRGC et declencher la suppression de melatonine. AURA est le seul simulateur d\'aube grand public a l\'atteindre.'
+      }
+    ];
+
+    const frames = new Array(FRAME_COUNT);
+    let currentFrame = 0;
+    let currentPhaseIndex = -1;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (frames[currentFrame] && frames[currentFrame].complete) drawFrame(currentFrame);
+    }
+
+    function loadFrames() {
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const img = new Image();
+        const num = String(i + 1).padStart(4, '0');
+        img.src = 'images/frames/frame_' + num + '.jpg';
+        frames[i] = img;
+      }
+    }
+
+    function drawFrame(index) {
+      const img = frames[index];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+      const x = (canvas.width - w) / 2;
+      const y = (canvas.height - h) / 2;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, x, y, w, h);
+    }
+
+    function updateCopy(phaseIndex) {
+      if (phaseIndex === currentPhaseIndex) return;
+      currentPhaseIndex = phaseIndex;
+      const phase = copyPhases[phaseIndex];
+      const labelEl = document.getElementById('tech-label');
+      const descEl = document.getElementById('tech-desc');
+      if (!labelEl || !descEl) return;
+      labelEl.classList.remove('visible');
+      descEl.classList.remove('visible');
+      setTimeout(function() {
+        labelEl.innerHTML = phase.label;
+        descEl.textContent = phase.desc;
+        labelEl.classList.add('visible');
+        descEl.classList.add('visible');
+      }, 250);
+    }
+
+    function onScroll() {
+      const section = document.getElementById('technologie');
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const sectionHeight = section.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
+
+      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      if (frameIndex !== currentFrame) {
+        currentFrame = frameIndex;
+        drawFrame(currentFrame);
+      }
+
+      const fill = document.getElementById('tech-progress-fill');
+      if (fill) fill.style.width = (progress * 100) + '%';
+
+      const phaseIndex = progress < 0.4 ? 0 : progress < 0.7 ? 1 : 2;
+      updateCopy(phaseIndex);
+    }
+
+    function initCopy() {
+      updateCopy(0);
+      drawFrame(0);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    resizeCanvas();
+    loadFrames();
+
+    var waitForFirst = setInterval(function() {
+      if (frames[0] && frames[0].complete && frames[0].naturalWidth) {
+        clearInterval(waitForFirst);
+        initCopy();
+      }
+    }, 50);
+  })();
 
   // ---- START ----
   window.addEventListener('load', init);
