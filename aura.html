@@ -1599,10 +1599,18 @@
           var num = String(idx + 1).padStart(4, '0');
           img.src = 'images/frames/frame_' + num + '.jpg';
           img.onload = function() {
-            createImageBitmap(img).then(function(bmp) {
-              bitmaps[idx] = bmp;
+            if (typeof createImageBitmap === 'function') {
+              createImageBitmap(img).then(function(bmp) {
+                bitmaps[idx] = bmp;
+                if (idx === 0) scheduleRender();
+              }).catch(function() {
+                bitmaps[idx] = img;
+                if (idx === 0) scheduleRender();
+              });
+            } else {
+              bitmaps[idx] = img;
               if (idx === 0) scheduleRender();
-            });
+            }
           };
         })(i);
       }
