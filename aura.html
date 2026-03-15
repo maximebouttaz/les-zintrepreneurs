@@ -75,16 +75,39 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 4rem;
-      padding: 7rem 2rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 4rem 0;
+      background: #F8F9FA;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: stretch;
+      margin-left: 10%;
+      width: 90%;
+      min-height: 0;
     }
 
     .hero-content {
+      flex: 0 0 38.9%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3.5rem;
+      background: #F8F9FA;
+    }
+
+    .hero-visual {
       flex: 1;
-      max-width: 520px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     .hero-badge {
@@ -100,12 +123,13 @@
       border: 1px solid rgba(232,147,74,0.3);
       border-radius: 6px;
       margin-bottom: 1.5rem;
+      width: fit-content;
     }
 
     .hero h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      font-size: clamp(2.8rem, 5vw, 4rem);
+      font-size: clamp(2.2rem, 2.8vw, 3.2rem);
       line-height: 1.08;
       letter-spacing: -1.5px;
       color: #111;
@@ -116,9 +140,8 @@
       font-size: 1rem;
       color: #64748B;
       line-height: 1.7;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
       font-weight: 400;
-      max-width: 420px;
     }
 
     .hero-subtitle strong {
@@ -130,6 +153,7 @@
       display: flex;
       gap: 0.8rem;
       align-items: center;
+      flex-wrap: wrap;
       margin-bottom: 1rem;
     }
 
@@ -138,17 +162,6 @@
       font-size: 0.72rem;
       color: #94A3B8;
       margin-top: 0.5rem;
-    }
-
-    .hero-visual {
-      flex: 1;
-      max-width: 480px;
-    }
-
-    .hero-visual img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     }
 
     .btn-primary {
@@ -470,30 +483,28 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #fff;
       overflow: hidden;
-      background: #0A0A0A;
+    }
+
+    .tech-canvas-wrap {
+      position: absolute;
+      inset: 0;
     }
 
     .tech-canvas {
-      position: absolute;
-      inset: 0;
       width: 100%;
       height: 100%;
+      display: block;
     }
 
     .tech-overlay {
-      position: relative;
+      position: absolute;
+      left: 5rem;
+      top: 50%;
+      transform: translateY(-50%);
       z-index: 2;
-      max-width: 480px;
-      padding: 2rem;
-      pointer-events: none;
-      align-self: flex-end;
-      margin-bottom: 4rem;
-      margin-left: auto;
-      margin-right: 5%;
+      max-width: 380px;
     }
 
     .tech-tag {
@@ -509,8 +520,8 @@
     .tech-label {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      color: #fff;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      color: #111;
       line-height: 1.1;
       margin-bottom: 0.8rem;
       opacity: 0;
@@ -525,8 +536,9 @@
 
     .tech-desc {
       font-size: 0.88rem;
-      color: #94A3B8;
+      color: #64748B;
       line-height: 1.7;
+      margin-bottom: 1.5rem;
       opacity: 0;
       transform: translateY(12px);
       transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
@@ -538,13 +550,9 @@
     }
 
     .tech-progress {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
       width: 60px;
       height: 2px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.1);
       border-radius: 2px;
     }
 
@@ -1025,26 +1033,26 @@
       .problem-stats { grid-template-columns: repeat(2, 1fr); }
       .vision-grid { grid-template-columns: 1fr 1fr; }
       section { padding: 5rem 3rem; }
-      .hero { gap: 2rem; padding: 7rem 2rem 3rem; }
+      .hero-inner { margin-left: 6%; }
+      .hero-content { flex: 0 0 42%; padding: 3.5rem 2.5rem; }
     }
 
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       section { padding: 4rem 1.5rem; }
-      .hero { flex-direction: column; text-align: center; gap: 2rem; padding: 6rem 1.5rem 3rem; }
-      .hero-content { max-width: 100%; }
-      .hero-subtitle { max-width: 100%; }
-      .hero h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
-      .hero-actions { justify-content: center; flex-direction: column; }
-      .hero-visual { max-width: 100%; }
+      .hero { padding: 0; align-items: stretch; }
+      .hero-inner { flex-direction: column; margin-left: 0; width: 100%; }
+      .hero-visual { height: 55vw; max-height: 60vh; }
+      .hero-content { flex: none; padding: 3rem 2rem; }
+      .hero h1 { font-size: clamp(2rem, 7vw, 2.8rem); }
       .problem-stats { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
       .problem-section { padding: 4rem 1.5rem; }
       .diff-grid { grid-template-columns: 1fr; }
       .results-grid { grid-template-columns: repeat(2, 1fr); }
       .vision-grid { grid-template-columns: 1fr; }
       .tech-section { height: 220vh; }
-      .tech-overlay { margin-right: auto; margin-left: auto; text-align: center; }
+      .tech-overlay { left: 1.5rem; right: 1.5rem; max-width: 100%; top: auto; bottom: 2rem; transform: none; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
       footer { padding: 2.5rem 1.5rem; }
       .modal-form-row { grid-template-columns: 1fr; }
@@ -1072,18 +1080,20 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">SIMULATEUR D'AUBE PREMIUM</div>
-    <h1>Tu merites mieux<br>qu'un reveil brutal.</h1>
-    <p class="hero-subtitle"><strong>AURA.</strong> Le simulateur d'aube concu pour les athletes.</p>
-    <div class="hero-actions">
-      <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
-      <a href="#science" class="btn-ghost">Decouvrir la science</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">SIMULATEUR D'AUBE PREMIUM</div>
+      <h1>Tu merites mieux<br>qu'un reveil brutal.</h1>
+      <p class="hero-subtitle"><strong>AURA.</strong> Le simulateur d'aube concu pour les athletes.</p>
+      <div class="hero-actions">
+        <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
+        <a href="#science" class="btn-ghost">Decouvrir la science</a>
+      </div>
+      <p class="hero-price">A partir de 149 EUR · Livraison Sept. 2026</p>
     </div>
-    <p class="hero-price">A partir de 149 EUR · Livraison Sept. 2026</p>
-  </div>
-  <div class="hero-visual">
-    <img src="images/98397bc9-823e-4a56-ba78-6d5a1820acdc.JPG" alt="AURA — simulateur d'aube sur table de nuit" />
+    <div class="hero-visual">
+      <img src="images/98397bc9-823e-4a56-ba78-6d5a1820acdc.JPG" alt="AURA — simulateur d'aube sur table de nuit" />
+    </div>
   </div>
 </section>
 
@@ -1232,16 +1242,16 @@
 <!-- TECHNOLOGIE — SCROLL SCRUBBING -->
 <section class="tech-section" id="technologie">
   <div class="tech-sticky">
-    <canvas class="tech-canvas" id="tech-canvas"></canvas>
-
     <div class="tech-overlay">
       <div class="tech-tag">// TECHNOLOGIE</div>
       <div class="tech-label" id="tech-label"></div>
       <p class="tech-desc" id="tech-desc"></p>
+      <div class="tech-progress">
+        <div class="tech-progress-fill" id="tech-progress-fill"></div>
+      </div>
     </div>
-
-    <div class="tech-progress">
-      <div class="tech-progress-fill" id="tech-progress-fill"></div>
+    <div class="tech-canvas-wrap">
+      <canvas class="tech-canvas" id="tech-canvas"></canvas>
     </div>
   </div>
 </section>
@@ -1553,11 +1563,11 @@
     function drawFrame(idx) {
       var bmp = bitmaps[idx];
       if (!bmp) return;
-      var scale = Math.max(canvas.width / bmp.width, canvas.height / bmp.height);
+      var scale = Math.min(canvas.width / bmp.width, canvas.height / bmp.height) * 1.2;
       var w = bmp.width * scale;
       var h = bmp.height * scale;
-      var x = (canvas.width  - w) / 2;
-      var y = (canvas.height - h) / 2;
+      var x = (canvas.width - w) * 0.75;
+      var y = 0;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(bmp, x, y, w, h);
     }
