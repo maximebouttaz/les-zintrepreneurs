@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AURA — Le simulateur d'aube conçu pour les athletes</title>
+  <title>AURA — Le simulateur d'aube conçu pour les athlètes</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -308,13 +308,20 @@
     }
 
     /* ACTE 2B — LE PRODUIT */
-    .product-hero-img {
+    .product-video-wrap {
       width: 100%;
       max-width: 900px;
       margin: 0 auto 3rem;
-      display: block;
       border-radius: 20px;
+      overflow: hidden;
       box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+
+    .product-hero-img {
+      width: 100%;
+      display: block;
+      transform: scale(1.3);
+      transform-origin: center center;
     }
 
     .diff-grid {
@@ -565,7 +572,7 @@
     }
 
     /* PRECOMMANDE */
-    .precommande-desc {
+    .précommande-desc {
       font-size: 0.95rem;
       color: #64748B;
       line-height: 1.7;
@@ -617,7 +624,7 @@
       align-self: flex-end;
     }
 
-    .precommande-stats {
+    .précommande-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
@@ -625,14 +632,14 @@
       margin-bottom: 3rem;
     }
 
-    .precommande-stat {
+    .précommande-stat {
       background: #fff;
       border: 1px solid #E2E8F0;
       border-radius: 12px;
       padding: 1rem 1.2rem;
     }
 
-    .precommande-stat .val {
+    .précommande-stat .val {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       font-size: 1.8rem;
@@ -640,7 +647,7 @@
       line-height: 1;
     }
 
-    .precommande-stat .label {
+    .précommande-stat .label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
       color: #94A3B8;
@@ -1056,7 +1063,7 @@
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
       footer { padding: 2.5rem 1.5rem; }
       .modal-form-row { grid-template-columns: 1fr; }
-      .precommande-stats { max-width: 100%; }
+      .précommande-stats { max-width: 100%; }
     }
 
     @media (max-width: 480px) {
@@ -1073,9 +1080,9 @@
     <li><a href="#science">La science</a></li>
     <li><a href="#produit">Le produit</a></li>
     <li><a href="#vision">Vision</a></li>
-    <li><a href="#precommande">Pre-commander</a></li>
+    <li><a href="#precommande">Pré-commander</a></li>
   </ul>
-  <a href="#precommande" class="nav-cta">Pre-commander</a>
+  <a href="#precommande" class="nav-cta">Pré-commander</a>
 </nav>
 
 <!-- HERO -->
@@ -1083,10 +1090,10 @@
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-badge">SIMULATEUR D'AUBE PREMIUM</div>
-      <h1>Tu merites mieux<br>qu'un réveil brutal.</h1>
-      <p class="hero-subtitle"><strong>AURA.</strong> Le simulateur d'aube conçu pour les athletes.</p>
+      <h1>Tu mérites mieux<br>qu'un réveil brutal.</h1>
+      <p class="hero-subtitle"><strong>AURA.</strong> Le simulateur d'aube conçu pour les athlètes.</p>
       <div class="hero-actions">
-        <a href="#precommande" class="btn-primary">Pre-commander AURA</a>
+        <a href="#precommande" class="btn-primary">Pré-commander AURA</a>
         <a href="#science" class="btn-ghost">Découvrir la science</a>
       </div>
       <p class="hero-price">À partir de 149 EUR · Livraison Sept. 2026</p>
@@ -1103,7 +1110,7 @@
     <div class="section-tag animate-in">// LE PROBLEME</div>
     <div class="section-title animate-in" style="color:#fff;">Ton réveil te coute<br>plus que tu ne le penses.</div>
     <p class="problem-narration animate-in">
-      Ton alarme sonne. <strong>Ton corps est encore en sommeil profond.</strong> Cortisol au minimum. Reflexes ralentis. Mauvaise humeur. La journee commence deja en deficit — et tu ne t'en rends meme plus compte.
+      Ton alarme sonne. <strong>Ton corps est encore en sommeil profond.</strong> Cortisol au minimum. Reflexes ralentis. Mauvaise humeur. La journee commence deja en deficit — et tu ne t'en rends même plus compte.
     </p>
 
     <div class="problem-stats">
@@ -1124,7 +1131,7 @@
       </div>
       <div class="problem-stat animate-in">
         <div class="value">72%</div>
-        <div class="label">Athletes pas leve-tot naturels</div>
+        <div class="label">Athlètes pas leve-tot naturels</div>
         <div class="source">Lastella 2015</div>
       </div>
     </div>
@@ -1142,10 +1149,10 @@
   <div class="section-tag animate-in">// LA SCIENCE</div>
   <div class="section-title animate-in">La lumière est le signal<br>le plus puissant de ton corps.</div>
   <p class="section-intro animate-in">
-    Chaque matin, la lumière du soleil déclenche une cascade hormonale precise : le cortisol monte, la mélatonine chute, ton corps passe en mode eveil. Etre réveille en plein sommeil profond — par une alarme sonore — court-circuite ce processus. Resultat : inertie de sommeil, brouillard mental, perte de reflexes pendant 30 a 60 minutes.
+    Chaque matin, la lumière du soleil déclenche une cascade hormonale précise : le cortisol monte, la mélatonine chute, ton corps passe en mode eveil. Être réveille en plein sommeil profond — par une alarme sonore — court-circuite ce processus. Resultat : inertie de sommeil, brouillard mental, perte de reflexes pendant 30 a 60 minutes.
   </p>
   <p class="section-intro animate-in" style="margin-bottom:0;">
-    <strong style="color:#111;">AURA reproduit une aube naturelle</strong> pour preparer ton corps au réveil. Pas de choc. Pas de resistance. Ton cortisol monte progressivement, tes cycles se terminent naturellement.
+    <strong style="color:#111;">AURA reproduit une aube naturelle</strong> pour preparer ton corps au réveil. Pas de choc. Pas de résistance. Ton cortisol monte progressivement, tes cycles se terminent naturellement.
   </p>
 </section>
 
@@ -1156,15 +1163,17 @@
   <div class="section-tag animate-in">// LE PRODUIT</div>
   <div class="section-title animate-in">AURA. La reference<br>du réveil par la lumière.</div>
 
-  <video class="product-hero-img animate-in" autoplay loop muted playsinline>
-    <source src="images/Animation_Lumière_Progressive_et_Réaliste.mp4" type="video/mp4" />
-  </video>
+  <div class="product-video-wrap animate-in">
+    <video class="product-hero-img" autoplay loop muted playsinline>
+      <source src="images/Animation_Lumière_Progressive_et_Réaliste.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <div class="diff-grid">
     <div class="diff-card animate-in">
       <div class="diff-number">01</div>
       <h4>250 lux melanopiques</h4>
-      <p>La luminosite nécessaire pour activer ton horloge biologique. Assez puissant pour declencher la réponse cortisolaire naturelle — meme en plein hiver.</p>
+      <p>La luminosite nécessaire pour activer ton horloge biologique. Assez puissant pour declencher la réponse cortisolaire naturelle — même en plein hiver.</p>
     </div>
     <div class="diff-card animate-in">
       <div class="diff-number">02</div>
@@ -1231,12 +1240,12 @@
     <div class="vision-card animate-in">
       <div class="vision-icon">&#10227;</div>
       <h4>Un réveil qui evolue avec toi</h4>
-      <p>Chaque nuit, AURA apprend ton rythme et affine son intervention. Plus tu l'utilises, plus il est precis.</p>
+      <p>Chaque nuit, AURA apprend ton rythme et affine son intervention. Plus tu l'utilises, plus il est précis.</p>
     </div>
     <div class="vision-card animate-in">
       <div class="vision-icon">&#9889;</div>
       <h4>Optimiser ta récupération</h4>
-      <p>Ameliorer la qualité de ton sommeil pendant que tu dors. Pas seulement un meilleur réveil — un meilleur sommeil.</p>
+      <p>Améliorer la qualité de ton sommeil pendant que tu dors. Pas seulement un meilleur réveil — un meilleur sommeil.</p>
     </div>
   </div>
 </section>
@@ -1264,7 +1273,7 @@
 <section id="precommande">
   <div class="section-tag animate-in">// PRE-COMMANDE</div>
   <div class="section-title animate-in">Fais partie des premiers<br>a changer ta facon de te réveiller.</div>
-  <p class="precommande-desc animate-in">AURA est ne de l'idee de deux cousins convaincus qu'on peut mieux dormir grace a la technologie — sans la subir. Soutiens le projet et fais partie des premiers a vivre le réveil tel qu'il devrait etre.</p>
+  <p class="precommande-desc animate-in">AURA est ne de l'idee de deux cousins convaincus qu'on peut mieux dormir grace a la technologie — sans la subir. Soutiens le projet et fais partie des premiers a vivre le réveil tel qu'il devrait être.</p>
 
   <div class="progress-container animate-in">
     <div class="progress-bar">
@@ -1318,7 +1327,7 @@
         <li>Choix de la couleur</li>
       </ul>
       <div class="tier-date">Livraison estimee : octobre 2026</div>
-      <button class="tier-cta" onclick="openModal('Standard', 179)">Pre-commander — 179 EUR</button>
+      <button class="tier-cta" onclick="openModal('Standard', 179)">Pré-commander — 179 EUR</button>
     </div>
 
     <!-- Premium -->
@@ -1334,7 +1343,7 @@
         <li>Accès beta fonctionnalites V2</li>
       </ul>
       <div class="tier-date">Livraison estimee : octobre 2026</div>
-      <button class="tier-cta" onclick="openModal('Premium', 199)">Pre-commander — 199 EUR</button>
+      <button class="tier-cta" onclick="openModal('Premium', 199)">Pré-commander — 199 EUR</button>
     </div>
   </div>
 </section>
@@ -1355,7 +1364,7 @@
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <h3>Pre-commander AURA</h3>
+    <h3>Pré-commander AURA</h3>
     <p class="modal-sub" id="modal-subtitle">Choisissez votre offre et rejoignez les premiers soutiens.</p>
 
     <div class="modal-tier-info" id="modal-tier-info" style="display:none;">
@@ -1521,11 +1530,11 @@
     const copyPhases = [
       {
         label: 'Conçu pour durer.<br>Engineere pour performer.',
-        desc: 'Chaque composant d\'AURA a ete selectionne pour sa precision spectrale. Un moteur LED full-spectrum, un diffuseur optique sur mesure, une montee logarithmique implementee en firmware.'
+        desc: 'Chaque composant d\'AURA a ete selectionne pour sa précision spectrale. Un moteur LED full-spectrum, un diffuseur optique sur mesure, une montee logarithmique implementee en firmware.'
       },
       {
         label: 'Un spectre,<br>pas une couleur.',
-        desc: 'Du rouge profond (620nm) a la lumière du jour (6500K) : AURA reproduit chaque etape de l\'aube solaire avec une fidélité spectrale que les simulateurs classiques ne peuvent pas atteindre.'
+        desc: 'Du rouge profond (620nm) a la lumière du jour (6500K) : AURA reproduit chaque étape de l\'aube solaire avec une fidélité spectrale que les simulateurs classiques ne peuvent pas atteindre.'
       },
       {
         label: '250 lux melanopiques.<br>Rien de moins.',
