@@ -1538,8 +1538,8 @@
     let rafPending = false;
 
     function resizeCanvas() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width  = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
       renderedFrame = -1;
       scheduleRender();
     }
