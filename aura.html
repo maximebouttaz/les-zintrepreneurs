@@ -1232,7 +1232,6 @@
 <!-- TECHNOLOGIE — SCROLL SCRUBBING -->
 <section class="tech-section" id="technologie">
   <div class="tech-sticky">
-    <video id="tech-video" src="images/aura-scrub.mp4" preload="auto" muted playsinline style="display:none"></video>
     <canvas class="tech-canvas" id="tech-canvas"></canvas>
 
     <div class="tech-overlay">
@@ -1500,11 +1499,11 @@
 
   document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-  // ---- TECH SCROLL SCRUBBING (video currentTime) ----
+  // ---- TECH SCROLL SCRUBBING (150 frames ImageBitmap) ----
   (function() {
+    const FRAME_COUNT = 150;
     const canvas = document.getElementById('tech-canvas');
-    const video  = document.getElementById('tech-video');
-    if (!canvas || !video) return;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     const copyPhases = [
@@ -1522,46 +1521,65 @@
       }
     ];
 
+    const bitmaps = new Array(FRAME_COUNT).fill(null);
+    let targetFrame = 0;
+    let renderedFrame = -1;
     let currentPhaseIndex = -1;
     let rafPending = false;
-    let targetTime = 0;
 
     function resizeCanvas() {
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
-      drawVideoFrame();
+      renderedFrame = -1;
+      scheduleRender();
     }
 
-    function drawVideoFrame() {
-      if (video.readyState < 2) return; // pas encore de donnees
-      const vw = video.videoWidth  || canvas.width;
-      const vh = video.videoHeight || canvas.height;
-      const scale = Math.max(canvas.width / vw, canvas.height / vh);
-      const w = vw * scale;
-      const h = vh * scale;
-      const x = (canvas.width  - w) / 2;
-      const y = (canvas.height - h) / 2;
+    function loadFrames() {
+      for (var i = 0; i < FRAME_COUNT; i++) {
+        (function(idx) {
+          var img = new Image();
+          var num = String(idx + 1).padStart(4, '0');
+          img.src = 'images/frames/frame_' + num + '.jpg';
+          img.onload = function() {
+            createImageBitmap(img).then(function(bmp) {
+              bitmaps[idx] = bmp;
+              if (idx === 0) scheduleRender();
+            });
+          };
+        })(i);
+      }
+    }
+
+    function drawFrame(idx) {
+      var bmp = bitmaps[idx];
+      if (!bmp) return;
+      var scale = Math.max(canvas.width / bmp.width, canvas.height / bmp.height);
+      var w = bmp.width * scale;
+      var h = bmp.height * scale;
+      var x = (canvas.width  - w) / 2;
+      var y = (canvas.height - h) / 2;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(video, x, y, w, h);
+      ctx.drawImage(bmp, x, y, w, h);
     }
 
-    // Dessine des que la video a seeke vers la bonne position
-    video.addEventListener('seeked', function() {
-      requestAnimationFrame(drawVideoFrame);
-    });
-
-    // Premiere frame des que la video est prete
-    video.addEventListener('loadeddata', function() {
-      video.currentTime = 0;
-      updateCopy(0);
-    });
+    function scheduleRender() {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(function() {
+        rafPending = false;
+        if (targetFrame !== renderedFrame && bitmaps[targetFrame]) {
+          drawFrame(targetFrame);
+          renderedFrame = targetFrame;
+        }
+      });
+    }
 
     function updateCopy(phaseIndex) {
       if (phaseIndex === currentPhaseIndex) return;
       currentPhaseIndex = phaseIndex;
-      const phase = copyPhases[phaseIndex];
-      const labelEl = document.getElementById('tech-label');
-      const descEl  = document.getElementById('tech-desc');
+      var phase = copyPhases[phaseIndex];
+      var labelEl = document.getElementById('tech-label');
+      var descEl  = document.getElementById('tech-desc');
       if (!labelEl || !descEl) return;
       labelEl.classList.remove('visible');
       descEl.classList.remove('visible');
@@ -1574,29 +1592,28 @@
     }
 
     function onScroll() {
-      const section = document.getElementById('technologie');
-      if (!section || !video.duration) return;
-      const rect        = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight - window.innerHeight;
-      const scrolled    = -rect.top;
-      const progress    = Math.max(0, Math.min(1, scrolled / sectionHeight));
+      var section = document.getElementById('technologie');
+      if (!section) return;
+      var rect        = section.getBoundingClientRect();
+      var sectionHeight = section.offsetHeight - window.innerHeight;
+      var scrolled    = -rect.top;
+      var progress    = Math.max(0, Math.min(1, scrolled / sectionHeight));
 
-      // Seek uniquement si le changement est significatif (evite les micro-seeks)
-      const newTime = progress * video.duration;
-      if (Math.abs(newTime - video.currentTime) > 0.016) {
-        video.currentTime = newTime;
-      }
+      targetFrame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      scheduleRender();
 
-      const fill = document.getElementById('tech-progress-fill');
+      var fill = document.getElementById('tech-progress-fill');
       if (fill) fill.style.width = (progress * 100) + '%';
 
-      const phaseIndex = progress < 0.4 ? 0 : progress < 0.7 ? 1 : 2;
+      var phaseIndex = progress < 0.4 ? 0 : progress < 0.7 ? 1 : 2;
       updateCopy(phaseIndex);
     }
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', onScroll, { passive: true });
     resizeCanvas();
+    loadFrames();
+    updateCopy(0);
   })();
 
   // ---- START ----
