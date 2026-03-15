@@ -303,8 +303,32 @@
       color: #64748B;
       line-height: 1.8;
       max-width: 700px;
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
       font-weight: 400;
+    }
+
+    /* ACTE 2A — LA SCIENCE */
+    .science-layout {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .science-text {
+      flex: 0 0 70%;
+    }
+
+    .science-video {
+      flex: 0 0 30%;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .science-video video {
+      width: 100%;
+      display: block;
+      transform: scale(1.15);
+      transform-origin: center center;
     }
 
     /* ACTE 2B — LE PRODUIT */
@@ -1058,6 +1082,9 @@
       .diff-grid { grid-template-columns: 1fr; }
       .results-grid { grid-template-columns: repeat(2, 1fr); }
       .vision-grid { grid-template-columns: 1fr; }
+      .science-layout { flex-direction: column; gap: 2rem; }
+      .science-text { flex: none; width: 100%; }
+      .science-video { flex: none; width: 100%; }
       .tech-section { height: 220vh; }
       .tech-overlay { left: 1.5rem; right: 1.5rem; max-width: 100%; top: auto; bottom: 2rem; transform: none; }
       .tiers-grid { grid-template-columns: 1fr; max-width: 100%; }
@@ -1146,18 +1173,22 @@
 
 <!-- ACTE 2A — LA SCIENCE -->
 <section id="science">
-  <div class="section-tag animate-in">// LA SCIENCE</div>
-  <div class="section-title animate-in">La lumière est le signal<br>le plus puissant de ton corps.</div>
-  <p class="section-intro animate-in">
-    Chaque matin, la lumière du soleil déclenche une cascade hormonale précise : le cortisol monte, la mélatonine chute, ton corps passe en mode éveil. Être réveille en plein sommeil profond — par une alarme sonore — court-circuite ce processus. Résultat : inertie de sommeil, brouillard mental, perte de reflexes pendant 30 à 60 minutes.
-  </p>
-  <p class="section-intro animate-in">
-    <strong style="color:#111;">AURA reproduit une aube naturelle</strong> pour preparer ton corps au réveil. Pas de choc. Pas de résistance. Ton cortisol monte progressivement, tes cycles se terminent naturellement.
-  </p>
-  <div class="product-video-wrap animate-in">
-    <video class="product-hero-img" autoplay loop muted playsinline>
-      <source src="images/Homme_sportif_avec_lampe_éclairée.mp4" type="video/mp4" />
-    </video>
+  <div class="science-layout">
+    <div class="science-text">
+      <div class="section-tag animate-in">// LA SCIENCE</div>
+      <div class="section-title animate-in">La lumière est le signal<br>le plus puissant de ton corps.</div>
+      <p class="section-intro animate-in">
+        Chaque matin, la lumière du soleil déclenche une cascade hormonale précise : le cortisol monte, la mélatonine chute, ton corps passe en mode éveil. Être réveille en plein sommeil profond — par une alarme sonore — court-circuite ce processus. Résultat : inertie de sommeil, brouillard mental, perte de reflexes pendant 30 à 60 minutes.
+      </p>
+      <p class="section-intro animate-in" style="margin-bottom:0;">
+        <strong style="color:#111;">AURA reproduit une aube naturelle</strong> pour preparer ton corps au réveil. Pas de choc. Pas de résistance. Ton cortisol monte progressivement, tes cycles se terminent naturellement.
+      </p>
+    </div>
+    <div class="science-video animate-in">
+      <video autoplay loop muted playsinline>
+        <source src="images/Homme_sportif_avec_lampe_éclairée.mp4" type="video/mp4" />
+      </video>
+    </div>
   </div>
 </section>
 
