@@ -1524,15 +1524,15 @@
     // ImageBitmap array — GPU-ready, drawImage quasi-instantane
     const bitmaps = new Array(FRAME_COUNT).fill(null);
     let loadedCount = 0;
-    let targetFrame = 0;
-    let renderedFrame = -1;
+    let targetProgress = 0; // position exacte 0-1 dans la section
+    let renderedProgress = -1;
     let currentPhaseIndex = -1;
     let rafPending = false;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      renderedFrame = -1; // force redraw
+      renderedProgress = -1; // force redraw
       scheduleRender();
     }
 
@@ -1547,23 +1547,44 @@
             createImageBitmap(el).then(function(bmp) {
               bitmaps[idx] = bmp;
               loadedCount++;
-              if (idx === 0) { scheduleRender(); updateCopy(0); }
+              if (idx === 0) { renderAtProgress(0); updateCopy(0); }
             });
           };
         })(i, img);
       }
     }
 
-    function drawFrame(index) {
-      const bmp = bitmaps[index];
-      if (!bmp) return;
+    function drawBitmap(bmp) {
       const scale = Math.max(canvas.width / bmp.width, canvas.height / bmp.height);
       const w = bmp.width * scale;
       const h = bmp.height * scale;
       const x = (canvas.width - w) / 2;
       const y = (canvas.height - h) / 2;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(bmp, x, y, w, h);
+    }
+
+    // Interpolation sub-frame : blende frameA et frameB selon la position exacte du scroll
+    function renderAtProgress(p) {
+      const exact = p * (FRAME_COUNT - 1);
+      const idxA = Math.floor(exact);
+      const idxB = Math.min(FRAME_COUNT - 1, idxA + 1);
+      const blend = exact - idxA; // 0.0 → 1.0 entre les deux frames
+
+      const bmpA = bitmaps[idxA];
+      const bmpB = bitmaps[idxB];
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (bmpA && bmpB && blend > 0) {
+        // Frame A en dessous, frame B par-dessus avec opacite proportionnelle
+        ctx.globalAlpha = 1;
+        drawBitmap(bmpA);
+        ctx.globalAlpha = blend;
+        drawBitmap(bmpB);
+        ctx.globalAlpha = 1;
+      } else if (bmpA) {
+        drawBitmap(bmpA);
+      }
     }
 
     // rAF : ne dessine qu'une fois par frame navigateur
@@ -1572,9 +1593,9 @@
       rafPending = true;
       requestAnimationFrame(function() {
         rafPending = false;
-        if (targetFrame !== renderedFrame && bitmaps[targetFrame]) {
-          drawFrame(targetFrame);
-          renderedFrame = targetFrame;
+        if (targetProgress !== renderedProgress) {
+          renderAtProgress(targetProgress);
+          renderedProgress = targetProgress;
         }
       });
     }
@@ -1604,7 +1625,7 @@
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
 
-      targetFrame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      targetProgress = progress;
       scheduleRender();
 
       const fill = document.getElementById('tech-progress-fill');
