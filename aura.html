@@ -1566,7 +1566,7 @@
       var scale = Math.min(canvas.width / bmp.width, canvas.height / bmp.height) * 1.2;
       var w = bmp.width * scale;
       var h = bmp.height * scale;
-      var x = (canvas.width - w) * 0.96;
+      var x = (canvas.width - w) * 1.05;
       var y = 0;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(bmp, x, y, w, h);
