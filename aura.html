@@ -1097,6 +1097,19 @@
     @media (max-width: 480px) {
       .amount-options { grid-template-columns: repeat(3, 1fr); }
     }
+
+    /* TECH MOBILE FALLBACK */
+    #tech-mobile-video {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      #tech-canvas { display: none; }
+      #tech-mobile-video { display: block; }
+    }
   </style>
 </head>
 <body>
@@ -1127,8 +1140,8 @@
       <p class="hero-price">À partir de 149 EUR · Livraison Sept. 2026</p>
     </div>
     <div class="hero-visual">
-      <video autoplay loop muted playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <source src="images/Animation_Lumière_Progressive_et_Réaliste.mp4" type="video/mp4" />
+      <video autoplay loop muted playsinline webkit-playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="images/Animation_Lumiere_Progressive_et_Realiste.mp4" type="video/mp4" />
       </video>
     </div>
   </div>
@@ -1188,8 +1201,8 @@
       </p>
     </div>
     <div class="science-video">
-      <video autoplay muted playsinline preload="none">
-        <source src="images/Homme_sportif_avec_lampe_éclairée.mp4" type="video/mp4" />
+      <video autoplay muted playsinline webkit-playsinline preload="none">
+        <source src="images/Homme_sportif_avec_lampe_eclairee.mp4" type="video/mp4" />
       </video>
     </div>
   </div>
@@ -1261,6 +1274,9 @@
     </div>
     <div class="tech-canvas-wrap">
       <canvas class="tech-canvas" id="tech-canvas"></canvas>
+      <video id="tech-mobile-video" autoplay muted loop playsinline webkit-playsinline preload="none">
+        <source src="images/aura-scrub.mp4" type="video/mp4" />
+      </video>
     </div>
   </div>
 </section>
@@ -1410,9 +1426,9 @@
     </div>
 
     <div class="amount-options" id="amount-options">
-      <div class="amount-option" onclick="selectAmount(149)">149 EUR</div>
-      <div class="amount-option" onclick="selectAmount(179)">179 EUR</div>
-      <div class="amount-option" onclick="selectAmount(199)">199 EUR</div>
+      <div class="amount-option" onclick="selectAmount(149, event)">149 EUR</div>
+      <div class="amount-option" onclick="selectAmount(179, event)">179 EUR</div>
+      <div class="amount-option" onclick="selectAmount(199, event)">199 EUR</div>
     </div>
     <input type="number" class="custom-amount" placeholder="Ou saisissez un montant personnalise en EUR" id="custom-amount" oninput="clearSelection()"/>
 
@@ -1510,10 +1526,10 @@
     if (e.target === document.getElementById('modal')) closeModal();
   }
 
-  function selectAmount(val) {
+  function selectAmount(val, evt) {
     selectedAmount = val;
     document.querySelectorAll('.amount-option').forEach(el => el.classList.remove('selected'));
-    event.target.classList.add('selected');
+    if (evt) evt.target.classList.add('selected');
     document.getElementById('custom-amount').value = '';
   }
 
@@ -1680,7 +1696,8 @@
     resizeCanvas();
     updateCopy(0);
 
-    // Lazy-load frames only when tech section is near the viewport
+    // Lazy-load frames only on desktop — on mobile show video fallback instead
+    var isMobile = window.innerWidth <= 768;
     var framesLoaded = false;
     var techObserver = new IntersectionObserver(function(entries) {
       if (entries[0].isIntersecting && !framesLoaded) {
@@ -1690,7 +1707,7 @@
       }
     }, { rootMargin: '400px' });
     var techSection = document.getElementById('technologie');
-    if (techSection) techObserver.observe(techSection);
+    if (!isMobile && techSection) techObserver.observe(techSection);
   })();
 
   // ---- START ----
